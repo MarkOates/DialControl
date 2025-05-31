@@ -142,10 +142,21 @@ methods:
          else if (command == "dial_4_right") current_camera->stepout.z += 1.0;
       }
       
-
       return;
     body_dependency_symbols:
       - AllegroFlare::KeyboardCommandMapper
+
+
+  - name: build_json_dump
+    type: std::string
+    body: |
+      nlohmann::json j;
+      j["cameras"] = cameras;
+      return j.dump(2);
+      return;
+    body_dependency_symbols:
+      - nlohmann::json
+      - AllegroFlare::JSONLoaders::AllegroFlare::Camera3D
 
 
 dependencies:
@@ -159,5 +170,9 @@ dependencies:
     headers: [ AllegroFlare/Camera2D.hpp ]
   - symbol: AllegroFlare::KeyboardCommandMapper
     headers: [ AllegroFlare/KeyboardCommandMapper.hpp ]
+  - symbol: nlohmann::json
+    headers: [ lib/nlohmann/json.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::AllegroFlare::Camera3D
+    headers: [ AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp ]
 
 

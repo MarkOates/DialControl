@@ -84,20 +84,20 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
             {
                case ALLEGRO_KEY_N:
                {
-                  // Next camera
                   camera_studio.set_current_camera_to_next_camera();
                } break;
                case ALLEGRO_KEY_P:
                {
-                  // Previous camera
                   camera_studio.set_current_camera_to_previous_camera();
                } break;
                case ALLEGRO_KEY_D:
                {
                   // Dump cameras to JSON (just to terminal in this example)
-                  nlohmann::json j;
-                  j["cameras"] = cameras;
-                  std::cout << j.dump(2) << std::endl;
+                  
+                  //nlohmann::json j;
+                  //j["cameras"] = cameras;
+                  //std::cout << j.dump(2) << std::endl;
+                  std::cout << camera_studio.build_json_dump() << std::endl;
                } break;
                default:
                {

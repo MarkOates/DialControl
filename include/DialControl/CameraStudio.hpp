@@ -4,6 +4,7 @@
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/Camera3D.hpp>
 #include <allegro5/allegro.h>
+#include <string>
 #include <vector>
 
 
@@ -40,6 +41,7 @@ namespace DialControl
       void set_current_camera_to_next_camera();
       void set_current_camera_to_previous_camera();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);
+      std::string build_json_dump();
    };
 }
 

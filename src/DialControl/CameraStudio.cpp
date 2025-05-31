@@ -2,8 +2,10 @@
 
 #include <DialControl/CameraStudio.hpp>
 
+#include <AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/KeyboardCommandMapper.hpp>
 #include <iostream>
+#include <lib/nlohmann/json.hpp>
 #include <sstream>
 #include <stdexcept>
 
@@ -215,7 +217,14 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "dial_4_right") current_camera->stepout.z += 1.0;
    }
 
+   return;
+}
 
+std::string CameraStudio::build_json_dump()
+{
+   nlohmann::json j;
+   j["cameras"] = cameras;
+   return j.dump(2);
    return;
 }
 
