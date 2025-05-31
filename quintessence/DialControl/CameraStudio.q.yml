@@ -5,13 +5,11 @@ properties:
     type: std::vector<AllegroFlare::Camera3D>
     init_with: '{}'
     getter: true
-    getter_ref: true
     setter: true
 
   - name: current_camera_idx
     type: int
     init_with: 0
-    getter_ref: true
 
   - name: current_camera
     type: AllegroFlare::Camera3D*
@@ -22,12 +20,10 @@ properties:
   - name: live_camera
     type: AllegroFlare::Camera3D
     init_with: '{}'
-    getter_ref: true
 
   - name: hud_camera
     type: AllegroFlare::Camera2D
     init_with: '{}'
-    getter_ref: true
 
   - name: initialized
     type: bool

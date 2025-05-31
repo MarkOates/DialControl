@@ -60,30 +60,6 @@ bool CameraStudio::get_initialized() const
 }
 
 
-std::vector<AllegroFlare::Camera3D> &CameraStudio::get_cameras_ref()
-{
-   return cameras;
-}
-
-
-int &CameraStudio::get_current_camera_idx_ref()
-{
-   return current_camera_idx;
-}
-
-
-AllegroFlare::Camera3D &CameraStudio::get_live_camera_ref()
-{
-   return live_camera;
-}
-
-
-AllegroFlare::Camera2D &CameraStudio::get_hud_camera_ref()
-{
-   return hud_camera;
-}
-
-
 void CameraStudio::initialize()
 {
    if (!((!initialized)))
