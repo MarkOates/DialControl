@@ -1,0 +1,33 @@
+properties:
+
+
+  - name: camera
+    type: AllegroFlare::Camera3D*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: on_key_down
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ camera, event, (event->type == ALLEGRO_EVENT_KEY_DOWN) ]
+    body: |
+      bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
+
+
