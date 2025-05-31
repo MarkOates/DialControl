@@ -5,6 +5,7 @@
 #include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Camera2D.hpp>
+#include <AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp>
 
 
 class DialControl_CameraControlTest : public ::testing::Test {};
@@ -91,6 +92,13 @@ TEST_F(DialControl_CameraControlTest_WithInteractionFixture, INTERACTIVE__will_w
                   current_camera_idx = (current_camera_idx - 1 + total_cameras) % total_cameras;
                   current_camera = &cameras[current_camera_idx];
                   camera_control.set_camera(current_camera);
+               } break;
+               case ALLEGRO_KEY_D:
+               {
+                  // Dump cameras to JSON (just to terminal in this example)
+                  nlohmann::json j;
+                  j["cameras"] = cameras;
+                  std::cout << j.dump(2) << std::endl;
                } break;
                default:
                {

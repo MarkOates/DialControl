@@ -99,12 +99,12 @@ void CameraControl::on_key_down(ALLEGRO_EVENT* event)
 
       else if (command == "dial_1_left") camera->tilt -= 0.125;
       else if (command == "dial_1_right") camera->tilt += 0.125;
-      else if (command == "dial_2_left") camera->zoom -= 0.125;
-      else if (command == "dial_2_right") camera->zoom += 0.125;
-      else if (command == "dial_3_left") camera->stepout.z -= 1.0;
-      else if (command == "dial_3_right") camera->stepout.z += 1.0;
-      else if (command == "dial_4_left") camera->spin -= 0.125;
-      else if (command == "dial_4_right") camera->spin += 0.125;
+      else if (command == "dial_2_left") camera->spin -= 0.125;
+      else if (command == "dial_2_right") camera->spin += 0.125;
+      else if (command == "dial_3_left") camera->zoom -= 0.125;
+      else if (command == "dial_3_right") camera->zoom += 0.125;
+      else if (command == "dial_4_left") camera->stepout.z -= 1.0;
+      else if (command == "dial_4_right") camera->stepout.z += 1.0;
    }
 
 
