@@ -131,6 +131,7 @@ void CameraStudio::setup_projection_on_live_camera()
 void CameraStudio::setup_projection_on_hud_camera()
 {
    hud_camera.setup_dimensional_projection(al_get_target_bitmap());
+   al_clear_depth_buffer(1);
    return;
 }
 
