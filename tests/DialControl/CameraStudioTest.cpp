@@ -110,17 +110,20 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
       {
          case ALLEGRO_EVENT_TIMER:
          {
+            // Update the camera_studio
+            camera_studio.update();
+
+            // == Draw ==
             clear();
 
             // Draw the 3D scene
-            camera_studio.update();
-            //live_camera.blend(current_camera, 0.1);
-
-            live_camera.setup_projection_on(al_get_target_bitmap());
+            camera_studio.setup_projection_on_live_camera();
             model->draw();
 
             // Draw the HUD
-            hud_camera.setup_dimensional_projection(al_get_target_bitmap());
+            camera_studio.setup_projection_on_hud_camera();
+
+            // Draw the interactive render
             interactive_test_render_status();
             al_flip_display();
          }

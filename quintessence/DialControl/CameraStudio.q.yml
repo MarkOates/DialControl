@@ -70,6 +70,18 @@ methods:
       return;
 
 
+  - name: setup_projection_on_live_camera
+    body: |
+      live_camera.setup_projection_on(al_get_target_bitmap());
+      return;
+
+
+  - name: setup_projection_on_hud_camera
+    body: |
+      hud_camera.setup_dimensional_projection(al_get_target_bitmap());
+      return;
+
+
   - name: set_current_camera_to_next_camera
     body: |
       int total_cameras = cameras.size();

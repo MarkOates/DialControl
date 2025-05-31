@@ -122,6 +122,18 @@ void CameraStudio::update()
    return;
 }
 
+void CameraStudio::setup_projection_on_live_camera()
+{
+   live_camera.setup_projection_on(al_get_target_bitmap());
+   return;
+}
+
+void CameraStudio::setup_projection_on_hud_camera()
+{
+   hud_camera.setup_dimensional_projection(al_get_target_bitmap());
+   return;
+}
+
 void CameraStudio::set_current_camera_to_next_camera()
 {
    int total_cameras = cameras.size();
