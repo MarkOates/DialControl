@@ -12,6 +12,9 @@
     "DialControl/CameraControl",
     "DialControl/CameraStudio"
   ],
+  "AllegroFlare/Camera2D": [
+    "DialControl/CameraStudio"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "DialControl/Game/Configurations/Main"
   ],

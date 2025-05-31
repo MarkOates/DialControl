@@ -13,8 +13,10 @@ namespace DialControl
 
 
 CameraStudio::CameraStudio()
-   : camera(nullptr)
-   , cameras({})
+   : cameras({})
+   , current_camera(nullptr)
+   , hud_camera({})
+   , initialized(false)
 {
 }
 
@@ -24,21 +26,15 @@ CameraStudio::~CameraStudio()
 }
 
 
-void CameraStudio::set_camera(AllegroFlare::Camera3D* camera)
-{
-   this->camera = camera;
-}
-
-
 void CameraStudio::set_cameras(std::vector<AllegroFlare::Camera3D> cameras)
 {
    this->cameras = cameras;
 }
 
 
-AllegroFlare::Camera3D* CameraStudio::get_camera() const
+void CameraStudio::set_current_camera(AllegroFlare::Camera3D* current_camera)
 {
-   return camera;
+   this->current_camera = current_camera;
 }
 
 
@@ -48,20 +44,58 @@ std::vector<AllegroFlare::Camera3D> CameraStudio::get_cameras() const
 }
 
 
+AllegroFlare::Camera3D* CameraStudio::get_current_camera() const
+{
+   return current_camera;
+}
+
+
+bool CameraStudio::get_initialized() const
+{
+   return initialized;
+}
+
+
 std::vector<AllegroFlare::Camera3D> &CameraStudio::get_cameras_ref()
 {
    return cameras;
 }
 
 
-void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
+AllegroFlare::Camera2D &CameraStudio::get_hud_camera_ref()
 {
-   if (!(camera))
+   return hud_camera;
+}
+
+
+void CameraStudio::initialize()
+{
+   if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DialControl::CameraStudio::on_key_down]: error: guard \"camera\" not met.";
+      error_message << "[DialControl::CameraStudio::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[DialControl::CameraStudio::on_key_down]: error: guard \"camera\" not met");
+      throw std::runtime_error("[DialControl::CameraStudio::initialize]: error: guard \"(!initialized)\" not met");
+   }
+   initialized = true;
+   return;
+}
+
+void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::CameraStudio::on_key_down]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::CameraStudio::on_key_down]: error: guard \"initialized\" not met");
+   }
+   if (!(current_camera))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::CameraStudio::on_key_down]: error: guard \"current_camera\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::CameraStudio::on_key_down]: error: guard \"current_camera\" not met");
    }
    if (!(event))
    {
@@ -111,19 +145,19 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
    {
       if (command.empty()) continue;
 
-      else if (command == "right") camera->stepout.x += 0.25;
-      else if (command == "left") camera->stepout.x -= 0.25;
-      else if (command == "up") camera->stepout.y += 0.25;
-      else if (command == "down") camera->stepout.y -= 0.25;
+      else if (command == "right") current_camera->stepout.x += 0.25;
+      else if (command == "left") current_camera->stepout.x -= 0.25;
+      else if (command == "up") current_camera->stepout.y += 0.25;
+      else if (command == "down") current_camera->stepout.y -= 0.25;
 
-      else if (command == "dial_1_left") camera->tilt -= 0.125;
-      else if (command == "dial_1_right") camera->tilt += 0.125;
-      else if (command == "dial_2_left") camera->spin -= 0.125;
-      else if (command == "dial_2_right") camera->spin += 0.125;
-      else if (command == "dial_3_left") camera->zoom -= 0.125;
-      else if (command == "dial_3_right") camera->zoom += 0.125;
-      else if (command == "dial_4_left") camera->stepout.z -= 1.0;
-      else if (command == "dial_4_right") camera->stepout.z += 1.0;
+      else if (command == "dial_1_left") current_camera->tilt -= 0.125;
+      else if (command == "dial_1_right") current_camera->tilt += 0.125;
+      else if (command == "dial_2_left") current_camera->spin -= 0.125;
+      else if (command == "dial_2_right") current_camera->spin += 0.125;
+      else if (command == "dial_3_left") current_camera->zoom -= 0.125;
+      else if (command == "dial_3_right") current_camera->zoom += 0.125;
+      else if (command == "dial_4_left") current_camera->stepout.z -= 1.0;
+      else if (command == "dial_4_right") current_camera->stepout.z += 1.0;
    }
 
 

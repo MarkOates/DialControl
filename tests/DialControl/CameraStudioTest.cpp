@@ -25,8 +25,9 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
    AllegroFlare::Model3D *model = model_bin.auto_get("centered_unit_cube-02.obj");
 
    DialControl::CameraStudio camera_studio;
+   camera_studio.initialize();
 
-   AllegroFlare::Camera2D hud_camera;
+   AllegroFlare::Camera2D &hud_camera = camera_studio.get_hud_camera_ref();
 
    std::vector<AllegroFlare::Camera3D> &cameras = camera_studio.get_cameras_ref();
    //std::map<std::string, AllegroFlare::Camera3D> cameras;
@@ -50,7 +51,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
    current_camera = &cameras[current_camera_idx];
 
    //DialControl::CameraStudio camera_studio;
-   camera_studio.set_camera(current_camera);
+   camera_studio.set_current_camera(current_camera);
 
    while(interactive_test_wait_for_event())
    {
@@ -85,7 +86,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                   int total_cameras = cameras.size();
                   current_camera_idx = (current_camera_idx + 1) % total_cameras;
                   current_camera = &cameras[current_camera_idx];
-                  camera_studio.set_camera(current_camera);
+                  camera_studio.set_current_camera(current_camera);
                } break;
                case ALLEGRO_KEY_P:
                {
@@ -93,7 +94,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                   int total_cameras = cameras.size();
                   current_camera_idx = (current_camera_idx - 1 + total_cameras) % total_cameras;
                   current_camera = &cameras[current_camera_idx];
-                  camera_studio.set_camera(current_camera);
+                  camera_studio.set_current_camera(current_camera);
                } break;
                case ALLEGRO_KEY_D:
                {

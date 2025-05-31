@@ -1,12 +1,6 @@
 properties:
 
 
-  - name: camera
-    type: AllegroFlare::Camera3D*
-    init_with: nullptr
-    getter: true
-    setter: true
-
   - name: cameras
     type: std::vector<AllegroFlare::Camera3D>
     init_with: '{}'
@@ -14,8 +8,31 @@ properties:
     getter_ref: true
     setter: true
 
+  - name: current_camera
+    type: AllegroFlare::Camera3D*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: hud_camera
+    type: AllegroFlare::Camera2D
+    init_with: '{}'
+    getter_ref: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
 
 methods:
+
+
+  - name: initialize
+    guards: [ (!initialized) ]
+    body: |
+      initialized = true;
+      return;
 
 
   - name: on_key_down
@@ -23,7 +40,7 @@ methods:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
-    guards: [ camera, event, (event->type == ALLEGRO_EVENT_KEY_DOWN) ]
+    guards: [ initialized, current_camera, event, (event->type == ALLEGRO_EVENT_KEY_DOWN) ]
     body: |
       bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
       bool ctrl = event->keyboard.modifiers & ALLEGRO_KEYMOD_CTRL;
@@ -59,19 +76,19 @@ methods:
       {
          if (command.empty()) continue;
 
-         else if (command == "right") camera->stepout.x += 0.25;
-         else if (command == "left") camera->stepout.x -= 0.25;
-         else if (command == "up") camera->stepout.y += 0.25;
-         else if (command == "down") camera->stepout.y -= 0.25;
+         else if (command == "right") current_camera->stepout.x += 0.25;
+         else if (command == "left") current_camera->stepout.x -= 0.25;
+         else if (command == "up") current_camera->stepout.y += 0.25;
+         else if (command == "down") current_camera->stepout.y -= 0.25;
 
-         else if (command == "dial_1_left") camera->tilt -= 0.125;
-         else if (command == "dial_1_right") camera->tilt += 0.125;
-         else if (command == "dial_2_left") camera->spin -= 0.125;
-         else if (command == "dial_2_right") camera->spin += 0.125;
-         else if (command == "dial_3_left") camera->zoom -= 0.125;
-         else if (command == "dial_3_right") camera->zoom += 0.125;
-         else if (command == "dial_4_left") camera->stepout.z -= 1.0;
-         else if (command == "dial_4_right") camera->stepout.z += 1.0;
+         else if (command == "dial_1_left") current_camera->tilt -= 0.125;
+         else if (command == "dial_1_right") current_camera->tilt += 0.125;
+         else if (command == "dial_2_left") current_camera->spin -= 0.125;
+         else if (command == "dial_2_right") current_camera->spin += 0.125;
+         else if (command == "dial_3_left") current_camera->zoom -= 0.125;
+         else if (command == "dial_3_right") current_camera->zoom += 0.125;
+         else if (command == "dial_4_left") current_camera->stepout.z -= 1.0;
+         else if (command == "dial_4_right") current_camera->stepout.z += 1.0;
       }
       
 
@@ -87,6 +104,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Camera3D
     headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: AllegroFlare::Camera2D
+    headers: [ AllegroFlare/Camera2D.hpp ]
   - symbol: AllegroFlare::KeyboardCommandMapper
     headers: [ AllegroFlare/KeyboardCommandMapper.hpp ]
 

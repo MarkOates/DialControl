@@ -105,16 +105,28 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">camera</td>
+  <td class="property">cameras</td>
+  <td class="property">std::vector&lt;AllegroFlare::Camera3D&gt;</td>
+</tr>
+<tr>
+  <td class="property">current_camera</td>
   <td class="property">AllegroFlare::Camera3D*</td>
 </tr>
 <tr>
-  <td class="property">cameras</td>
-  <td class="property">std::vector&lt;AllegroFlare::Camera3D&gt;</td>
+  <td class="property">hud_camera</td>
+  <td class="property">AllegroFlare::Camera2D</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
 <tr>
   <td class="method">void</td>
   <td class="method"><b>on_key_down</b>(ALLEGRO_EVENT* event=nullptr)</td>
@@ -127,6 +139,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::KeyboardCommandMapper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/KeyboardCommandMapper.hpp&quot;]}</td>
@@ -655,6 +670,9 @@ table td
   ],
   "AllegroFlare/KeyboardCommandMapper": [
     "DialControl/CameraControl",
+    "DialControl/CameraStudio"
+  ],
+  "AllegroFlare/Camera2D": [
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
