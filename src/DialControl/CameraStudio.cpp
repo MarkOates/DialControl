@@ -192,6 +192,11 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
 
    AllegroFlare::KeyboardCommandMapper mapper;
 
+   mapper.set_mapping(ALLEGRO_KEY_W, 0, { "up" });
+   mapper.set_mapping(ALLEGRO_KEY_A, 0, { "left" });
+   mapper.set_mapping(ALLEGRO_KEY_S, 0, { "down" });
+   mapper.set_mapping(ALLEGRO_KEY_D, 0, { "right" });
+
    mapper.set_mapping(ALLEGRO_KEY_UP, 0, { "up" });
    mapper.set_mapping(ALLEGRO_KEY_DOWN, 0, { "down" });
    mapper.set_mapping(ALLEGRO_KEY_LEFT, 0, { "left" });
@@ -219,10 +224,10 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "up") current_camera->stepout.y += 0.25;
       else if (command == "down") current_camera->stepout.y -= 0.25;
 
-      else if (command == "dial_1_left") current_camera->tilt -= 0.125;
-      else if (command == "dial_1_right") current_camera->tilt += 0.125;
-      else if (command == "dial_2_left") current_camera->spin -= 0.125;
-      else if (command == "dial_2_right") current_camera->spin += 0.125;
+      else if (command == "dial_1_left") current_camera->spin -= 0.125;
+      else if (command == "dial_1_right") current_camera->spin += 0.125;
+      else if (command == "dial_2_left") current_camera->tilt -= 0.125;
+      else if (command == "dial_2_right") current_camera->tilt += 0.125;
       else if (command == "dial_3_left") current_camera->zoom -= 0.125;
       else if (command == "dial_3_right") current_camera->zoom += 0.125;
       else if (command == "dial_4_left") current_camera->stepout.z -= 1.0;

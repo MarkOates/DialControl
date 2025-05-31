@@ -4,7 +4,6 @@
 #include <DialControl/CameraStudio.hpp>
 #include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 #include <AllegroFlare/ModelBin.hpp>
-#include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp>
 
 
