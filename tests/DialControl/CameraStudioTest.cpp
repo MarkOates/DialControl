@@ -69,7 +69,8 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_data_path() + "models");
-   AllegroFlare::Model3D *model = model_bin.auto_get("centered_unit_cube-02.obj");
+   AllegroFlare::Model3D *model = model_bin.auto_get("simple_scene-01.obj");
+   model->texture = get_bitmap_bin_ref().auto_get("simple_scene-01.png");
 
    DialControl::CameraStudio camera_studio;
    camera_studio.initialize();
