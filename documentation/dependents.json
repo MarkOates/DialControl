@@ -1,4 +1,14 @@
 {
+  "ALLEGRO_EVENT": [
+    "DialControl/CameraControl",
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/Camera3D": [
+    "DialControl/CameraControl"
+  ],
+  "AllegroFlare/KeyboardCommandMapper": [
+    "DialControl/CameraControl"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "DialControl/Game/Configurations/Main"
   ],
@@ -102,9 +112,6 @@
     "DialControl/GameProgressAndStateInfo"
   ],
   "ALLEGRO_FONT": [
-    "DialControl/Gameplay/Screen"
-  ],
-  "ALLEGRO_EVENT": [
     "DialControl/Gameplay/Screen"
   ],
   "AllegroFlare/BitmapBin": [

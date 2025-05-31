@@ -54,12 +54,47 @@ table td
 <body>
 <h1>Table of Contents</h1>
 <ul>
+  <li><a href="#quintessence/DialControl/CameraControl.q.yml">quintessence/DialControl/CameraControl.q.yml</a></li>
   <li><a href="#quintessence/DialControl/Game/Configurations/Main.q.yml">quintessence/DialControl/Game/Configurations/Main.q.yml</a></li>
   <li><a href="#quintessence/DialControl/GameProgressAndStateInfo.q.yml">quintessence/DialControl/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/DialControl/Gameplay/Level.q.yml">quintessence/DialControl/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/DialControl/Gameplay/Screen.q.yml">quintessence/DialControl/Gameplay/Screen.q.yml</a></li>
 </ul>
 <h1>Components</h1>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/DialControl/CameraControl.q.yml">quintessence/DialControl/CameraControl.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera3D*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_key_down</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::KeyboardCommandMapper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/KeyboardCommandMapper.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
 <br><br><br>
 <br><br><br>
 <ul>
@@ -570,6 +605,16 @@ table td
 <h1>Dependents</h1>
 <pre>
 {
+  "ALLEGRO_EVENT": [
+    "DialControl/CameraControl",
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/Camera3D": [
+    "DialControl/CameraControl"
+  ],
+  "AllegroFlare/KeyboardCommandMapper": [
+    "DialControl/CameraControl"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "DialControl/Game/Configurations/Main"
   ],
@@ -673,9 +718,6 @@ table td
     "DialControl/GameProgressAndStateInfo"
   ],
   "ALLEGRO_FONT": [
-    "DialControl/Gameplay/Screen"
-  ],
-  "ALLEGRO_EVENT": [
     "DialControl/Gameplay/Screen"
   ],
   "AllegroFlare/BitmapBin": [

@@ -27,10 +27,10 @@ TEST_F(DialControl_CameraControlTest_WithInteractionFixture, INTERACTIVE__will_w
 
    AllegroFlare::Camera3D camera;
    camera.stepout = { 0, 0, 16 };
-   camera.zoom = 1.62;
-   camera.tilt = ALLEGRO_PI * 0.25;
+   camera.zoom = 1.0; //1.62;
+   camera.tilt = 0.0; //ALLEGRO_PI * 0.25;
    camera.spin = 0.125;
-   camera.position = { 0, 0, 1 };
+   camera.position = { 0, 0, 0 };
 
    DialControl::CameraControl camera_control;
    camera_control.set_camera(&camera);
