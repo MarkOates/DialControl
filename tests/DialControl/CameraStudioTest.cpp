@@ -75,33 +75,6 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
    DialControl::CameraStudio camera_studio;
    camera_studio.initialize();
 
-   AllegroFlare::Camera2D &hud_camera = camera_studio.get_hud_camera_ref();
-
-   std::vector<AllegroFlare::Camera3D> &cameras = camera_studio.get_cameras_ref();
-   //std::map<std::string, AllegroFlare::Camera3D> cameras;
-
-   //AllegroFlare::Camera3D baseline_camera;
-   //baseline_camera.stepout = { 0, 0, 16 };
-   //baseline_camera.zoom = 1.0; //1.62;
-   //baseline_camera.tilt = 0.0; //ALLEGRO_PI * 0.25;
-   //baseline_camera.spin = 0.125;
-   //baseline_camera.position = { 0, 0, 0 };
-
-   AllegroFlare::Camera3D *current_camera = nullptr;
-   AllegroFlare::Camera3D &live_camera = camera_studio.get_live_camera_ref();
-   //live_camera = baseline_camera;
-
-   //cameras.resize(6);
-   int &current_camera_idx = camera_studio.get_current_camera_idx_ref();
-   //for (int i=0; i<cameras.size(); i++)
-   //{
-      //cameras[i] = baseline_camera;
-   //}
-   //current_camera = &cameras[current_camera_idx];
-
-   //DialControl::CameraStudio camera_studio;
-   //camera_studio.set_current_camera(current_camera);
-
    while(interactive_test_wait_for_event())
    {
       ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
