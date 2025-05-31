@@ -40,7 +40,8 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
    baseline_camera.position = { 0, 0, 0 };
 
    AllegroFlare::Camera3D *current_camera = nullptr;
-   AllegroFlare::Camera3D live_camera = baseline_camera;
+   AllegroFlare::Camera3D &live_camera = camera_studio.get_live_camera_ref();
+   live_camera = baseline_camera;
 
    cameras.resize(6);
    int current_camera_idx = 0;

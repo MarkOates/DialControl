@@ -15,6 +15,7 @@ namespace DialControl
 CameraStudio::CameraStudio()
    : cameras({})
    , current_camera(nullptr)
+   , live_camera({})
    , hud_camera({})
    , initialized(false)
 {
@@ -59,6 +60,12 @@ bool CameraStudio::get_initialized() const
 std::vector<AllegroFlare::Camera3D> &CameraStudio::get_cameras_ref()
 {
    return cameras;
+}
+
+
+AllegroFlare::Camera3D &CameraStudio::get_live_camera_ref()
+{
+   return live_camera;
 }
 
 

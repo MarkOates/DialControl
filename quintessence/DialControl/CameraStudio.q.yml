@@ -14,6 +14,11 @@ properties:
     getter: true
     setter: true
 
+  - name: live_camera
+    type: AllegroFlare::Camera3D
+    init_with: '{}'
+    getter_ref: true
+
   - name: hud_camera
     type: AllegroFlare::Camera2D
     init_with: '{}'
