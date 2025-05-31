@@ -7,6 +7,13 @@ properties:
     getter: true
     setter: true
 
+  - name: cameras
+    type: std::vector<AllegroFlare::Camera3D>
+    init_with: '{}'
+    getter: true
+    getter_ref: true
+    setter: true
+
 
 methods:
 
@@ -82,3 +89,5 @@ dependencies:
     headers: [ AllegroFlare/Camera3D.hpp ]
   - symbol: AllegroFlare::KeyboardCommandMapper
     headers: [ AllegroFlare/KeyboardCommandMapper.hpp ]
+
+

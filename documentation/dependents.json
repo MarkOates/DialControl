@@ -1,13 +1,16 @@
 {
   "ALLEGRO_EVENT": [
     "DialControl/CameraControl",
+    "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen"
   ],
   "AllegroFlare/Camera3D": [
-    "DialControl/CameraControl"
+    "DialControl/CameraControl",
+    "DialControl/CameraStudio"
   ],
   "AllegroFlare/KeyboardCommandMapper": [
-    "DialControl/CameraControl"
+    "DialControl/CameraControl",
+    "DialControl/CameraStudio"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
     "DialControl/Game/Configurations/Main"

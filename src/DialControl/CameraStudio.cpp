@@ -14,6 +14,7 @@ namespace DialControl
 
 CameraStudio::CameraStudio()
    : camera(nullptr)
+   , cameras({})
 {
 }
 
@@ -29,9 +30,27 @@ void CameraStudio::set_camera(AllegroFlare::Camera3D* camera)
 }
 
 
+void CameraStudio::set_cameras(std::vector<AllegroFlare::Camera3D> cameras)
+{
+   this->cameras = cameras;
+}
+
+
 AllegroFlare::Camera3D* CameraStudio::get_camera() const
 {
    return camera;
+}
+
+
+std::vector<AllegroFlare::Camera3D> CameraStudio::get_cameras() const
+{
+   return cameras;
+}
+
+
+std::vector<AllegroFlare::Camera3D> &CameraStudio::get_cameras_ref()
+{
+   return cameras;
 }
 
 

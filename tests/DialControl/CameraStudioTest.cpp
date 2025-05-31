@@ -14,7 +14,7 @@ class DialControl_CameraStudioTest_WithInteractionFixture : public AllegroFlare:
 
 TEST(DialControl_CameraStudioTest, can_be_created_without_blowing_up)
 {
-   DialControl::CameraStudio camera_control;
+   DialControl::CameraStudio camera_studio;
 }
 
 
@@ -24,9 +24,11 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
    model_bin.set_full_path(get_data_path() + "models");
    AllegroFlare::Model3D *model = model_bin.auto_get("centered_unit_cube-02.obj");
 
+   DialControl::CameraStudio camera_studio;
+
    AllegroFlare::Camera2D hud_camera;
 
-   std::vector<AllegroFlare::Camera3D> cameras;
+   std::vector<AllegroFlare::Camera3D> &cameras = camera_studio.get_cameras_ref();
    //std::map<std::string, AllegroFlare::Camera3D> cameras;
 
    AllegroFlare::Camera3D baseline_camera;
@@ -47,8 +49,8 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
    }
    current_camera = &cameras[current_camera_idx];
 
-   DialControl::CameraStudio camera_control;
-   camera_control.set_camera(current_camera);
+   //DialControl::CameraStudio camera_studio;
+   camera_studio.set_camera(current_camera);
 
    while(interactive_test_wait_for_event())
    {
@@ -83,7 +85,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                   int total_cameras = cameras.size();
                   current_camera_idx = (current_camera_idx + 1) % total_cameras;
                   current_camera = &cameras[current_camera_idx];
-                  camera_control.set_camera(current_camera);
+                  camera_studio.set_camera(current_camera);
                } break;
                case ALLEGRO_KEY_P:
                {
@@ -91,7 +93,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                   int total_cameras = cameras.size();
                   current_camera_idx = (current_camera_idx - 1 + total_cameras) % total_cameras;
                   current_camera = &cameras[current_camera_idx];
-                  camera_control.set_camera(current_camera);
+                  camera_studio.set_camera(current_camera);
                } break;
                case ALLEGRO_KEY_D:
                {
@@ -102,7 +104,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                } break;
                default:
                {
-                  camera_control.on_key_down(&current_event);
+                  camera_studio.on_key_down(&current_event);
                } break;
             }
             //else
