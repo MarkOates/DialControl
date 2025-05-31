@@ -14,6 +14,7 @@ namespace DialControl
 
 CameraStudio::CameraStudio()
    : cameras({})
+   , current_camera_idx(0)
    , current_camera(nullptr)
    , live_camera({})
    , hud_camera({})
@@ -63,6 +64,12 @@ std::vector<AllegroFlare::Camera3D> &CameraStudio::get_cameras_ref()
 }
 
 
+int &CameraStudio::get_current_camera_idx_ref()
+{
+   return current_camera_idx;
+}
+
+
 AllegroFlare::Camera3D &CameraStudio::get_live_camera_ref()
 {
    return live_camera;
@@ -84,7 +91,32 @@ void CameraStudio::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[DialControl::CameraStudio::initialize]: error: guard \"(!initialized)\" not met");
    }
+   AllegroFlare::Camera3D baseline_camera;
+   baseline_camera.stepout = { 0, 0, 16 };
+   baseline_camera.zoom = 1.0; //1.62;
+   baseline_camera.tilt = 0.0; //ALLEGRO_PI * 0.25;
+   baseline_camera.spin = 0.125;
+   baseline_camera.position = { 0, 0, 0 };
+
+   // Set the live_camera to the baseline_camera
+   live_camera = baseline_camera;
+
+   // Set the number of cameras to 6 (for now)
+   cameras.resize(6);
+   //current_camera_idx = 0;
+   for (int i=0; i<cameras.size(); i++)
+   {
+      cameras[i] = baseline_camera;
+   }
+   current_camera = &cameras[current_camera_idx];
+
    initialized = true;
+   return;
+}
+
+void CameraStudio::update()
+{
+   live_camera.blend(current_camera, 0.1);
    return;
 }
 

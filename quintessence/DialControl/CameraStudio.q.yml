@@ -8,6 +8,11 @@ properties:
     getter_ref: true
     setter: true
 
+  - name: current_camera_idx
+    type: int
+    init_with: 0
+    getter_ref: true
+
   - name: current_camera
     type: AllegroFlare::Camera3D*
     init_with: nullptr
@@ -36,7 +41,32 @@ methods:
   - name: initialize
     guards: [ (!initialized) ]
     body: |
+      AllegroFlare::Camera3D baseline_camera;
+      baseline_camera.stepout = { 0, 0, 16 };
+      baseline_camera.zoom = 1.0; //1.62;
+      baseline_camera.tilt = 0.0; //ALLEGRO_PI * 0.25;
+      baseline_camera.spin = 0.125;
+      baseline_camera.position = { 0, 0, 0 };
+
+      // Set the live_camera to the baseline_camera
+      live_camera = baseline_camera;
+
+      // Set the number of cameras to 6 (for now)
+      cameras.resize(6);
+      //current_camera_idx = 0;
+      for (int i=0; i<cameras.size(); i++)
+      {
+         cameras[i] = baseline_camera;
+      }
+      current_camera = &cameras[current_camera_idx];
+
       initialized = true;
+      return;
+
+
+  - name: update
+    body: |
+      live_camera.blend(current_camera, 0.1);
       return;
 
 

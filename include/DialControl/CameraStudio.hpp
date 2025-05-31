@@ -13,6 +13,7 @@ namespace DialControl
    {
    private:
       std::vector<AllegroFlare::Camera3D> cameras;
+      int current_camera_idx;
       AllegroFlare::Camera3D* current_camera;
       AllegroFlare::Camera3D live_camera;
       AllegroFlare::Camera2D hud_camera;
@@ -31,9 +32,11 @@ namespace DialControl
       AllegroFlare::Camera3D* get_current_camera() const;
       bool get_initialized() const;
       std::vector<AllegroFlare::Camera3D> &get_cameras_ref();
+      int &get_current_camera_idx_ref();
       AllegroFlare::Camera3D &get_live_camera_ref();
       AllegroFlare::Camera2D &get_hud_camera_ref();
       void initialize();
+      void update();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);
    };
 }
