@@ -14,46 +14,112 @@ class DialControl_CameraStudioTest_WithInteractionFixture : public AllegroFlare:
 const std::string cameras_json_string = R"({
   "cameras": [
     {
-      "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
-      "stepout": { "x": 0.0, "y": 1.0, "z": 10.0 },
-      "spin": 1.5,
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "spin": 0.625,
+      "stepout": {
+        "x": 0.75,
+        "y": 1.0,
+        "z": 9.0
+      },
+      "tilt": 0.5,
+      "zoom": 1.5
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "spin": 0.125,
+      "stepout": {
+        "x": 1.5,
+        "y": 0.5,
+        "z": 14.0
+      },
       "tilt": 0.0,
-      "zoom": 1.0
+      "zoom": 3.25
     },
     {
-      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
-      "stepout": { "x": 0.5, "y": 0.0, "z": 4.5 },
-      "spin": 2.5,
-      "tilt": 1.0,
-      "zoom": 2.0
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "spin": 0.0,
+      "stepout": {
+        "x": 1.5,
+        "y": 0.75,
+        "z": 75.0
+      },
+      "tilt": 0.5,
+      "zoom": 18.5
     },
     {
-      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
-      "stepout": { "x": 1.0, "y": 1.0, "z": 8.0 },
-      "spin": 3.5,
-      "tilt": 2.0,
-      "zoom": 3.0
-    },
-    {
-      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
-      "stepout": { "x": 1.0, "y": 1.0, "z": 20.0 },
-      "spin": 4.5,
-      "tilt": 3.0,
-      "zoom": 2.5
-    },
-    {
-      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
-      "stepout": { "x": 2.0, "y": 2.0, "z": 24.0 },
-      "spin": 5.5,
-      "tilt": 4.0,
-      "zoom": 1.0
-    },
-    {
-      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
-      "stepout": { "x": 2.0, "y": 2.0, "z": 20.0 },
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
       "spin": 0.5,
-      "tilt": 5.0,
-      "zoom": 2.0
+      "stepout": {
+        "x": 1.25,
+        "y": 0.75,
+        "z": 3.0
+      },
+      "tilt": 0.25,
+      "zoom": 1.875
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "spin": -0.625,
+      "stepout": {
+        "x": 1.25,
+        "y": 0.5,
+        "z": 3.0
+      },
+      "tilt": 0.125,
+      "zoom": 2.75
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "spin": 1.0,
+      "stepout": {
+        "x": 0.25,
+        "y": 1.5,
+        "z": 51.0
+      },
+      "tilt": 1.0,
+      "zoom": 10.125
     }
   ]
 })";
