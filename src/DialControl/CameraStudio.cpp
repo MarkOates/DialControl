@@ -225,6 +225,31 @@ std::string CameraStudio::build_json_dump()
    nlohmann::json j;
    j["cameras"] = cameras;
    return j.dump(2);
+}
+
+void CameraStudio::load_json(std::string json_string)
+{
+   nlohmann::json j = nlohmann::json::parse(json_string); // TODO: Consider moving this into a TRY block
+
+   if (j.contains("cameras") && j["cameras"].is_array())
+   {
+      cameras = j["cameras"].get<std::vector<AllegroFlare::Camera3D>>();
+      std::cout << "- " << std::endl;
+      for (int i=0; i<cameras.size(); i++)
+      {
+         cameras[i].zoom = 1.0 / cameras[i].zoom;
+         std::cout << " camera " << i << ": " << std::endl;
+         std::cout << "       spin: " << cameras[i].spin << std::endl;
+         std::cout << "       tilt: " << cameras[i].tilt << std::endl;
+         std::cout << "       zoom: " << cameras[i].zoom << std::endl;
+         std::cout << "       near: " << cameras[i].near_plane << std::endl;
+         std::cout << "       far: " << cameras[i].far_plane << std::endl;
+      }
+   }
+   else
+   {
+      throw std::runtime_error("Expected key \"cameras\" with an array value in JSON");
+   }
    return;
 }
 

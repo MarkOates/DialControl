@@ -12,6 +12,54 @@ class DialControl_CameraStudioTest : public ::testing::Test {};
 class DialControl_CameraStudioTest_WithInteractionFixture : public AllegroFlare::Testing::WithInteractionFixture {};
 
 
+const std::string cameras_json_string = R"({
+  "cameras": [
+    {
+      "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "stepout": { "x": 0.0, "y": 1.0, "z": 10.0 },
+      "spin": 1.5,
+      "tilt": 0.0,
+      "zoom": 1.0
+    },
+    {
+      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
+      "stepout": { "x": 0.5, "y": 0.0, "z": 4.5 },
+      "spin": 2.5,
+      "tilt": 1.0,
+      "zoom": 2.0
+    },
+    {
+      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
+      "stepout": { "x": 1.0, "y": 1.0, "z": 8.0 },
+      "spin": 3.5,
+      "tilt": 2.0,
+      "zoom": 3.0
+    },
+    {
+      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
+      "stepout": { "x": 1.0, "y": 1.0, "z": 20.0 },
+      "spin": 4.5,
+      "tilt": 3.0,
+      "zoom": 2.5
+    },
+    {
+      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
+      "stepout": { "x": 2.0, "y": 2.0, "z": 24.0 },
+      "spin": 5.5,
+      "tilt": 4.0,
+      "zoom": 1.0
+    },
+    {
+      "position": { "x": 1.0, "y": 0.0, "z": 0.0 },
+      "stepout": { "x": 2.0, "y": 2.0, "z": 20.0 },
+      "spin": 0.5,
+      "tilt": 5.0,
+      "zoom": 2.0
+    }
+  ]
+})";
+
+
 TEST(DialControl_CameraStudioTest, can_be_created_without_blowing_up)
 {
    DialControl::CameraStudio camera_studio;
@@ -92,12 +140,11 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                } break;
                case ALLEGRO_KEY_D:
                {
-                  // Dump cameras to JSON (just to terminal in this example)
-                  
-                  //nlohmann::json j;
-                  //j["cameras"] = cameras;
-                  //std::cout << j.dump(2) << std::endl;
                   std::cout << camera_studio.build_json_dump() << std::endl;
+               } break;
+               case ALLEGRO_KEY_L:
+               {
+                  camera_studio.load_json(cameras_json_string); // BROKEN. TODO: Fix
                } break;
                default:
                {

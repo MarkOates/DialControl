@@ -151,6 +151,14 @@ table td
   <td class="method">void</td>
   <td class="method"><b>on_key_down</b>(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_json_dump</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load_json</b>(std::string json_string=&quot;[unset-json_string]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -165,6 +173,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::KeyboardCommandMapper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/KeyboardCommandMapper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -693,6 +707,12 @@ table td
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/Camera2D": [
+    "DialControl/CameraStudio"
+  ],
+  "nlohmann/json": [
+    "DialControl/CameraStudio"
+  ],
+  "AllegroFlare/JSONLoaders/AllegroFlare/Camera3D": [
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/GameConfigurations/Complete": [

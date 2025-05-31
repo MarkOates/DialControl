@@ -42,6 +42,7 @@ namespace DialControl
       void set_current_camera_to_previous_camera();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);
       std::string build_json_dump();
+      void load_json(std::string json_string="[unset-json_string]");
    };
 }
 

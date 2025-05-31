@@ -15,6 +15,12 @@
   "AllegroFlare/Camera2D": [
     "DialControl/CameraStudio"
   ],
+  "nlohmann/json": [
+    "DialControl/CameraStudio"
+  ],
+  "AllegroFlare/JSONLoaders/AllegroFlare/Camera3D": [
+    "DialControl/CameraStudio"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "DialControl/Game/Configurations/Main"
   ],
