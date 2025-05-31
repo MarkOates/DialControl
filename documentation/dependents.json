@@ -1,0 +1,137 @@
+{
+  "AllegroFlare/GameConfigurations/Complete": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Levels/Base": [
+    "DialControl/Game/Configurations/Main",
+    "DialControl/Gameplay/Level"
+  ],
+  "AllegroFlare/DialogTree/NodeBank": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeBankFactory": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/Wait": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/ExitProgram": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/Nodes/MultipageWithOptions": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/DialogTree/NodeOptions/ExitDialog": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "DialControl/Gameplay/Level": [
+    "DialControl/Game/Configurations/Main",
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/Achievement": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Elements/StoryboardPages/Base": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/GameSession": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/GameProgressAndStateInfos/Base": [
+    "DialControl/Game/Configurations/Main",
+    "DialControl/GameProgressAndStateInfo"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Base": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Empty": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "DialControl/Gameplay/Screen": [
+    "DialControl/Game/Configurations/Main",
+    "DialControl/Gameplay/Screen"
+  ],
+  "DialControl/GameProgressAndStateInfo": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Screens/Gameplay": [
+    "DialControl/Game/Configurations/Main",
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/Runners/Complete": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/AudioController": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/EventNames": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/GameEventDatas/AchievementUnlocked": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/GameEvent": [
+    "DialControl/Game/Configurations/Main",
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/Screens/Subscreen/Screen": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Screens/TitledMenuScreen": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Screens/TitledMenuScreenFactory": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/Screens/Base": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/LoadStyle": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/SaveStyle": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/StartStyle": [
+    "DialControl/Game/Configurations/Main"
+  ],
+  "DialControl/JSONLoaders/DialControl/GameProgressAndStateInfo": [
+    "DialControl/GameProgressAndStateInfo"
+  ],
+  "ALLEGRO_FONT": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "ALLEGRO_EVENT": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/BitmapBin": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/EventEmitter": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/FontBin": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/ModelBin": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "al_is_primitives_addon_initialized": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/Player": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/VirtualControllers/Base": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/VirtualControllers/GenericController": [
+    "DialControl/Gameplay/Screen"
+  ],
+  "AllegroFlare/AssetStudio/Database": [
+    "DialControl/Gameplay/Screen"
+  ]
+}
