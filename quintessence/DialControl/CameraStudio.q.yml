@@ -70,6 +70,22 @@ methods:
       return;
 
 
+  - name: set_current_camera_to_next_camera
+    body: |
+      int total_cameras = cameras.size();
+      current_camera_idx = (current_camera_idx + 1) % total_cameras;
+      current_camera = &cameras[current_camera_idx];
+      return;
+
+
+  - name: set_current_camera_to_previous_camera
+    body: |
+      int total_cameras = cameras.size();
+      current_camera_idx = (current_camera_idx - 1 + total_cameras) % total_cameras;
+      current_camera = &cameras[current_camera_idx];
+      return;
+
+
   - name: on_key_down
     parameters:
       - name: event

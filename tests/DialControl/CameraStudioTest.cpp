@@ -85,18 +85,12 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                case ALLEGRO_KEY_N:
                {
                   // Next camera
-                  int total_cameras = cameras.size();
-                  current_camera_idx = (current_camera_idx + 1) % total_cameras;
-                  current_camera = &cameras[current_camera_idx];
-                  camera_studio.set_current_camera(current_camera);
+                  camera_studio.set_current_camera_to_next_camera();
                } break;
                case ALLEGRO_KEY_P:
                {
                   // Previous camera
-                  int total_cameras = cameras.size();
-                  current_camera_idx = (current_camera_idx - 1 + total_cameras) % total_cameras;
-                  current_camera = &cameras[current_camera_idx];
-                  camera_studio.set_current_camera(current_camera);
+                  camera_studio.set_current_camera_to_previous_camera();
                } break;
                case ALLEGRO_KEY_D:
                {

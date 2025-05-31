@@ -120,6 +120,22 @@ void CameraStudio::update()
    return;
 }
 
+void CameraStudio::set_current_camera_to_next_camera()
+{
+   int total_cameras = cameras.size();
+   current_camera_idx = (current_camera_idx + 1) % total_cameras;
+   current_camera = &cameras[current_camera_idx];
+   return;
+}
+
+void CameraStudio::set_current_camera_to_previous_camera()
+{
+   int total_cameras = cameras.size();
+   current_camera_idx = (current_camera_idx - 1 + total_cameras) % total_cameras;
+   current_camera = &cameras[current_camera_idx];
+   return;
+}
+
 void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
 {
    if (!(initialized))

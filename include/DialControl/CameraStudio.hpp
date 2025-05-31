@@ -37,6 +37,8 @@ namespace DialControl
       AllegroFlare::Camera2D &get_hud_camera_ref();
       void initialize();
       void update();
+      void set_current_camera_to_next_camera();
+      void set_current_camera_to_previous_camera();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);
    };
 }
