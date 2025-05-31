@@ -135,8 +135,8 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_data_path() + "models");
-   AllegroFlare::Model3D *model = model_bin.auto_get("simple_scene-01.obj");
-   model->texture = get_bitmap_bin_ref().auto_get("simple_scene-01.png");
+   AllegroFlare::Model3D *model = model_bin.auto_get("simple_scene-02.obj");
+   model->texture = get_bitmap_bin_ref().auto_get("simple_scene-02.png");
 
    DialControl::CameraStudio camera_studio;
    camera_studio.initialize();
@@ -180,7 +180,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                {
                   camera_studio.set_current_camera_to_previous_camera();
                } break;
-               case ALLEGRO_KEY_D:
+               case ALLEGRO_KEY_X: // X for "export"?
                {
                   std::cout << camera_studio.build_json_dump() << std::endl;
                } break;

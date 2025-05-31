@@ -169,10 +169,12 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
 
    AllegroFlare::KeyboardCommandMapper mapper;
 
-   mapper.set_mapping(ALLEGRO_KEY_W, 0, { "up" });
-   mapper.set_mapping(ALLEGRO_KEY_A, 0, { "left" });
-   mapper.set_mapping(ALLEGRO_KEY_S, 0, { "down" });
-   mapper.set_mapping(ALLEGRO_KEY_D, 0, { "right" });
+   mapper.set_mapping(ALLEGRO_KEY_W, 0, { "position_z_minus" });
+   mapper.set_mapping(ALLEGRO_KEY_S, 0, { "position_z_plus" });
+   mapper.set_mapping(ALLEGRO_KEY_A, 0, { "position_x_minus" });
+   mapper.set_mapping(ALLEGRO_KEY_D, 0, { "position_x_plus" });
+   mapper.set_mapping(ALLEGRO_KEY_C, 0, { "position_y_minus" });
+   mapper.set_mapping(ALLEGRO_KEY_E, 0, { "position_y_plus" });
 
    mapper.set_mapping(ALLEGRO_KEY_UP, 0, { "up" });
    mapper.set_mapping(ALLEGRO_KEY_DOWN, 0, { "down" });
@@ -196,6 +198,13 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
    {
       if (command.empty()) continue;
 
+      else if (command == "position_x_plus") current_camera->position.x += 0.25;
+      else if (command == "position_x_minus") current_camera->position.x -= 0.25;
+      else if (command == "position_y_plus") current_camera->position.y += 0.25;
+      else if (command == "position_y_minus") current_camera->position.y -= 0.25;
+      else if (command == "position_z_plus") current_camera->position.z += 0.25;
+      else if (command == "position_z_minus") current_camera->position.z -= 0.25;
+
       else if (command == "right") current_camera->stepout.x += 0.25;
       else if (command == "left") current_camera->stepout.x -= 0.25;
       else if (command == "up") current_camera->stepout.y += 0.25;
@@ -209,6 +218,11 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "dial_3_right") current_camera->zoom += 0.125;
       else if (command == "dial_4_left") current_camera->stepout.z -= 1.0;
       else if (command == "dial_4_right") current_camera->stepout.z += 1.0;
+
+      else
+      {
+         throw std::runtime_error("missinasdnh89sdh89fhsg");
+      }
    }
 
    return;
