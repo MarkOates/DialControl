@@ -21,6 +21,9 @@
   "AllegroFlare/JSONLoaders/AllegroFlare/Camera3D": [
     "DialControl/CameraStudio"
   ],
+  "DialControl/CameraInfo": [
+    "DialControl/CameraStudio"
+  ],
   "AllegroFlare/GameConfigurations/Complete": [
     "DialControl/Game/Configurations/Main"
   ],

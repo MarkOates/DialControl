@@ -7,6 +7,12 @@ properties:
     getter: true
     setter: true
 
+  - name: cameras_
+    type: std::vector<DialControl::CameraInfo>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: current_camera_idx
     type: int
     init_with: 0
@@ -41,7 +47,7 @@ methods:
       baseline_camera.stepout = { 0, 0, 16 };
       baseline_camera.zoom = 1.0; //1.62;
       baseline_camera.tilt = 0.0; //ALLEGRO_PI * 0.25;
-      baseline_camera.spin = 0.125;
+      baseline_camera.spin = 0.0; //125;
       baseline_camera.position = { 0, 0, 0 };
 
       // Set the live_camera to the baseline_camera
@@ -252,5 +258,7 @@ dependencies:
     headers: [ lib/nlohmann/json.hpp ]
   - symbol: AllegroFlare::JSONLoaders::AllegroFlare::Camera3D
     headers: [ AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp ]
+  - symbol: DialControl::CameraInfo
+    headers: [ DialControl/CameraInfo.hpp ]
 
 

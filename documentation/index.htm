@@ -109,6 +109,10 @@ table td
   <td class="property">std::vector&lt;AllegroFlare::Camera3D&gt;</td>
 </tr>
 <tr>
+  <td class="property">cameras_</td>
+  <td class="property">std::vector&lt;DialControl::CameraInfo&gt;</td>
+</tr>
+<tr>
   <td class="property">current_camera_idx</td>
   <td class="property">int</td>
 </tr>
@@ -187,6 +191,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;DialControl::CameraInfo&quot;, &quot;headers&quot;=&gt;[&quot;DialControl/CameraInfo.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -721,6 +728,9 @@ table td
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/JSONLoaders/AllegroFlare/Camera3D": [
+    "DialControl/CameraStudio"
+  ],
+  "DialControl/CameraInfo": [
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/GameConfigurations/Complete": [

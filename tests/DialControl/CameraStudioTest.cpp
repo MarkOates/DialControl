@@ -15,35 +15,35 @@ const std::string cameras_json_string = R"({
   "cameras": [
     {
       "far_plane": 100.0,
-      "near_plane": 1.0,
+      "near_plane": 0.10000000149011612,
       "position": {
-        "x": 0.0,
+        "x": -2.25,
         "y": 0.0,
-        "z": 0.0
+        "z": 0.5
       },
       "roll": 0.0,
       "spin": 0.625,
       "stepout": {
         "x": 0.75,
-        "y": 1.0,
-        "z": 9.0
+        "y": 0.75,
+        "z": 7.0
       },
       "tilt": 0.5,
-      "zoom": 1.5
+      "zoom": 1.625
     },
     {
       "far_plane": 100.0,
-      "near_plane": 1.0,
+      "near_plane": 0.10000000149011612,
       "position": {
-        "x": 0.0,
+        "x": -1.5,
         "y": 0.0,
-        "z": 0.0
+        "z": -0.25
       },
       "roll": 0.0,
-      "spin": 0.125,
+      "spin": 0.0,
       "stepout": {
         "x": 1.5,
-        "y": 0.5,
+        "y": 0.75,
         "z": 14.0
       },
       "tilt": 0.0,
@@ -51,25 +51,25 @@ const std::string cameras_json_string = R"({
     },
     {
       "far_plane": 100.0,
-      "near_plane": 1.0,
+      "near_plane": 0.10000000149011612,
       "position": {
-        "x": 0.0,
+        "x": -1.5,
         "y": 0.0,
-        "z": 0.0
+        "z": 0.5
       },
       "roll": 0.0,
       "spin": 0.0,
       "stepout": {
         "x": 1.5,
         "y": 0.75,
-        "z": 75.0
+        "z": 92.0
       },
       "tilt": 0.5,
-      "zoom": 18.5
+      "zoom": 22.75
     },
     {
       "far_plane": 100.0,
-      "near_plane": 1.0,
+      "near_plane": 0.10000000149011612,
       "position": {
         "x": 0.0,
         "y": 0.0,
@@ -87,9 +87,9 @@ const std::string cameras_json_string = R"({
     },
     {
       "far_plane": 100.0,
-      "near_plane": 1.0,
+      "near_plane": 0.10000000149011612,
       "position": {
-        "x": 0.0,
+        "x": -1.25,
         "y": 0.0,
         "z": 0.0
       },
@@ -97,7 +97,7 @@ const std::string cameras_json_string = R"({
       "spin": -0.625,
       "stepout": {
         "x": 1.25,
-        "y": 0.5,
+        "y": 0.25,
         "z": 3.0
       },
       "tilt": 0.125,
@@ -105,21 +105,21 @@ const std::string cameras_json_string = R"({
     },
     {
       "far_plane": 100.0,
-      "near_plane": 1.0,
+      "near_plane": 0.10000000149011612,
       "position": {
-        "x": 0.0,
+        "x": -2.0,
         "y": 0.0,
-        "z": 0.0
+        "z": 0.5
       },
       "roll": 0.0,
-      "spin": 1.0,
+      "spin": 0.875,
       "stepout": {
         "x": 0.25,
         "y": 1.5,
         "z": 51.0
       },
-      "tilt": 1.0,
-      "zoom": 10.125
+      "tilt": 0.625,
+      "zoom": 8.75
     }
   ]
 })";

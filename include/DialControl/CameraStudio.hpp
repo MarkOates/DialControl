@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/Camera3D.hpp>
+#include <DialControl/CameraInfo.hpp>
 #include <allegro5/allegro.h>
 #include <string>
 #include <vector>
@@ -14,6 +15,7 @@ namespace DialControl
    {
    private:
       std::vector<AllegroFlare::Camera3D> cameras;
+      std::vector<DialControl::CameraInfo> cameras_;
       int current_camera_idx;
       AllegroFlare::Camera3D* current_camera;
       AllegroFlare::Camera3D live_camera;
@@ -28,8 +30,10 @@ namespace DialControl
       ~CameraStudio();
 
       void set_cameras(std::vector<AllegroFlare::Camera3D> cameras);
+      void set_cameras_(std::vector<DialControl::CameraInfo> cameras_);
       void set_current_camera(AllegroFlare::Camera3D* current_camera);
       std::vector<AllegroFlare::Camera3D> get_cameras() const;
+      std::vector<DialControl::CameraInfo> get_cameras_() const;
       AllegroFlare::Camera3D* get_current_camera() const;
       bool get_initialized() const;
       void initialize();

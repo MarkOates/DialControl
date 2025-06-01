@@ -16,6 +16,7 @@ namespace DialControl
 
 CameraStudio::CameraStudio()
    : cameras({})
+   , cameras_({})
    , current_camera_idx(0)
    , current_camera(nullptr)
    , live_camera({})
@@ -36,6 +37,12 @@ void CameraStudio::set_cameras(std::vector<AllegroFlare::Camera3D> cameras)
 }
 
 
+void CameraStudio::set_cameras_(std::vector<DialControl::CameraInfo> cameras_)
+{
+   this->cameras_ = cameras_;
+}
+
+
 void CameraStudio::set_current_camera(AllegroFlare::Camera3D* current_camera)
 {
    this->current_camera = current_camera;
@@ -45,6 +52,12 @@ void CameraStudio::set_current_camera(AllegroFlare::Camera3D* current_camera)
 std::vector<AllegroFlare::Camera3D> CameraStudio::get_cameras() const
 {
    return cameras;
+}
+
+
+std::vector<DialControl::CameraInfo> CameraStudio::get_cameras_() const
+{
+   return cameras_;
 }
 
 
@@ -73,7 +86,7 @@ void CameraStudio::initialize()
    baseline_camera.stepout = { 0, 0, 16 };
    baseline_camera.zoom = 1.0; //1.62;
    baseline_camera.tilt = 0.0; //ALLEGRO_PI * 0.25;
-   baseline_camera.spin = 0.125;
+   baseline_camera.spin = 0.0; //125;
    baseline_camera.position = { 0, 0, 0 };
 
    // Set the live_camera to the baseline_camera
