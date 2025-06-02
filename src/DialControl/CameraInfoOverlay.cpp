@@ -58,18 +58,31 @@ void CameraInfoOverlay::render()
    }
    int y = -400;
    float spac = 80;
+
+   float ry = y+1080/2 - spac - 40;
    auto w = ALLEGRO_COLOR{1, 1, 1, 1};
-   draw_pill(1920/2, y+1080/2 - spac,       200, 48, 90.0, 8.0, "zoom", w, "110%");
-   draw_pill(1920/2, y+1080/2,       200, 48, 80.0, 8.0, "DOF", w, "90deg");
-   draw_pill(1920/2, y+1080/2 + spac*1, 260, 48, 136.0, 8.0, "position.x", w, "0.2");
-   draw_pill(1920/2, y+1080/2 + spac*2, 260, 48, 136.0, 8.0, "position.y", w, "0.2");
-   draw_pill(1920/2, y+1080/2 + spac*3, 260, 48, 136.0, 8.0, "position.z", w, "0.2");
-   draw_pill(1920/2, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, "3 / 32");
-   draw_pill(1920/2, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, "8 / 32");
-   draw_pill(1920/2, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, "0 / 32");
-   draw_pill(1920/2, y+1080/2 + spac*7,       200, 48, 80.0, 8.0, "far", w, "1000");
-   draw_pill(1920/2, y+1080/2 + spac*8,       200, 48, 80.0, 8.0, "near", w, "0.125");
-   draw_pill(1920/2, y+1080/2 + spac*9,       280, 48, 90.0, 8.0, "name", w, "Camera A");
+   auto g = ALLEGRO_COLOR{0.56, 0.93, 0.56, 1};
+   draw_pill(1920/2 - 130, ry,       280, 48, 90.0, 8.0, "name", w, "Camera A");
+   draw_pill(1920/2-60 - 360 + 10, ry,       220, 48, 90.0, 8.0, "zoom", w, "110%");
+   draw_pill(1920/2 + 200, ry,       240, 48, 80.0, 8.0, "DOF", w, "90deg");
+   draw_pill(1920/2 - 860, ry, 400, 48, 136.0, 8.0, "position", w, "     0.2       10       20");
+   draw_pill(1920/2 + 500, ry, 400, 48, 136.0, 8.0, "stepout", w, "     0.2       10       20");
+
+   draw_pill(1920/2 - 860, ry+48, 180, 48, 48.0, 8.0, "*", g, "tracking", g);
+
+   //draw_pill(1920/2, y+1080/2 + spac*1, 400, 48, 136.0, 8.0, "position", w, "     0.2       10       20");
+   //draw_pill(1920/2, y+1080/2 + spac*2, 400, 48, 136.0, 8.0, "stepout", w, "     0.2       10       20");
+   //draw_pill(1920/2, y+1080/2 + spac*2, 260, 48, 136.0, 8.0, "position", w, "0.2");
+   //draw_pill(1920/2, y+1080/2 + spac*3, 260, 48, 136.0, 8.0, "position", w, "0.2");
+   draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, "3 / 32");
+   draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, "8 / 32");
+   draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, "0 / 32");
+
+   draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, "1000");
+   draw_pill(1920/2 + 700, y+1080/2 + spac*7,       200, 48, 80.0, 8.0, "near", w, "0.125");
+   //draw_pill(1920/2, y+1080/2 + spac*9,       280, 48, 90.0, 8.0, "name", w, "Camera A");
+   //draw_pill(1920/2, y+1080/2 + spac*9,       280, 48, 90.0, 8.0, "name", w, "Camera A");
+
 
    /*
    float x = 1920/2;

@@ -13,6 +13,26 @@
     "DialControl/CameraControl",
     "DialControl/CameraStudio"
   ],
+  "AllegroFlare/FontBin": [
+    "DialControl/CameraInfoOverlay",
+    "DialControl/Gameplay/Screen"
+  ],
+  "ALLEGRO_FONT": [
+    "DialControl/CameraInfoOverlay",
+    "DialControl/Gameplay/Screen"
+  ],
+  "al_draw_text": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "al_draw_rounded_rectangle": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "AllegroFlare/Vec2D": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "ALLEGRO_COLOR": [
+    "DialControl/CameraInfoOverlay"
+  ],
   "AllegroFlare/Camera2D": [
     "DialControl/CameraStudio"
   ],
@@ -127,16 +147,10 @@
   "DialControl/JSONLoaders/DialControl/GameProgressAndStateInfo": [
     "DialControl/GameProgressAndStateInfo"
   ],
-  "ALLEGRO_FONT": [
-    "DialControl/Gameplay/Screen"
-  ],
   "AllegroFlare/BitmapBin": [
     "DialControl/Gameplay/Screen"
   ],
   "AllegroFlare/EventEmitter": [
-    "DialControl/Gameplay/Screen"
-  ],
-  "AllegroFlare/FontBin": [
     "DialControl/Gameplay/Screen"
   ],
   "AllegroFlare/ModelBin": [
