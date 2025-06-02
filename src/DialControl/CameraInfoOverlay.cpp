@@ -7,6 +7,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <cmath>
 #include <iostream>
+#include <math.h>
 #include <sstream>
 #include <stdexcept>
 
@@ -166,8 +167,16 @@ void CameraInfoOverlay::render()
    //draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, "8 / 32");
    //draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, "0 / 32");
    draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, tos(camera->spin));
+   draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*4 + 48/2, 30, camera->spin);
+
    draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, tos(camera->tilt));
+   draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*5 + 48/2, 30, camera->tilt);
+
    draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, tos(camera->roll));
+   draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*6 + 48/2, 30, camera->roll);
+
+
+
 
    //draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, "1000");
    draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, tos(camera->far_plane));
@@ -234,6 +243,75 @@ void CameraInfoOverlay::draw_pill(float x, float y, float w, float h, float colu
 
    //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_LEFT, quote.c_str());
    return;
+}
+
+void CameraInfoOverlay::draw_radial_diagram(float x, float y, float radius, float value)
+{
+   draw_radial_ticks(x, y, radius, 32, 3, 4, 0, 2.0);
+   draw_radial_ticks(x, y, radius, 8, 10, 2, 0, 2.0);
+   draw_radial_ticks(x, y, radius, 4, 10, 0, 0, 2.0);
+   draw_clockwise_radial_line(x, y, radius - 3, value, 6.0, ALLEGRO_COLOR{1, 1, 1, 1});
+   return;
+}
+
+void CameraInfoOverlay::draw_radial_ticks(float cx, float cy, float r, int t, float l, int s, int o, float line_thickness)
+{
+   for (int i = 0; i < t; ++i)
+   {
+      // Determine whether to skip this tick
+      if (s > 0 && ((i + o) % s == 0))
+      {
+         continue;
+      }
+
+      float angle = ALLEGRO_PI * 2.0f * i / t;
+
+      float x1 = cx + std::cos(angle) * r;
+      float y1 = cy + std::sin(angle) * r;
+      float x2 = cx + std::cos(angle) * (r + l);
+      float y2 = cy + std::sin(angle) * (r + l);
+
+      al_draw_line(x1, y1, x2, y2, al_map_rgb(255, 255, 255), line_thickness);
+   }
+}
+
+void CameraInfoOverlay::draw_clockwise_radial_line(float cx, float cy, float r, float v, float t, ALLEGRO_COLOR c)
+{
+   float normalized_v = fmodf(v, 1.0f);
+   if (normalized_v < 0.0f)
+   {
+      normalized_v += 1.0f;
+   }
+
+   // Convert to clockwise angle (Allegro uses counter-clockwise by default)
+   float angle = ALLEGRO_PI * 2.0f * normalized_v;
+
+   float x2 = cx + std::cos(angle) * r;
+   float y2 = cy + std::sin(angle) * r;
+
+   al_draw_line(cx, cy, x2, y2, c, t);
+   return;
+
+   /*
+   void draw_clockwise_radial_line(float cx, float cy, float r,
+                                   float v, float t, ALLEGRO_COLOR c)
+   {
+      // Ensure v is within [0.0, 1.0]
+      float normalized_v = fmodf(v, 1.0f);
+      if (normalized_v < 0.0f)
+      {
+         normalized_v += 1.0f;
+      }
+
+      // Convert to clockwise angle (Allegro uses counter-clockwise by default)
+      float angle = ALLEGRO_PI * 2.0f * normalized_v;
+
+      float x2 = cx + std::cos(angle) * r;
+      float y2 = cy + std::sin(angle) * r;
+
+      al_draw_line(cx, cy, x2, y2, c, t);
+   }
+   */
 }
 
 ALLEGRO_FONT* CameraInfoOverlay::obtain_font()

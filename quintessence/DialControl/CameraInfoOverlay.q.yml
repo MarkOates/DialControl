@@ -119,8 +119,16 @@ methods:
       //draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, "8 / 32");
       //draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, "0 / 32");
       draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, tos(camera->spin));
+      draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*4 + 48/2, 30, camera->spin);
+
       draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, tos(camera->tilt));
+      draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*5 + 48/2, 30, camera->tilt);
+
       draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, tos(camera->roll));
+      draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*6 + 48/2, 30, camera->roll);
+
+
+
 
       //draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, "1000");
       draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, tos(camera->far_plane));
@@ -229,6 +237,144 @@ methods:
       - al_draw_text
 
 
+
+  - name: draw_radial_diagram
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: radius
+        type: float
+        default_argument: 100.0f
+      - name: value
+        type: float
+        default_argument: 0.75f
+    body: |
+      draw_radial_ticks(x, y, radius, 32, 3, 4, 0, 2.0);
+      draw_radial_ticks(x, y, radius, 8, 10, 2, 0, 2.0);
+      draw_radial_ticks(x, y, radius, 4, 10, 0, 0, 2.0);
+      draw_clockwise_radial_line(x, y, radius - 3, value, 6.0, ALLEGRO_COLOR{1, 1, 1, 1});
+      return;
+
+
+
+  - name: draw_radial_ticks
+    type: void
+    parameters:
+      - name: cx
+        type: float
+        default_argument: 0.0f
+      - name: cy
+        type: float
+        default_argument: 0.0f
+      - name: r
+        type: float
+        default_argument: 300.0f
+      - name: t
+        type: int
+        default_argument: 50.0f
+      - name: l
+        type: float
+        default_argument: 100.0f
+      - name: s
+        type: int
+        default_argument: 0
+      - name: o
+        type: int
+        default_argument: 0
+      - name: line_thickness
+        type: float
+        default_argument: 2.0
+    body: |
+      for (int i = 0; i < t; ++i)
+      {
+         // Determine whether to skip this tick
+         if (s > 0 && ((i + o) % s == 0))
+         {
+            continue;
+         }
+
+         float angle = ALLEGRO_PI * 2.0f * i / t;
+
+         float x1 = cx + std::cos(angle) * r;
+         float y1 = cy + std::sin(angle) * r;
+         float x2 = cx + std::cos(angle) * (r + l);
+         float y2 = cy + std::sin(angle) * (r + l);
+
+         al_draw_line(x1, y1, x2, y2, al_map_rgb(255, 255, 255), line_thickness);
+      }
+    body_dependency_symbols:
+      - std::cos
+      - std::sin
+
+
+  - name: draw_clockwise_radial_line
+    type: void
+    parameters:
+      - name: cx
+        type: float
+        default_argument: 0.0f
+      - name: cy
+        type: float
+        default_argument: 0.0f
+      - name: r
+        type: float
+        default_argument: 100.0f
+      - name: v
+        type: float
+        default_argument: 0.75f
+      - name: t
+        type: float
+        default_argument: 4.0f
+      - name: c
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+    body: |
+      float normalized_v = fmodf(v, 1.0f);
+      if (normalized_v < 0.0f)
+      {
+         normalized_v += 1.0f;
+      }
+
+      // Convert to clockwise angle (Allegro uses counter-clockwise by default)
+      float angle = ALLEGRO_PI * 2.0f * normalized_v;
+
+      float x2 = cx + std::cos(angle) * r;
+      float y2 = cy + std::sin(angle) * r;
+
+      al_draw_line(cx, cy, x2, y2, c, t);
+      return;
+
+      /*
+      void draw_clockwise_radial_line(float cx, float cy, float r,
+                                      float v, float t, ALLEGRO_COLOR c)
+      {
+         // Ensure v is within [0.0, 1.0]
+         float normalized_v = fmodf(v, 1.0f);
+         if (normalized_v < 0.0f)
+         {
+            normalized_v += 1.0f;
+         }
+
+         // Convert to clockwise angle (Allegro uses counter-clockwise by default)
+         float angle = ALLEGRO_PI * 2.0f * normalized_v;
+
+         float x2 = cx + std::cos(angle) * r;
+         float y2 = cy + std::sin(angle) * r;
+
+         al_draw_line(cx, cy, x2, y2, c, t);
+      }
+      */
+    body_dependency_symbols:
+      - fmodf
+      - std::cos
+      - std::sin
+
+
+
   - name: obtain_font
     private: true
     type: ALLEGRO_FONT*
@@ -266,5 +412,11 @@ dependencies:
     headers: [ AllegroFlare/Vec3D.hpp ]
   - symbol: std::atan
     headers: [ cmath ]
+  - symbol: std::cos
+    headers: [ cmath ]
+  - symbol: std::sin
+    headers: [ cmath ]
+  - symbol: fmodf
+    headers: [ math.h ]
 
 

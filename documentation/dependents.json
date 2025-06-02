@@ -40,6 +40,15 @@
   "std/atan": [
     "DialControl/CameraInfoOverlay"
   ],
+  "std/cos": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "std/sin": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "fmodf": [
+    "DialControl/CameraInfoOverlay"
+  ],
   "AllegroFlare/Camera2D": [
     "DialControl/CameraStudio"
   ],

@@ -182,6 +182,18 @@ table td
   <td class="method"><b>draw_pill</b>(float x=0.0f, float y=0.0f, float w=300.0f, float h=50.0f, float column_divider_pos=100.0f, float column_divider_padding=6.0f, std::string label=&quot;[unset-label]&quot;, ALLEGRO_COLOR label_color=ALLEGRO_COLOR{1, 1, 1, 1}, std::string value=&quot;[unset-value]&quot;, ALLEGRO_COLOR value_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_radial_diagram</b>(float x=0.0f, float y=0.0f, float radius=100.0f, float value=0.75f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_radial_ticks</b>(float cx=0.0f, float cy=0.0f, float r=300.0f, int t=50.0f, float l=100.0f, int s=0, int o=0, float line_thickness=2.0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_clockwise_radial_line</b>(float cx=0.0f, float cy=0.0f, float r=100.0f, float v=0.75f, float t=4.0f, ALLEGRO_COLOR c=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
   <td class="private_method">ALLEGRO_FONT*</td>
   <td class="private_method"><b>obtain_font</b>()</td>
 </tr>
@@ -218,6 +230,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::atan&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::cos&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;fmodf&quot;, &quot;headers&quot;=&gt;[&quot;math.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -873,6 +894,15 @@ table td
     "DialControl/CameraInfoOverlay"
   ],
   "std/atan": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "std/cos": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "std/sin": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "fmodf": [
     "DialControl/CameraInfoOverlay"
   ],
   "AllegroFlare/Camera2D": [
