@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Camera2D.hpp>
 #include <AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/FontBin.hpp>
 #include <DialControl/CameraInfo.hpp>
 #include <allegro5/allegro.h>
 #include <string>
@@ -14,6 +15,7 @@ namespace DialControl
    class CameraStudio
    {
    private:
+      AllegroFlare::FontBin* font_bin;
       std::vector<AllegroFlare::Camera3D> cameras;
       std::vector<DialControl::CameraInfo> cameras_;
       int current_camera_idx;
@@ -29,6 +31,7 @@ namespace DialControl
       CameraStudio();
       ~CameraStudio();
 
+      void set_font_bin(AllegroFlare::FontBin* font_bin);
       void set_cameras(std::vector<AllegroFlare::Camera3D> cameras);
       void set_cameras_(std::vector<DialControl::CameraInfo> cameras_);
       void set_current_camera(AllegroFlare::Camera3D* current_camera);
@@ -40,6 +43,7 @@ namespace DialControl
       void update();
       void setup_projection_on_live_camera();
       void setup_projection_on_hud_camera();
+      void draw_camera_view_overlay();
       void set_current_camera_to_next_camera();
       void set_current_camera_to_previous_camera();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);

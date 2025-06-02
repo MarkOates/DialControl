@@ -16,6 +16,7 @@
   ],
   "AllegroFlare/FontBin": [
     "DialControl/CameraInfoOverlay",
+    "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen"
   ],
   "ALLEGRO_FONT": [
@@ -59,6 +60,9 @@
     "DialControl/CameraStudio"
   ],
   "DialControl/CameraInfo": [
+    "DialControl/CameraStudio"
+  ],
+  "DialControl/CameraInfoOverlay": [
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/GameConfigurations/Complete": [

@@ -252,6 +252,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
   <td class="property">cameras</td>
   <td class="property">std::vector&lt;AllegroFlare::Camera3D&gt;</td>
 </tr>
@@ -300,6 +304,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>draw_camera_view_overlay</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>set_current_camera_to_next_camera</b>()</td>
 </tr>
 <tr>
@@ -341,6 +349,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;DialControl::CameraInfo&quot;, &quot;headers&quot;=&gt;[&quot;DialControl/CameraInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;DialControl::CameraInfoOverlay&quot;, &quot;headers&quot;=&gt;[&quot;DialControl/CameraInfoOverlay.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -872,6 +886,7 @@ table td
   ],
   "AllegroFlare/FontBin": [
     "DialControl/CameraInfoOverlay",
+    "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen"
   ],
   "ALLEGRO_FONT": [
@@ -915,6 +930,9 @@ table td
     "DialControl/CameraStudio"
   ],
   "DialControl/CameraInfo": [
+    "DialControl/CameraStudio"
+  ],
+  "DialControl/CameraInfoOverlay": [
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/GameConfigurations/Complete": [

@@ -1,6 +1,11 @@
 properties:
 
 
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    setter: before_initialized
+
   - name: cameras
     type: std::vector<AllegroFlare::Camera3D>
     init_with: '{}'
@@ -41,7 +46,7 @@ methods:
 
 
   - name: initialize
-    guards: [ (!initialized) ]
+    guards: [ (!initialized), font_bin ]
     body: |
       AllegroFlare::Camera3D baseline_camera;
       baseline_camera.stepout = { 0, 0, 16 };
@@ -82,7 +87,21 @@ methods:
     body: |
       hud_camera.setup_dimensional_projection(al_get_target_bitmap());
       al_clear_depth_buffer(1);
+      al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
       return;
+
+
+  - name: draw_camera_view_overlay
+    body: |
+      //clear_neutral();
+      DialControl::CameraInfoOverlay camera_info_overlay(font_bin, current_camera);
+      camera_info_overlay.set_camera_name("Camera Unnamed");
+      camera_info_overlay.render();
+      //hud_camera.setup_dimensional_projection(al_get_target_bitmap());
+      //al_clear_depth_buffer(1);
+      return;
+    body_dependency_symbols:
+      - DialControl::CameraInfoOverlay
 
 
   - name: set_current_camera_to_next_camera
@@ -142,6 +161,9 @@ methods:
       mapper.set_mapping(ALLEGRO_KEY_8, COMMAND, { "dial_4_right" });
 
 
+      float dial_increment = 1.0 / 32;
+
+
       std::vector<std::string> commands = mapper.get_mapping(event->keyboard.keycode, shift, ctrl, alt, command);
 
 
@@ -161,8 +183,8 @@ methods:
          else if (command == "up") current_camera->stepout.y += 0.25;
          else if (command == "down") current_camera->stepout.y -= 0.25;
 
-         else if (command == "dial_1_left") current_camera->spin -= 0.125;
-         else if (command == "dial_1_right") current_camera->spin += 0.125;
+         else if (command == "dial_1_left") current_camera->spin -= dial_increment;
+         else if (command == "dial_1_right") current_camera->spin += dial_increment;
          else if (command == "dial_2_left") current_camera->tilt -= 0.125;
          else if (command == "dial_2_right") current_camera->tilt += 0.125;
          else if (command == "dial_3_left") current_camera->zoom -= 0.125;
@@ -260,5 +282,9 @@ dependencies:
     headers: [ AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp ]
   - symbol: DialControl::CameraInfo
     headers: [ DialControl/CameraInfo.hpp ]
+  - symbol: DialControl::CameraInfoOverlay
+    headers: [ DialControl/CameraInfoOverlay.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
 
 

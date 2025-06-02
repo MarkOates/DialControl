@@ -115,11 +115,12 @@ methods:
          draw_pill(1920/2 - 860, ry+48, 180, 48, 48.0, 8.0, "*", g, "tracking", g);
       }
 
+      float n_spin = camera->spin;
       //draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, "3 / 32");
       //draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, "8 / 32");
       //draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, "0 / 32");
       draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, tos(camera->spin));
-      draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*4 + 48/2, 30, camera->spin);
+      draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*4 + 48/2, 30, n_spin - 0.25);
 
       draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, tos(camera->tilt));
       draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*5 + 48/2, 30, camera->tilt);

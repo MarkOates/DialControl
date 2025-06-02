@@ -75,7 +75,8 @@ TEST_F(DialControl_CameraInfoOverlayTestWithAllegroRenderingFixture, CAPTURE__re
    camera.position = { 20, 5, 16 };
    camera.stepout = { 0, 2, 12 };
    camera.tilt = 0.125;
-   camera.spin = 0.25;
+   camera.spin = 0.0;
+   //camera.spin = 0.25;
    camera.roll = 0.0;
    camera.zoom = 1.2;
    camera.near_plane = 0.125;

@@ -139,6 +139,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
    model->texture = get_bitmap_bin_ref().auto_get("simple_scene-02.png");
 
    DialControl::CameraStudio camera_studio;
+   camera_studio.set_font_bin(&get_font_bin_ref());
    camera_studio.initialize();
 
    while(interactive_test_wait_for_event())
@@ -161,6 +162,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
 
             // Draw the HUD
             camera_studio.setup_projection_on_hud_camera();
+            camera_studio.draw_camera_view_overlay();
 
             // Draw the interactive render
             interactive_test_render_status();

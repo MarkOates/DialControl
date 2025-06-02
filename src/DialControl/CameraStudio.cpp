@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/KeyboardCommandMapper.hpp>
+#include <DialControl/CameraInfoOverlay.hpp>
 #include <iostream>
 #include <lib/nlohmann/json.hpp>
 #include <sstream>
@@ -15,7 +16,8 @@ namespace DialControl
 
 
 CameraStudio::CameraStudio()
-   : cameras({})
+   : font_bin(nullptr)
+   , cameras({})
    , cameras_({})
    , current_camera_idx(0)
    , current_camera(nullptr)
@@ -28,6 +30,13 @@ CameraStudio::CameraStudio()
 
 CameraStudio::~CameraStudio()
 {
+}
+
+
+void CameraStudio::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   if (get_initialized()) throw std::runtime_error("[CameraStudio::set_font_bin]: error: guard \"get_initialized()\" not met.");
+   this->font_bin = font_bin;
 }
 
 
@@ -82,6 +91,13 @@ void CameraStudio::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[DialControl::CameraStudio::initialize]: error: guard \"(!initialized)\" not met");
    }
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::CameraStudio::initialize]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::CameraStudio::initialize]: error: guard \"font_bin\" not met");
+   }
    AllegroFlare::Camera3D baseline_camera;
    baseline_camera.stepout = { 0, 0, 16 };
    baseline_camera.zoom = 1.0; //1.62;
@@ -121,6 +137,18 @@ void CameraStudio::setup_projection_on_hud_camera()
 {
    hud_camera.setup_dimensional_projection(al_get_target_bitmap());
    al_clear_depth_buffer(1);
+   al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+   return;
+}
+
+void CameraStudio::draw_camera_view_overlay()
+{
+   //clear_neutral();
+   DialControl::CameraInfoOverlay camera_info_overlay(font_bin, current_camera);
+   camera_info_overlay.set_camera_name("Camera Unnamed");
+   camera_info_overlay.render();
+   //hud_camera.setup_dimensional_projection(al_get_target_bitmap());
+   //al_clear_depth_buffer(1);
    return;
 }
 
@@ -204,6 +232,9 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_8, COMMAND, { "dial_4_right" });
 
 
+   float dial_increment = 1.0 / 32;
+
+
    std::vector<std::string> commands = mapper.get_mapping(event->keyboard.keycode, shift, ctrl, alt, command);
 
 
@@ -223,8 +254,8 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "up") current_camera->stepout.y += 0.25;
       else if (command == "down") current_camera->stepout.y -= 0.25;
 
-      else if (command == "dial_1_left") current_camera->spin -= 0.125;
-      else if (command == "dial_1_right") current_camera->spin += 0.125;
+      else if (command == "dial_1_left") current_camera->spin -= dial_increment;
+      else if (command == "dial_1_right") current_camera->spin += dial_increment;
       else if (command == "dial_2_left") current_camera->tilt -= 0.125;
       else if (command == "dial_2_right") current_camera->tilt += 0.125;
       else if (command == "dial_3_left") current_camera->zoom -= 0.125;
