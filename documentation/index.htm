@@ -55,6 +55,7 @@ table td
 <h1>Table of Contents</h1>
 <ul>
   <li><a href="#quintessence/DialControl/CameraControl.q.yml">quintessence/DialControl/CameraControl.q.yml</a></li>
+  <li><a href="#quintessence/DialControl/CameraInfo.q.yml">quintessence/DialControl/CameraInfo.q.yml</a></li>
   <li><a href="#quintessence/DialControl/CameraStudio.q.yml">quintessence/DialControl/CameraStudio.q.yml</a></li>
   <li><a href="#quintessence/DialControl/Game/Configurations/Main.q.yml">quintessence/DialControl/Game/Configurations/Main.q.yml</a></li>
   <li><a href="#quintessence/DialControl/GameProgressAndStateInfo.q.yml">quintessence/DialControl/GameProgressAndStateInfo.q.yml</a></li>
@@ -92,6 +93,42 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::KeyboardCommandMapper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/KeyboardCommandMapper.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/DialControl/CameraInfo.q.yml">quintessence/DialControl/CameraInfo.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">position_tracks_a_target</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">object_being_tracked</td>
+  <td class="property">void*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -715,6 +752,7 @@ table td
   ],
   "AllegroFlare/Camera3D": [
     "DialControl/CameraControl",
+    "DialControl/CameraInfo",
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/KeyboardCommandMapper": [

@@ -6,6 +6,7 @@
   ],
   "AllegroFlare/Camera3D": [
     "DialControl/CameraControl",
+    "DialControl/CameraInfo",
     "DialControl/CameraStudio"
   ],
   "AllegroFlare/KeyboardCommandMapper": [
