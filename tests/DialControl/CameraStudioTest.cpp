@@ -14,24 +14,24 @@ class DialControl_CameraStudioTest_WithInteractionFixture : public AllegroFlare:
 const std::string cameras_json_string = R"({
   "cameras": [
     {
-      "far_plane": 100.0,
-      "near_plane": 0.10000000149011612,
+      "far_plane": 200.0,
+      "near_plane": 0.01,
       "position": {
         "x": -2.25,
         "y": 0.0,
         "z": 0.5
       },
       "roll": 0.0,
-      "roll_in_unit_values": false,
-      "spin": 0.625,
-      "spin_in_unit_values": false,
+      "roll_in_unit_values": true,
+      "spin": 0.125,
+      "spin_in_unit_values": true,
       "stepout": {
         "x": 0.75,
         "y": 0.75,
         "z": 7.0
       },
-      "tilt": 0.5,
-      "tilt_in_unit_values": false,
+      "tilt": 0.125,
+      "tilt_in_unit_values": true,
       "zoom": 1.625
     },
     {
