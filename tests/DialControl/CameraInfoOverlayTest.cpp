@@ -71,8 +71,9 @@ TEST_F(DialControl_CameraInfoOverlayTest, render__without_a_font_bin__raises_an_
 
 TEST_F(DialControl_CameraInfoOverlayTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
+   AllegroFlare::Camera3D camera;
    clear_neutral();
-   DialControl::CameraInfoOverlay camera_info_overlay(&get_font_bin_ref());
+   DialControl::CameraInfoOverlay camera_info_overlay(&get_font_bin_ref(), &camera);
    camera_info_overlay.render();
    al_flip_display();
    sleep_for(1);

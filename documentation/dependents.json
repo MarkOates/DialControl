@@ -34,6 +34,9 @@
   "ALLEGRO_COLOR": [
     "DialControl/CameraInfoOverlay"
   ],
+  "AllegroFlare/Vec3D": [
+    "DialControl/CameraInfoOverlay"
+  ],
   "AllegroFlare/Camera2D": [
     "DialControl/CameraStudio"
   ],

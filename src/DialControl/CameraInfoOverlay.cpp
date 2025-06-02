@@ -26,10 +26,28 @@ CameraInfoOverlay::~CameraInfoOverlay()
 }
 
 
+void CameraInfoOverlay::set_camera(AllegroFlare::Camera3D* camera)
+{
+   this->camera = camera;
+}
+
+
+AllegroFlare::Camera3D* CameraInfoOverlay::get_camera() const
+{
+   return camera;
+}
+
+
 std::string CameraInfoOverlay::tos(float f)
 {
-   // TODO
-   return "";
+   return std::to_string(f);
+}
+
+std::string CameraInfoOverlay::tosv(AllegroFlare::Vec3D v)
+{
+   std::stringstream ss;
+   ss << "      " << v.x << "      " << v.y << "      " << v.z;
+   return ss.str();
 }
 
 void CameraInfoOverlay::render()
@@ -62,6 +80,13 @@ void CameraInfoOverlay::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[DialControl::CameraInfoOverlay::render]: error: guard \"font_bin\" not met");
    }
+   if (!(camera))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::CameraInfoOverlay::render]: error: guard \"camera\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::CameraInfoOverlay::render]: error: guard \"camera\" not met");
+   }
    int y = -400;
    float spac = 80;
 
@@ -76,42 +101,13 @@ void CameraInfoOverlay::render()
 
    draw_pill(1920/2 - 860, ry+48, 180, 48, 48.0, 8.0, "*", g, "tracking", g);
 
-   //draw_pill(1920/2, y+1080/2 + spac*1, 400, 48, 136.0, 8.0, "position", w, "     0.2       10       20");
-   //draw_pill(1920/2, y+1080/2 + spac*2, 400, 48, 136.0, 8.0, "stepout", w, "     0.2       10       20");
-   //draw_pill(1920/2, y+1080/2 + spac*2, 260, 48, 136.0, 8.0, "position", w, "0.2");
-   //draw_pill(1920/2, y+1080/2 + spac*3, 260, 48, 136.0, 8.0, "position", w, "0.2");
    draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, "3 / 32");
    draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, "8 / 32");
    draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, "0 / 32");
 
    draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, "1000");
    draw_pill(1920/2 + 700, y+1080/2 + spac*7,       200, 48, 80.0, 8.0, "near", w, "0.125");
-   //draw_pill(1920/2, y+1080/2 + spac*9,       280, 48, 90.0, 8.0, "name", w, "Camera A");
-   //draw_pill(1920/2, y+1080/2 + spac*9,       280, 48, 90.0, 8.0, "name", w, "Camera A");
 
-
-   /*
-   float x = 1920/2;
-   float y = 1080/3;
-   ALLEGRO_FONT *font = obtain_font();
-   float text_width = al_get_text_width(font, quote.c_str());
-   float text_height = al_get_font_line_height(font);
-   float h_text_width = text_width/2;
-   float h_text_height = text_height/2;
-   AllegroFlare::Vec2D padding = {30, 20};
-
-   al_draw_rounded_rectangle(
-      x-h_text_width - padding.x,
-      y-h_text_height - padding.y,
-      x+h_text_width + padding.x,
-      y+h_text_height + padding.y,
-      8.0f,
-      8.0f,
-      ALLEGRO_COLOR{1, 1, 1, 1},
-      8.0f
-   );
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, quote.c_str());
-   */
 
    return;
 }
