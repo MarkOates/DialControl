@@ -14,9 +14,9 @@ namespace DialControl
 {
 
 
-CameraInfoOverlay::CameraInfoOverlay(AllegroFlare::FontBin* font_bin, std::string quote)
+CameraInfoOverlay::CameraInfoOverlay(AllegroFlare::FontBin* font_bin, AllegroFlare::Camera3D* camera)
    : font_bin(font_bin)
-   , quote(quote)
+   , camera(camera)
 {
 }
 
@@ -25,6 +25,12 @@ CameraInfoOverlay::~CameraInfoOverlay()
 {
 }
 
+
+std::string CameraInfoOverlay::tos(float f)
+{
+   // TODO
+   return "";
+}
 
 void CameraInfoOverlay::render()
 {

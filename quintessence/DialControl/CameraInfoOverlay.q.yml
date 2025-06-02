@@ -6,13 +6,24 @@ properties:
     init_with: nullptr
     constructor_arg: true
 
-  - name: quote
-    type: std::string
-    init_with: '"Hello!"'
+  - name: camera
+    type: AllegroFlare::Camera3D*
+    init_with: nullptr
     constructor_arg: true
 
 
 methods:
+
+
+  - name: tos
+    type: std::string
+    parameters:
+      - name: f
+        type: float
+        default_argument: 0.0f
+    body: |
+      // TODO
+      return "";
 
 
   - name: render
@@ -202,5 +213,7 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
 
 
