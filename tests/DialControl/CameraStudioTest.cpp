@@ -22,13 +22,16 @@ const std::string cameras_json_string = R"({
         "z": 0.5
       },
       "roll": 0.0,
+      "roll_in_unit_values": false,
       "spin": 0.625,
+      "spin_in_unit_values": false,
       "stepout": {
         "x": 0.75,
         "y": 0.75,
         "z": 7.0
       },
       "tilt": 0.5,
+      "tilt_in_unit_values": false,
       "zoom": 1.625
     },
     {
@@ -40,13 +43,16 @@ const std::string cameras_json_string = R"({
         "z": -0.25
       },
       "roll": 0.0,
+      "roll_in_unit_values": false,
       "spin": 0.0,
+      "spin_in_unit_values": false,
       "stepout": {
         "x": 1.5,
         "y": 0.75,
         "z": 14.0
       },
       "tilt": 0.0,
+      "tilt_in_unit_values": false,
       "zoom": 3.25
     },
     {
@@ -58,13 +64,16 @@ const std::string cameras_json_string = R"({
         "z": 0.5
       },
       "roll": 0.0,
+      "roll_in_unit_values": false,
       "spin": 0.0,
+      "spin_in_unit_values": false,
       "stepout": {
         "x": 1.5,
         "y": 0.75,
         "z": 92.0
       },
       "tilt": 0.5,
+      "tilt_in_unit_values": false,
       "zoom": 22.75
     },
     {
@@ -76,13 +85,16 @@ const std::string cameras_json_string = R"({
         "z": 0.0
       },
       "roll": 0.0,
+      "roll_in_unit_values": false,
       "spin": 0.5,
+      "spin_in_unit_values": false,
       "stepout": {
         "x": 1.25,
         "y": 0.75,
         "z": 3.0
       },
       "tilt": 0.25,
+      "tilt_in_unit_values": false,
       "zoom": 1.875
     },
     {
@@ -94,13 +106,16 @@ const std::string cameras_json_string = R"({
         "z": 0.0
       },
       "roll": 0.0,
+      "roll_in_unit_values": false,
       "spin": -0.625,
+      "spin_in_unit_values": false,
       "stepout": {
         "x": 1.25,
         "y": 0.25,
         "z": 3.0
       },
       "tilt": 0.125,
+      "tilt_in_unit_values": false,
       "zoom": 2.75
     },
     {
@@ -112,13 +127,16 @@ const std::string cameras_json_string = R"({
         "z": 0.5
       },
       "roll": 0.0,
+      "roll_in_unit_values": false,
       "spin": 0.875,
+      "spin_in_unit_values": false,
       "stepout": {
         "x": 0.25,
         "y": 1.5,
         "z": 51.0
       },
       "tilt": 0.625,
+      "tilt_in_unit_values": false,
       "zoom": 8.75
     }
   ]

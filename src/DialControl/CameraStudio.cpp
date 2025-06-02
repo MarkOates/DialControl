@@ -104,6 +104,7 @@ void CameraStudio::initialize()
    baseline_camera.tilt = 0.0; //ALLEGRO_PI * 0.25;
    baseline_camera.spin = 0.0; //125;
    baseline_camera.position = { 0, 0, 0 };
+   baseline_camera.use_unit_values(); // Use unit values for rotation
 
    // Set the live_camera to the baseline_camera
    live_camera = baseline_camera;
@@ -256,8 +257,8 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
 
       else if (command == "dial_1_left") current_camera->spin -= dial_increment;
       else if (command == "dial_1_right") current_camera->spin += dial_increment;
-      else if (command == "dial_2_left") current_camera->tilt -= 0.125;
-      else if (command == "dial_2_right") current_camera->tilt += 0.125;
+      else if (command == "dial_2_left") current_camera->tilt -= dial_increment;
+      else if (command == "dial_2_right") current_camera->tilt += dial_increment;
       else if (command == "dial_3_left") current_camera->zoom -= 0.125;
       else if (command == "dial_3_right") current_camera->zoom += 0.125;
       else if (command == "dial_4_left") current_camera->stepout.z -= 1.0;
