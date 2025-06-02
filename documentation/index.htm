@@ -150,6 +150,14 @@ table td
   <td class="property">camera</td>
   <td class="property">AllegroFlare::Camera3D*</td>
 </tr>
+<tr>
+  <td class="property">camera_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">camera_is_tracking_object</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -160,6 +168,10 @@ table td
 <tr>
   <td class="method">std::string</td>
   <td class="method"><b>tosv</b>(AllegroFlare::Vec3D v={})</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>hfov_degrees</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -203,6 +215,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::atan&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -855,6 +870,9 @@ table td
     "DialControl/CameraInfoOverlay"
   ],
   "AllegroFlare/Vec3D": [
+    "DialControl/CameraInfoOverlay"
+  ],
+  "std/atan": [
     "DialControl/CameraInfoOverlay"
   ],
   "AllegroFlare/Camera2D": [

@@ -72,8 +72,19 @@ TEST_F(DialControl_CameraInfoOverlayTest, render__without_a_font_bin__raises_an_
 TEST_F(DialControl_CameraInfoOverlayTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::Camera3D camera;
+   camera.position = { 20, 5, 16 };
+   camera.stepout = { 0, 2, 12 };
+   camera.tilt = 0.125;
+   camera.spin = 0.25;
+   camera.roll = 0.0;
+   camera.zoom = 1.2;
+   camera.near_plane = 0.125;
+   camera.far_plane = 2000;
+
    clear_neutral();
    DialControl::CameraInfoOverlay camera_info_overlay(&get_font_bin_ref(), &camera);
+   camera_info_overlay.set_camera_name("Camera A");
+
    camera_info_overlay.render();
    al_flip_display();
    sleep_for(1);

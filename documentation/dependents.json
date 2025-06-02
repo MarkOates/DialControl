@@ -37,6 +37,9 @@
   "AllegroFlare/Vec3D": [
     "DialControl/CameraInfoOverlay"
   ],
+  "std/atan": [
+    "DialControl/CameraInfoOverlay"
+  ],
   "AllegroFlare/Camera2D": [
     "DialControl/CameraStudio"
   ],
