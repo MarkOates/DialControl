@@ -198,6 +198,59 @@ float get_leftmost_position(
 }
 
 
+
+void draw_rotating_triangle_toward_center(float x, float y, float l,
+                                          float d, float v,
+                                          ALLEGRO_COLOR c)
+{
+   // Normalize v to [0.0, 1.0]
+   float normalized_v = fmodf(v, 1.0f);
+   if (normalized_v < 0.0f)
+   {
+      normalized_v += 1.0f;
+   }
+
+   // Compute angle of the triangle's base center (clockwise)
+   float angle = ALLEGRO_PI * 2.0f * normalized_v;
+
+   // Compute triangle center point (apex, pointing toward the center)
+   float tx = x + std::cos(angle) * d;
+   float ty = y + std::sin(angle) * d;
+
+   // Angle pointing toward the center
+   float pointing_angle = angle + ALLEGRO_PI; // flip direction
+
+   // Compute triangle points
+   float half_base = l / 2.0f;
+   float height = (std::sqrt(3.0f) / 2.0f) * l;
+
+   // Apex (pointing toward center)
+   float apex_x = tx + std::cos(pointing_angle) * height;
+   float apex_y = ty + std::sin(pointing_angle) * height;
+
+   // Base corners
+   float base_angle = pointing_angle + ALLEGRO_PI / 2.0f;
+
+   float base1_x = tx + std::cos(base_angle) * half_base;
+   float base1_y = ty + std::sin(base_angle) * half_base;
+
+   float base2_x = tx - std::cos(base_angle) * half_base;
+   float base2_y = ty - std::sin(base_angle) * half_base;
+
+   // Draw triangle
+   //al_draw_triangle(apex_x, apex_y,
+                    //base1_x, base1_y,
+                    //base2_x, base2_y,
+                    //c, thickness);
+   al_draw_filled_triangle(apex_x, apex_y,
+                    base1_x, base1_y,
+                    base2_x, base2_y,
+                    c );
+}
+
+
+
+
 TEST_F(DialControl_CameraInfoOverlayTestWithAllegroRenderingFixture, CAPTURE__draw_circle__will_work)
 {
    //AllegroFlare::Camera3D camera;
@@ -273,6 +326,18 @@ TEST_F(DialControl_CameraInfoOverlayTestWithAllegroRenderingFixture, CAPTURE__dr
 
    draw_circular_rotation_diagram_notched(1920/2, 1080/4, 30, 0.125);
 
+
+   //draw_circular_diagram(x+spacing*i++, y, r, 8, 10,
+                              //2.0, true);
+
+   i++;
+   draw_rotating_triangle_toward_center(x+spacing*i, y, 30, 130, 0.25, ALLEGRO_COLOR{1, 1, 0.24, 1});
+   draw_rotating_triangle_toward_center(x+spacing*i, y, 20, 100, 0.5, ALLEGRO_COLOR{1, 1, 1, 1});
+
+
+//void draw_rotating_triangle_toward_center(float x, float y, float l,
+                                          //float d, float v,
+                                          //ALLEGRO_COLOR c, float thickness)
 
 
    //draw_radial_ticks(x+spacing*i++, y, 200, 16, 20,

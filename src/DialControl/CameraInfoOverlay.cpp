@@ -174,7 +174,7 @@ void CameraInfoOverlay::render()
    draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*5 + 48/2, 30, camera->tilt);
 
    draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, tos(camera->roll));
-   draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*6 + 48/2, 30, camera->roll);
+   draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*6 + 48/2, 30, camera->roll, false);
 
 
 
@@ -246,12 +246,17 @@ void CameraInfoOverlay::draw_pill(float x, float y, float w, float h, float colu
    return;
 }
 
-void CameraInfoOverlay::draw_radial_diagram(float x, float y, float radius, float value)
+void CameraInfoOverlay::draw_radial_diagram(float x, float y, float radius, float value, bool draw_backstep_triangle)
 {
    draw_radial_ticks(x, y, radius, 32, 3, 4, 0, 2.0);
    draw_radial_ticks(x, y, radius, 8, 10, 2, 0, 2.0);
    draw_radial_ticks(x, y, radius, 4, 10, 0, 0, 2.0);
    draw_clockwise_radial_line(x, y, radius - 3, value, 6.0, ALLEGRO_COLOR{1, 1, 1, 1});
+   if (draw_backstep_triangle)
+   {
+      draw_rotating_triangle_toward_center(x, y, 14, radius-6, value + 0.5, ALLEGRO_COLOR{1, 1, 1, 1});
+   }
+   //draw_rotating_triangle_toward_center
    return;
 }
 
@@ -313,6 +318,58 @@ void CameraInfoOverlay::draw_clockwise_radial_line(float cx, float cy, float r, 
       al_draw_line(cx, cy, x2, y2, c, t);
    }
    */
+}
+
+void CameraInfoOverlay::draw_rotating_triangle_toward_center(float x, float y, float l, float d, float v, ALLEGRO_COLOR c)
+{
+   //void draw_rotating_triangle_toward_center(float x, float y, float l,
+                                             //float d, float v,
+                                             //ALLEGRO_COLOR c)
+   //{
+      // Normalize v to [0.0, 1.0]
+      float normalized_v = fmodf(v, 1.0f);
+      if (normalized_v < 0.0f)
+      {
+         normalized_v += 1.0f;
+      }
+
+      // Compute angle of the triangle's base center (clockwise)
+      float angle = ALLEGRO_PI * 2.0f * normalized_v;
+
+      // Compute triangle center point (apex, pointing toward the center)
+      float tx = x + std::cos(angle) * d;
+      float ty = y + std::sin(angle) * d;
+
+      // Angle pointing toward the center
+      float pointing_angle = angle + ALLEGRO_PI; // flip direction
+
+      // Compute triangle points
+      float half_base = l / 2.0f;
+      float height = (std::sqrt(3.0f) / 2.0f) * l;
+
+      // Apex (pointing toward center)
+      float apex_x = tx + std::cos(pointing_angle) * height;
+      float apex_y = ty + std::sin(pointing_angle) * height;
+
+      // Base corners
+      float base_angle = pointing_angle + ALLEGRO_PI / 2.0f;
+
+      float base1_x = tx + std::cos(base_angle) * half_base;
+      float base1_y = ty + std::sin(base_angle) * half_base;
+
+      float base2_x = tx - std::cos(base_angle) * half_base;
+      float base2_y = ty - std::sin(base_angle) * half_base;
+
+      // Draw triangle
+      //al_draw_triangle(apex_x, apex_y,
+                       //base1_x, base1_y,
+                       //base2_x, base2_y,
+                       //c, thickness);
+      al_draw_filled_triangle(apex_x, apex_y,
+                       base1_x, base1_y,
+                       base2_x, base2_y,
+                       c );
+   //}
 }
 
 ALLEGRO_FONT* CameraInfoOverlay::obtain_font()
