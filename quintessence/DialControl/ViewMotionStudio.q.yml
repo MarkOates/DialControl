@@ -9,10 +9,12 @@ properties:
   - name: camera_studio
     type: DialControl::CameraStudio
     init_with: '{}'
+    getter_ref: true
 
   - name: motion_studio
     type: Timeline::MotionStudio
     init_with: '{}'
+    getter_ref: true
 
   - name: initialized
     type: bool

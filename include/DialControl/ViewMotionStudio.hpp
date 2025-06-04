@@ -26,6 +26,8 @@ namespace DialControl
 
       void set_font_bin(AllegroFlare::FontBin* font_bin);
       bool get_initialized() const;
+      DialControl::CameraStudio &get_camera_studio_ref();
+      Timeline::MotionStudio &get_motion_studio_ref();
       void initialize();
       void update();
       void setup_camera_projection_on_live_camera();

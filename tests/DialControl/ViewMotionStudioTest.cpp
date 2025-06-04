@@ -17,6 +17,164 @@ TEST(DialControl_ViewMotionStudioTest, can_be_created_without_blowing_up)
 
 
 
+const std::string cameras_json_string = R"({
+  "cameras": [
+    {
+      "far_plane": 200.0,
+      "near_plane": 0.01,
+      "position": {
+        "x": -2.25,
+        "y": 0.0,
+        "z": 0.5
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": true,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.125,
+      "spin_in_unit_values": true,
+      "stepout": {
+        "x": 0.75,
+        "y": 0.75,
+        "z": 7.0
+      },
+      "tilt": 0.125,
+      "tilt_in_unit_values": true,
+      "zoom": 1.625
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.10000000149011612,
+      "position": {
+        "x": -1.5,
+        "y": 0.0,
+        "z": -0.25
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.5,
+        "y": 0.75,
+        "z": 14.0
+      },
+      "tilt": 0.0,
+      "tilt_in_unit_values": false,
+      "zoom": 3.25
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.10000000149011612,
+      "position": {
+        "x": -1.5,
+        "y": 0.0,
+        "z": 0.5
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.5,
+        "y": 0.75,
+        "z": 92.0
+      },
+      "tilt": 0.5,
+      "tilt_in_unit_values": false,
+      "zoom": 22.75
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.10000000149011612,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.5,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.25,
+        "y": 0.75,
+        "z": 3.0
+      },
+      "tilt": 0.25,
+      "tilt_in_unit_values": false,
+      "zoom": 1.875
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.10000000149011612,
+      "position": {
+        "x": -1.25,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": -0.625,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.25,
+        "y": 0.25,
+        "z": 3.0
+      },
+      "tilt": 0.125,
+      "tilt_in_unit_values": false,
+      "zoom": 2.75
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": true,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": true,
+      "stepout": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 20.0
+      },
+      "tilt": 0.09375,
+      "tilt_in_unit_values": true,
+      "zoom": 4.0
+    }
+  ]
+})";
+
+
+
+
 
 TEST_F(DialControl_ViewMotionStudioTestWithInteractionFixture,
    CAPTURE__will_work_with_the_expected_context_for_placement3d)
@@ -29,6 +187,7 @@ TEST_F(DialControl_ViewMotionStudioTestWithInteractionFixture,
    DialControl::ViewMotionStudio view_motion_studio;
    view_motion_studio.set_font_bin(&get_font_bin_ref());
    view_motion_studio.initialize();
+   view_motion_studio.get_camera_studio_ref().load_json(cameras_json_string); // Load some test data
 
    while(interactive_test_wait_for_event())
    {

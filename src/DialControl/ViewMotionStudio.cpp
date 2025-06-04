@@ -38,6 +38,18 @@ bool ViewMotionStudio::get_initialized() const
 }
 
 
+DialControl::CameraStudio &ViewMotionStudio::get_camera_studio_ref()
+{
+   return camera_studio;
+}
+
+
+Timeline::MotionStudio &ViewMotionStudio::get_motion_studio_ref()
+{
+   return motion_studio;
+}
+
+
 void ViewMotionStudio::initialize()
 {
    if (!((!initialized)))
