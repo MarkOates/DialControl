@@ -1,0 +1,95 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    setter: before_initialized
+
+  - name: camera_studio
+    type: DialControl::CameraStudio
+    init_with: '{}'
+
+  - name: motion_studio
+    type: Timeline::MotionStudio
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+
+methods:
+
+
+  - name: initialize
+    guards: [ (!initialized), font_bin ]
+    body: |
+      camera_studio.set_font_bin(font_bin);
+      camera_studio.initialize();
+      //AllegroFlare::Placement3D placement;
+      //Timeline::MotionStudio motion_studio;
+      //AllegroFlare::Placement2D &timeline_placement = motion_studio.get_timeline_placement_ref();
+      //timeline_placement.position.x = 300;
+      //timeline_placement.position.y = 700;
+
+      //MusicElements music_elements;
+      //motion_studio.set_parameters(build_parameters_for_music_elements(music_elements));
+      //motion_studio.set_parameters(build_parameters_for_placement3D(placement));
+      //motion_studio.set_parameter_views(
+            //build_parameter_views_for_parameters(
+               //&get_font_bin_ref(),
+               //&motion_studio.get_parameters_ref()
+            //)
+         //);
+      initialized = true;
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      camera_studio.update();
+      return;
+
+
+  - name: setup_camera_projection_on_live_camera
+    guards: [ initialized ]
+    body: |
+      camera_studio.setup_projection_on_live_camera();
+      return;
+
+
+  - name: render_hud
+    guards: [ initialized ]
+    body: |
+      camera_studio.setup_projection_on_hud_camera();
+      camera_studio.draw_camera_info_overlay();
+      return;
+
+
+  - name: on_key_down
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      camera_studio.on_key_down(event);
+      return;
+
+
+dependencies:
+
+
+  - symbol: DialControl::CameraStudio
+    headers: [ DialControl/CameraStudio.hpp ]
+  - symbol: Timeline::MotionStudio
+    headers: [ Timeline/MotionStudio.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+
+

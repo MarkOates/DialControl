@@ -62,6 +62,7 @@ table td
   <li><a href="#quintessence/DialControl/GameProgressAndStateInfo.q.yml">quintessence/DialControl/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/DialControl/Gameplay/Level.q.yml">quintessence/DialControl/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/DialControl/Gameplay/Screen.q.yml">quintessence/DialControl/Gameplay/Screen.q.yml</a></li>
+  <li><a href="#quintessence/DialControl/ViewMotionStudio.q.yml">quintessence/DialControl/ViewMotionStudio.q.yml</a></li>
   <li><a href="#quintessence/Timeline/Keyframe.q.yml">quintessence/Timeline/Keyframe.q.yml</a></li>
   <li><a href="#quintessence/Timeline/MotionStudio.q.yml">quintessence/Timeline/MotionStudio.q.yml</a></li>
   <li><a href="#quintessence/Timeline/Parameter.q.yml">quintessence/Timeline/Parameter.q.yml</a></li>
@@ -899,6 +900,71 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/DialControl/ViewMotionStudio.q.yml">quintessence/DialControl/ViewMotionStudio.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">camera_studio</td>
+  <td class="property">DialControl::CameraStudio</td>
+</tr>
+<tr>
+  <td class="property">motion_studio</td>
+  <td class="property">Timeline::MotionStudio</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>setup_camera_projection_on_live_camera</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_hud</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_key_down</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;DialControl::CameraStudio&quot;, &quot;headers&quot;=&gt;[&quot;DialControl/CameraStudio.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::MotionStudio&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/MotionStudio.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/Timeline/Keyframe.q.yml">quintessence/Timeline/Keyframe.q.yml</h3>
     <h3>Overview</h3>
     <p>{"todos"=>["Modify is_focused to be a bitflag of size complementary to the class size, I think uint16_t is correct"]}</p>    <h3>Properties</h3>
@@ -1335,6 +1401,7 @@ table td
     "DialControl/CameraControl",
     "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen",
+    "DialControl/ViewMotionStudio",
     "Timeline/MotionStudio"
   ],
   "AllegroFlare/Camera3D": [
@@ -1352,6 +1419,7 @@ table td
     "DialControl/CameraInfoOverlay",
     "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen",
+    "DialControl/ViewMotionStudio",
     "Timeline/ParameterView",
     "Timeline/ParameterView"
   ],
@@ -1530,6 +1598,12 @@ table td
   ],
   "AllegroFlare/AssetStudio/Database": [
     "DialControl/Gameplay/Screen"
+  ],
+  "DialControl/CameraStudio": [
+    "DialControl/ViewMotionStudio"
+  ],
+  "Timeline/MotionStudio": [
+    "DialControl/ViewMotionStudio"
   ],
   "Timeline/Keyframe": [
     "Timeline/Keyframe",

@@ -3,6 +3,7 @@
     "DialControl/CameraControl",
     "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen",
+    "DialControl/ViewMotionStudio",
     "Timeline/MotionStudio"
   ],
   "AllegroFlare/Camera3D": [
@@ -20,6 +21,7 @@
     "DialControl/CameraInfoOverlay",
     "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen",
+    "DialControl/ViewMotionStudio",
     "Timeline/ParameterView",
     "Timeline/ParameterView"
   ],
@@ -198,6 +200,12 @@
   ],
   "AllegroFlare/AssetStudio/Database": [
     "DialControl/Gameplay/Screen"
+  ],
+  "DialControl/CameraStudio": [
+    "DialControl/ViewMotionStudio"
+  ],
+  "Timeline/MotionStudio": [
+    "DialControl/ViewMotionStudio"
   ],
   "Timeline/Keyframe": [
     "Timeline/Keyframe",
