@@ -22,6 +22,7 @@ namespace DialControl
       AllegroFlare::Camera3D* current_camera;
       AllegroFlare::Camera3D live_camera;
       AllegroFlare::Camera2D hud_camera;
+      bool camera_info_overlay_visible;
       bool initialized;
 
    protected:
@@ -43,7 +44,10 @@ namespace DialControl
       void update();
       void setup_projection_on_live_camera();
       void setup_projection_on_hud_camera();
-      void draw_camera_view_overlay();
+      void toggle_camera_info_overlay_visibility();
+      void show_camera_info_overlay();
+      void hide_camera_info_overlay();
+      void draw_camera_info_overlay();
       void set_current_camera_to_next_camera();
       void set_current_camera_to_previous_camera();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);

@@ -23,6 +23,7 @@ CameraStudio::CameraStudio()
    , current_camera(nullptr)
    , live_camera({})
    , hud_camera({})
+   , camera_info_overlay_visible(true)
    , initialized(false)
 {
 }
@@ -142,14 +143,29 @@ void CameraStudio::setup_projection_on_hud_camera()
    return;
 }
 
-void CameraStudio::draw_camera_view_overlay()
+void CameraStudio::toggle_camera_info_overlay_visibility()
 {
-   //clear_neutral();
+   camera_info_overlay_visible = !camera_info_overlay_visible;
+}
+
+void CameraStudio::show_camera_info_overlay()
+{
+   camera_info_overlay_visible = true;
+}
+
+void CameraStudio::hide_camera_info_overlay()
+{
+   camera_info_overlay_visible = false;
+}
+
+void CameraStudio::draw_camera_info_overlay()
+{
+   if (!camera_info_overlay_visible) return;
+
    DialControl::CameraInfoOverlay camera_info_overlay(font_bin, current_camera);
    camera_info_overlay.set_camera_name("Camera Unnamed");
    camera_info_overlay.render();
-   //hud_camera.setup_dimensional_projection(al_get_target_bitmap());
-   //al_clear_depth_buffer(1);
+
    return;
 }
 
@@ -219,6 +235,7 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_E, 0, { "position_y_plus" });
    mapper.set_mapping(ALLEGRO_KEY_COMMA, 0, { "shift_left" });
    mapper.set_mapping(ALLEGRO_KEY_FULLSTOP, 0, { "shift_right" });
+   mapper.set_mapping(ALLEGRO_KEY_H, 0, { "toggle_camera_info_overlay_visibility" });
 
    mapper.set_mapping(ALLEGRO_KEY_UP, 0, { "up" });
    mapper.set_mapping(ALLEGRO_KEY_DOWN, 0, { "down" });
@@ -251,8 +268,8 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "position_y_minus") current_camera->position.y -= 0.25;
       else if (command == "position_z_plus") current_camera->position.z += 0.25;
       else if (command == "position_z_minus") current_camera->position.z -= 0.25;
-      else if (command == "shift_left") current_camera->shift.x -= 0.1;
-      else if (command == "shift_right") current_camera->shift.x += 0.1;
+      else if (command == "shift_left") current_camera->shift.x -= 0.0625;
+      else if (command == "shift_right") current_camera->shift.x += 0.0625;
 
       else if (command == "right") current_camera->stepout.x += 0.25;
       else if (command == "left") current_camera->stepout.x -= 0.25;
@@ -267,6 +284,8 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "dial_3_right") current_camera->zoom += 0.125;
       else if (command == "dial_4_left") current_camera->stepout.z -= 1.0;
       else if (command == "dial_4_right") current_camera->stepout.z += 1.0;
+
+      else if (command == "toggle_camera_info_overlay_visibility") toggle_camera_info_overlay_visibility();
 
       else
       {

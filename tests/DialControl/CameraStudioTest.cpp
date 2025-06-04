@@ -204,7 +204,7 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
 
             // Draw the HUD
             camera_studio.setup_projection_on_hud_camera();
-            camera_studio.draw_camera_view_overlay();
+            camera_studio.draw_camera_info_overlay();
 
             // Draw the interactive render
             interactive_test_render_status();
