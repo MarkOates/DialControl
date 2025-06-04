@@ -81,11 +81,16 @@ void ViewMotionStudio::initialize()
    motion_studio.set_parameter_views(
          build_parameter_views_for_parameters(
             font_bin,
-            &motion_studio.get_parameters_ref()
+            &motion_studio.get_parameters_ref(),
+            10
          )
       );
 
 
+   // Set the position of the timeline
+   AllegroFlare::Placement2D &timeline_placement = motion_studio.get_timeline_placement_ref();
+   timeline_placement.position.x = 400;
+   timeline_placement.position.y = 900;
 
    //AllegroFlare::Placement3D placement;
    //Timeline::MotionStudio motion_studio;
@@ -133,6 +138,7 @@ void ViewMotionStudio::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[DialControl::ViewMotionStudio::update]: error: guard \"initialized\" not met");
    }
+   motion_studio.update_playback();
    camera_studio.update();
    return;
 }
@@ -161,6 +167,7 @@ void ViewMotionStudio::render_hud()
    }
    camera_studio.setup_projection_on_hud_camera();
    camera_studio.draw_camera_info_overlay();
+   motion_studio.render();
    return;
 }
 
@@ -173,7 +180,8 @@ void ViewMotionStudio::on_key_down(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[DialControl::ViewMotionStudio::on_key_down]: error: guard \"initialized\" not met");
    }
-   camera_studio.on_key_down(event);
+   //camera_studio.on_key_down(event);
+   motion_studio.on_key_down(event);
    return;
 }
 

@@ -42,11 +42,16 @@ methods:
       motion_studio.set_parameter_views(
             build_parameter_views_for_parameters(
                font_bin,
-               &motion_studio.get_parameters_ref()
+               &motion_studio.get_parameters_ref(),
+               10
             )
          );
 
 
+      // Set the position of the timeline
+      AllegroFlare::Placement2D &timeline_placement = motion_studio.get_timeline_placement_ref();
+      timeline_placement.position.x = 400;
+      timeline_placement.position.y = 900;
 
       //AllegroFlare::Placement3D placement;
       //Timeline::MotionStudio motion_studio;
@@ -101,6 +106,7 @@ methods:
   - name: update
     guards: [ initialized ]
     body: |
+      motion_studio.update_playback();
       camera_studio.update();
       return;
 
@@ -117,6 +123,7 @@ methods:
     body: |
       camera_studio.setup_projection_on_hud_camera();
       camera_studio.draw_camera_info_overlay();
+      motion_studio.render();
       return;
 
 
@@ -127,7 +134,8 @@ methods:
         default_argument: nullptr
     guards: [ initialized ]
     body: |
-      camera_studio.on_key_down(event);
+      //camera_studio.on_key_down(event);
+      motion_studio.on_key_down(event);
       return;
 
 

@@ -560,3 +560,12 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
 */
 
 
+/*
+      AllegroFlare::KeyboardCommandMapper mapper;
+    body_dependency_symbols:
+      - AllegroFlare::KeyboardCommandMapper
+  - symbol: AllegroFlare::KeyboardCommandMapper
+    headers: [ AllegroFlare/KeyboardCommandMapper.hpp ]
+*/
+
+
