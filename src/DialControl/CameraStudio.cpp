@@ -217,6 +217,8 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_D, 0, { "position_x_plus" });
    mapper.set_mapping(ALLEGRO_KEY_C, 0, { "position_y_minus" });
    mapper.set_mapping(ALLEGRO_KEY_E, 0, { "position_y_plus" });
+   mapper.set_mapping(ALLEGRO_KEY_COMMA, 0, { "shift_left" });
+   mapper.set_mapping(ALLEGRO_KEY_FULLSTOP, 0, { "shift_right" });
 
    mapper.set_mapping(ALLEGRO_KEY_UP, 0, { "up" });
    mapper.set_mapping(ALLEGRO_KEY_DOWN, 0, { "down" });
@@ -249,6 +251,8 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "position_y_minus") current_camera->position.y -= 0.25;
       else if (command == "position_z_plus") current_camera->position.z += 0.25;
       else if (command == "position_z_minus") current_camera->position.z -= 0.25;
+      else if (command == "shift_left") current_camera->shift.x -= 0.1;
+      else if (command == "shift_right") current_camera->shift.x += 0.1;
 
       else if (command == "right") current_camera->stepout.x += 0.25;
       else if (command == "left") current_camera->stepout.x -= 0.25;

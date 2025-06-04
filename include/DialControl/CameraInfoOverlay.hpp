@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -36,6 +37,7 @@ namespace DialControl
       bool get_camera_is_tracking_object() const;
       std::string tos(float f=0.0f);
       std::string tosv(AllegroFlare::Vec3D v={});
+      std::string tosv2(AllegroFlare::Vec2D v={});
       float hfov_degrees();
       void render();
       void draw_pill(float x=0.0f, float y=0.0f, float w=300.0f, float h=50.0f, float column_divider_pos=100.0f, float column_divider_padding=6.0f, std::string label="[unset-label]", ALLEGRO_COLOR label_color=ALLEGRO_COLOR{1, 1, 1, 1}, std::string value="[unset-value]", ALLEGRO_COLOR value_color=ALLEGRO_COLOR{1, 1, 1, 1});

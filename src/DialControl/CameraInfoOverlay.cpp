@@ -80,6 +80,13 @@ std::string CameraInfoOverlay::tosv(AllegroFlare::Vec3D v)
    return ss.str();
 }
 
+std::string CameraInfoOverlay::tosv2(AllegroFlare::Vec2D v)
+{
+   std::stringstream ss;
+   ss << "      " << v.x << "      " << v.y;
+   return ss.str();
+}
+
 float CameraInfoOverlay::hfov_degrees()
 {
    if (camera->zoom <= 0.0f)
@@ -157,6 +164,8 @@ void CameraInfoOverlay::render()
    draw_pill(1920/2 - 860, ry, 400, 48, 136.0, 8.0, "position", w, tosv(camera->position));
    //draw_pill(1920/2 + 500, ry, 400, 48, 136.0, 8.0, "stepout", w, "     0.2       10       20");
    draw_pill(1920/2 + 500, ry, 400, 48, 136.0, 8.0, "stepout", w, tosv(camera->stepout));
+
+   draw_pill(1920/2 + 500 + 130, ry + 56, 270, 48, 136.0-30, 8.0, "shift", w, tosv2(camera->shift));
 
    if (camera_is_tracking_object)
    {

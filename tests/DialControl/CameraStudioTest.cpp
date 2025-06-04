@@ -23,6 +23,10 @@ const std::string cameras_json_string = R"({
       },
       "roll": 0.0,
       "roll_in_unit_values": true,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
       "spin": 0.125,
       "spin_in_unit_values": true,
       "stepout": {
@@ -44,6 +48,10 @@ const std::string cameras_json_string = R"({
       },
       "roll": 0.0,
       "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
       "spin": 0.0,
       "spin_in_unit_values": false,
       "stepout": {
@@ -65,6 +73,10 @@ const std::string cameras_json_string = R"({
       },
       "roll": 0.0,
       "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
       "spin": 0.0,
       "spin_in_unit_values": false,
       "stepout": {
@@ -86,6 +98,10 @@ const std::string cameras_json_string = R"({
       },
       "roll": 0.0,
       "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
       "spin": 0.5,
       "spin_in_unit_values": false,
       "stepout": {
@@ -107,6 +123,10 @@ const std::string cameras_json_string = R"({
       },
       "roll": 0.0,
       "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
       "spin": -0.625,
       "spin_in_unit_values": false,
       "stepout": {
@@ -128,6 +148,10 @@ const std::string cameras_json_string = R"({
       },
       "roll": 0.0,
       "roll_in_unit_values": true,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
       "spin": 0.0,
       "spin_in_unit_values": true,
       "stepout": {
