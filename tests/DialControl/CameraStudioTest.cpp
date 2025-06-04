@@ -153,8 +153,8 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_data_path() + "models");
-   AllegroFlare::Model3D *model = model_bin.auto_get("simple_scene-02.obj");
-   model->texture = get_bitmap_bin_ref().auto_get("simple_scene-02.png");
+   AllegroFlare::Model3D *model = model_bin.auto_get("simple_scene-03.obj");
+   model->texture = get_bitmap_bin_ref().auto_get("simple_scene-03.png");
 
    DialControl::CameraStudio camera_studio;
    camera_studio.set_font_bin(&get_font_bin_ref());
