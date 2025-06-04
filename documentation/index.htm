@@ -62,6 +62,11 @@ table td
   <li><a href="#quintessence/DialControl/GameProgressAndStateInfo.q.yml">quintessence/DialControl/GameProgressAndStateInfo.q.yml</a></li>
   <li><a href="#quintessence/DialControl/Gameplay/Level.q.yml">quintessence/DialControl/Gameplay/Level.q.yml</a></li>
   <li><a href="#quintessence/DialControl/Gameplay/Screen.q.yml">quintessence/DialControl/Gameplay/Screen.q.yml</a></li>
+  <li><a href="#quintessence/Timeline/Keyframe.q.yml">quintessence/Timeline/Keyframe.q.yml</a></li>
+  <li><a href="#quintessence/Timeline/MotionStudio.q.yml">quintessence/Timeline/MotionStudio.q.yml</a></li>
+  <li><a href="#quintessence/Timeline/Parameter.q.yml">quintessence/Timeline/Parameter.q.yml</a></li>
+  <li><a href="#quintessence/Timeline/ParameterMappings/AllegroFlare/Camera3D.q.yml">quintessence/Timeline/ParameterMappings/AllegroFlare/Camera3D.q.yml</a></li>
+  <li><a href="#quintessence/Timeline/ParameterView.q.yml">quintessence/Timeline/ParameterView.q.yml</a></li>
 </ul>
 <h1>Components</h1>
 <br><br><br>
@@ -890,13 +895,447 @@ table td
     </table>
 </div>  </div>
 </ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Timeline/Keyframe.q.yml">quintessence/Timeline/Keyframe.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Modify is_focused to be a bitflag of size complementary to the class size, I think uint16_t is correct"]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">interpolator_func</td>
+  <td class="property">std::function&lt;float(float)&gt;</td>
+</tr>
+<tr>
+  <td class="property">value</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">time</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">focused</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_focused</b>(bool focused=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_as_focused</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_as_unfocused</b>()</td>
+</tr>
+<tr>
+  <td class="method">Timeline::Keyframe</td>
+  <td class="method"><b>construct</b>(float time=0.0f, float value=0.0f, std::function&lt;float(float)&gt; interpolator_func={})</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::Keyframe&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/Keyframe.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Timeline/MotionStudio.q.yml">quintessence/Timeline/MotionStudio.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">parameters</td>
+  <td class="property">std::vector&lt;Timeline::Parameter&gt;</td>
+</tr>
+<tr>
+  <td class="property">parameter_views</td>
+  <td class="property">std::vector&lt;Timeline::ParameterView&gt;</td>
+</tr>
+<tr>
+  <td class="property">parameter_view_idx</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">wrap_parameter_view_idx_change</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">timeline_placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+<tr>
+  <td class="property">playback_speed</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">playhead</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">playhead_max</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">playhead_movement_fine</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">playhead_movement_macro</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">playing</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>toggle_playback</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update_playback</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_playhead_position</b>(float playhead_position=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_playhead</b>(float delta=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_keyframe_value</b>(float delta=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_keyframe_time</b>(float delta=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>next_keyframe</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>previous_keyframe</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_keyframe</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>next_parameter_view</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>previous_parameter_view</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_key_down</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::Parameter&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/Parameter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::ParameterView&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/ParameterView.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::KeyboardCommandMapper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/KeyboardCommandMapper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_line&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Timeline/Parameter.q.yml">quintessence/Timeline/Parameter.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">initial_value</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">parameter</td>
+  <td class="property">float*</td>
+</tr>
+<tr>
+  <td class="property">keyframes</td>
+  <td class="property">std::vector&lt;Timeline::Keyframe&gt;</td>
+</tr>
+<tr>
+  <td class="property">has_min_value</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">has_max_value</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">min_value</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">max_value</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">Timeline::Parameter</td>
+  <td class="method"><b>build</b>(std::string name=&quot;[unset-name]&quot;, float* parameter=nullptr, std::vector&lt;Timeline::Keyframe&gt; keyframes={}, float initial_value=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_keyframe</b>(float time=0.0f, float value=0.0f, std::function&lt;float(float)&gt; interpolator_func={})</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>value_at</b>(double position=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::Keyframe&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/Keyframe.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::Parameter&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/Parameter.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Timeline/ParameterMappings/AllegroFlare/Camera3D.q.yml">quintessence/Timeline/ParameterMappings/AllegroFlare/Camera3D.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::vector&lt;Timeline::Parameter&gt;</td>
+  <td class="method"><b>build_parameters</b>(::AllegroFlare::Camera3D* camera=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::Parameter&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/Parameter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;:&quot;:AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/Timeline/ParameterView.q.yml">quintessence/Timeline/ParameterView.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">label</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">track</td>
+  <td class="property">Timeline::Parameter*</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">x_scale</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">selection_cursor_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">icon_font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">hidden</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">focused</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">focused_keyframe_idx</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_HEIGHT</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_as_focused</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_as_unfocused</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_keyframe</b>(float time=0.0f, float value=0.0f, std::function&lt;float(float)&gt; interpolator_func={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_keyframe_value</b>(float delta=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_keyframe_time</b>(float delta=0.0f, float keyframe_max_time=120.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>next_keyframe</b>(bool wrap=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>previous_keyframe</b>(bool wrap=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_selected_node_icon</b>(float x=0.0f, float y=0.0f)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_node_icon</b>(float x=0.0f, float y=0.0f)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_centered_unicode_character</b>(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61445, int flags=0)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_icon_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_bigger_icon_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_track_label_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_track_values_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timeline::Track*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timeline/Track.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color::*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timeline::Track&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timeline/Track.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::Parameter&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/Parameter.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
 <h1>Dependents</h1>
 <pre>
 {
   "ALLEGRO_EVENT": [
     "DialControl/CameraControl",
     "DialControl/CameraStudio",
-    "DialControl/Gameplay/Screen"
+    "DialControl/Gameplay/Screen",
+    "Timeline/MotionStudio"
   ],
   "AllegroFlare/Camera3D": [
     "DialControl/CameraControl",
@@ -906,16 +1345,21 @@ table td
   ],
   "AllegroFlare/KeyboardCommandMapper": [
     "DialControl/CameraControl",
-    "DialControl/CameraStudio"
+    "DialControl/CameraStudio",
+    "Timeline/MotionStudio"
   ],
   "AllegroFlare/FontBin": [
     "DialControl/CameraInfoOverlay",
     "DialControl/CameraStudio",
-    "DialControl/Gameplay/Screen"
+    "DialControl/Gameplay/Screen",
+    "Timeline/ParameterView",
+    "Timeline/ParameterView"
   ],
   "ALLEGRO_FONT": [
     "DialControl/CameraInfoOverlay",
-    "DialControl/Gameplay/Screen"
+    "DialControl/Gameplay/Screen",
+    "Timeline/ParameterView",
+    "Timeline/ParameterView"
   ],
   "al_draw_text": [
     "DialControl/CameraInfoOverlay"
@@ -927,7 +1371,8 @@ table td
     "DialControl/CameraInfoOverlay"
   ],
   "ALLEGRO_COLOR": [
-    "DialControl/CameraInfoOverlay"
+    "DialControl/CameraInfoOverlay",
+    "Timeline/ParameterView"
   ],
   "AllegroFlare/Vec3D": [
     "DialControl/CameraInfoOverlay"
@@ -1071,7 +1516,8 @@ table td
     "DialControl/Gameplay/Screen"
   ],
   "al_is_primitives_addon_initialized": [
-    "DialControl/Gameplay/Screen"
+    "DialControl/Gameplay/Screen",
+    "Timeline/ParameterView"
   ],
   "AllegroFlare/Player": [
     "DialControl/Gameplay/Screen"
@@ -1084,6 +1530,36 @@ table td
   ],
   "AllegroFlare/AssetStudio/Database": [
     "DialControl/Gameplay/Screen"
+  ],
+  "Timeline/Keyframe": [
+    "Timeline/Keyframe",
+    "Timeline/Parameter"
+  ],
+  "Timeline/Parameter": [
+    "Timeline/MotionStudio",
+    "Timeline/Parameter",
+    "Timeline/ParameterMappings/AllegroFlare/Camera3D",
+    "Timeline/ParameterView"
+  ],
+  "Timeline/ParameterView": [
+    "Timeline/MotionStudio"
+  ],
+  "AllegroFlare/Placement2D": [
+    "Timeline/MotionStudio"
+  ],
+  "al_draw_line": [
+    "Timeline/MotionStudio"
+  ],
+  ":AllegroFlare/Camera3D": [
+    "Timeline/ParameterMappings/AllegroFlare/Camera3D"
+  ],
+  "AllegroFlare/Timeline/Track": [
+    "Timeline/ParameterView",
+    "Timeline/ParameterView"
+  ],
+  "AllegroFlare/Color/": [
+    "Timeline/ParameterView",
+    "Timeline/ParameterView"
   ]
 }
 </pre>

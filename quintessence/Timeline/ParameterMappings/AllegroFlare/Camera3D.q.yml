@@ -1,0 +1,48 @@
+methods:
+
+
+  - name: build_parameters
+    static: true
+    type: std::vector<Timeline::Parameter>
+    parameters:
+      - name: camera
+        type: '::AllegroFlare::Camera3D*'
+        default_argument: nullptr
+    guards: [ camera ]
+    body: |
+      auto &p = *camera;
+
+      std::vector<Timeline::Parameter> result = {
+         Timeline::Parameter::build("position.x", &p.position.x, {}),
+         Timeline::Parameter::build("position.y", &p.position.y, {}),
+         Timeline::Parameter::build("position.z", &p.position.z, {}),
+
+         Timeline::Parameter::build("stepout.x", &p.stepout.x, {}),
+         Timeline::Parameter::build("stepout.y", &p.stepout.y, {}),
+         Timeline::Parameter::build("stepout.z", &p.stepout.z, {}),
+
+         Timeline::Parameter::build("spin", &p.spin, {}),
+         Timeline::Parameter::build("tilt", &p.spin, {}),
+         Timeline::Parameter::build("roll", &p.spin, {}),
+
+         Timeline::Parameter::build("zoom", &p.spin, {}),
+
+         Timeline::Parameter::build("shift.x", &p.shift.x, {}),
+         Timeline::Parameter::build("shift.y", &p.shift.y, {}),
+
+         Timeline::Parameter::build("near plane", &p.near_plane, {}),
+         Timeline::Parameter::build("far plane", &p.far_plane, {}),
+      };
+
+      return result;
+
+
+dependencies:
+
+
+  - symbol: Timeline::Parameter
+    headers: [ Timeline/Parameter.hpp ]
+  - symbol: ::AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
+
+

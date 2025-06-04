@@ -2,7 +2,8 @@
   "ALLEGRO_EVENT": [
     "DialControl/CameraControl",
     "DialControl/CameraStudio",
-    "DialControl/Gameplay/Screen"
+    "DialControl/Gameplay/Screen",
+    "Timeline/MotionStudio"
   ],
   "AllegroFlare/Camera3D": [
     "DialControl/CameraControl",
@@ -12,16 +13,21 @@
   ],
   "AllegroFlare/KeyboardCommandMapper": [
     "DialControl/CameraControl",
-    "DialControl/CameraStudio"
+    "DialControl/CameraStudio",
+    "Timeline/MotionStudio"
   ],
   "AllegroFlare/FontBin": [
     "DialControl/CameraInfoOverlay",
     "DialControl/CameraStudio",
-    "DialControl/Gameplay/Screen"
+    "DialControl/Gameplay/Screen",
+    "Timeline/ParameterView",
+    "Timeline/ParameterView"
   ],
   "ALLEGRO_FONT": [
     "DialControl/CameraInfoOverlay",
-    "DialControl/Gameplay/Screen"
+    "DialControl/Gameplay/Screen",
+    "Timeline/ParameterView",
+    "Timeline/ParameterView"
   ],
   "al_draw_text": [
     "DialControl/CameraInfoOverlay"
@@ -33,7 +39,8 @@
     "DialControl/CameraInfoOverlay"
   ],
   "ALLEGRO_COLOR": [
-    "DialControl/CameraInfoOverlay"
+    "DialControl/CameraInfoOverlay",
+    "Timeline/ParameterView"
   ],
   "AllegroFlare/Vec3D": [
     "DialControl/CameraInfoOverlay"
@@ -177,7 +184,8 @@
     "DialControl/Gameplay/Screen"
   ],
   "al_is_primitives_addon_initialized": [
-    "DialControl/Gameplay/Screen"
+    "DialControl/Gameplay/Screen",
+    "Timeline/ParameterView"
   ],
   "AllegroFlare/Player": [
     "DialControl/Gameplay/Screen"
@@ -190,5 +198,35 @@
   ],
   "AllegroFlare/AssetStudio/Database": [
     "DialControl/Gameplay/Screen"
+  ],
+  "Timeline/Keyframe": [
+    "Timeline/Keyframe",
+    "Timeline/Parameter"
+  ],
+  "Timeline/Parameter": [
+    "Timeline/MotionStudio",
+    "Timeline/Parameter",
+    "Timeline/ParameterMappings/AllegroFlare/Camera3D",
+    "Timeline/ParameterView"
+  ],
+  "Timeline/ParameterView": [
+    "Timeline/MotionStudio"
+  ],
+  "AllegroFlare/Placement2D": [
+    "Timeline/MotionStudio"
+  ],
+  "al_draw_line": [
+    "Timeline/MotionStudio"
+  ],
+  ":AllegroFlare/Camera3D": [
+    "Timeline/ParameterMappings/AllegroFlare/Camera3D"
+  ],
+  "AllegroFlare/Timeline/Track": [
+    "Timeline/ParameterView",
+    "Timeline/ParameterView"
+  ],
+  "AllegroFlare/Color/": [
+    "Timeline/ParameterView",
+    "Timeline/ParameterView"
   ]
 }

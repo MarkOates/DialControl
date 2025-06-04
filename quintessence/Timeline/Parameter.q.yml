@@ -1,0 +1,116 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    exposed: true
+
+  - name: initial_value
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: parameter
+    type: float*
+    init_with: nullptr
+    exposed: true
+
+  - name: keyframes
+    type: std::vector<Timeline::Keyframe>
+    init_with: '{}'
+    exposed: true
+
+  - name: has_min_value
+    type: bool
+    init_with: true
+    exposed: true
+
+  - name: has_max_value
+    type: bool
+    init_with: true
+    exposed: true
+
+  - name: min_value
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: max_value
+    type: float
+    init_with: 1.0f
+    exposed: true
+
+
+methods:
+
+
+  - name: build
+    static: true
+    type: Timeline::Parameter
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: parameter
+        type: float*
+        default_argument: nullptr
+      - name: keyframes
+        type: std::vector<Timeline::Keyframe>
+        default_argument: '{}'
+      - name: initial_value
+        type: float
+        default_argument: 0.0f
+    body: |
+      Timeline::Parameter result;
+      result.name = name;
+      result.parameter = parameter;
+      result.keyframes = keyframes;
+      result.initial_value = initial_value;
+      return result;
+
+
+  - name: add_keyframe
+    parameters:
+      - name: time
+        type: float
+        default_argument: 0.0f
+      - name: value
+        type: float
+        default_argument: 0.0f
+      - name: interpolator_func
+        type: std::function<float(float)>
+        default_argument: '{}'
+    body: |
+      Timeline::Keyframe keyframe = Timeline::Keyframe::construct(time, value, interpolator_func);
+      keyframes.push_back(keyframe);
+
+      // Keep keyframes sorted by time
+      std::sort(keyframes.begin(), keyframes.end(), [](const Timeline::Keyframe &a, const Timeline::Keyframe &b)
+      {
+         return a.time < b.time;
+      });
+
+      return;
+
+
+  - name: value_at
+    type: float
+    parameters:
+      - name: position
+        type: double
+        default_argument: 0.0f
+    guards: [ parameter ]
+    body: |
+      return 0.0f;
+
+
+dependencies:
+
+
+  - symbol: Timeline::Keyframe
+    headers: [ Timeline/Keyframe.hpp ]
+  - symbol: Timeline::Parameter
+    headers: [ Timeline/Parameter.hpp ]
+
+

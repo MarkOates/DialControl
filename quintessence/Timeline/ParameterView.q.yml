@@ -1,0 +1,441 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: label
+    type: std::string
+    init_with: '"Unlabeled Parameter"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: track
+    type: Timeline::Parameter*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: 1200.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: DEFAULT_HEIGHT
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: x_scale
+    type: float
+    init_with: 100.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: selection_cursor_x
+    type: int
+    init_with: -1
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: icon_font_size
+    type: int
+    init_with: -12
+    getter: true
+    setter: true
+
+  - name: hidden
+    type: bool
+    init_with: false
+    exposed: true
+
+  - name: focused
+    type: bool
+    init_with: false
+    exposed: true
+
+  - name: focused_keyframe_idx
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: DEFAULT_HEIGHT
+    type: float
+    init_with: 32.0f
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: set_as_focused
+    body: |
+      focused = true;
+      return;
+
+
+  - name: set_as_unfocused
+    body: |
+      focused = false;
+      return;
+
+
+  - name: add_keyframe
+    parameters:
+      - name: time
+        type: float
+        default_argument: 0.0f
+      - name: value
+        type: float
+        default_argument: 0.0f
+      - name: interpolator_func
+        type: std::function<float(float)>
+        default_argument: '{}'
+    body: |
+      if (!track) return;
+      //track->add_keyframe_matching_previous_value_or_initial_value(time, value, 
+      track->add_keyframe(time, value, interpolator_func);
+      return;
+
+
+  - name: move_keyframe_value
+    parameters:
+      - name: delta
+        type: float
+        default_argument: 0.0f
+    body: |
+      if (!track) return;
+
+      auto &keyframes = track->keyframes;
+      int num_keyframes = static_cast<int>(keyframes.size());
+      if (focused_keyframe_idx < 0 || focused_keyframe_idx >= num_keyframes) return;
+
+      Timeline::Keyframe &keyframe = keyframes[focused_keyframe_idx];
+
+      float value = keyframe.value;
+      value += delta;
+
+      // Clamp value between 0.0 and 1.0
+      if (value > 1.0f) value = 1.0f;
+      if (value < 0.0f) value = 0.0f;
+
+      keyframe.value = value;
+
+
+  - name: move_keyframe_time
+    parameters:
+      - name: delta
+        type: float
+        default_argument: 0.0f
+      - name: keyframe_max_time
+        type: float
+        default_argument: 120.0f
+    body: |
+      if (!track) return;
+
+      auto &keyframes = track->keyframes;
+      int num_keyframes = static_cast<int>(keyframes.size());
+      if (focused_keyframe_idx < 0 || focused_keyframe_idx >= num_keyframes) return;
+
+
+      Timeline::Keyframe &keyframe = keyframes[focused_keyframe_idx];
+      float new_time = keyframe.time + delta;
+
+      // Determine lower and upper bounds
+      float lower_bound = 0.0f;
+      float upper_bound = keyframe_max_time;
+
+      if (focused_keyframe_idx > 0)
+      {
+         lower_bound = keyframes[focused_keyframe_idx - 1].time;
+      }
+
+      if (focused_keyframe_idx < num_keyframes - 1)
+      {
+         upper_bound = keyframes[focused_keyframe_idx + 1].time;
+      }
+
+      // Clamp new_time between the bounds
+      if (new_time < lower_bound) new_time = lower_bound;
+      if (new_time > upper_bound) new_time = upper_bound;
+
+      keyframe.time = new_time;
+
+
+  - name: next_keyframe
+    parameters:
+      - name: wrap
+        type: bool
+        default_argument: false
+    body: |
+      if (!track) return;
+
+      auto &keyframes = track->keyframes;
+      int num_keyframes = static_cast<int>(keyframes.size());
+      if (num_keyframes == 0) return;
+
+      // Clamp current idx to valid range
+      if (focused_keyframe_idx < 0 || focused_keyframe_idx >= num_keyframes)
+      {
+         focused_keyframe_idx = 0;
+         keyframes[focused_keyframe_idx].set_focused(true);
+         return;
+      }
+
+      // Unfocus current
+      keyframes[focused_keyframe_idx].set_focused(false);
+
+      // Advance
+      focused_keyframe_idx++;
+
+      if (focused_keyframe_idx >= num_keyframes)
+      {
+         if (wrap)
+         {
+            focused_keyframe_idx = 0;
+         }
+         else
+         {
+            focused_keyframe_idx = num_keyframes - 1;
+         }
+      }
+
+      keyframes[focused_keyframe_idx].set_focused(true);
+      return;
+
+
+  - name: previous_keyframe
+    parameters:
+      - name: wrap
+        type: bool
+        default_argument: false
+    body: |
+      if (!track) return;
+
+      auto &keyframes = track->keyframes;
+      int num_keyframes = static_cast<int>(keyframes.size());
+      if (num_keyframes == 0) return;
+
+      // Clamp current idx
+      if (focused_keyframe_idx < 0 || focused_keyframe_idx >= num_keyframes)
+      {
+         focused_keyframe_idx = 0;
+         keyframes[focused_keyframe_idx].set_focused(true);
+         return;
+      }
+
+      // Unfocus current
+      keyframes[focused_keyframe_idx].set_focused(false);
+
+      // Decrement
+      focused_keyframe_idx--;
+
+      if (focused_keyframe_idx < 0)
+      {
+         if (wrap)
+         {
+            focused_keyframe_idx = num_keyframes - 1;
+         }
+         else
+         {
+            focused_keyframe_idx = 0;
+         }
+      }
+
+      keyframes[focused_keyframe_idx].set_focused(true);
+      return;
+
+
+  - name: render
+    guards: [ al_is_primitives_addon_initialized(), font_bin, track ]
+    body: |
+      ALLEGRO_COLOR UNFOCUSED_BACKFILL_COLOR = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+      ALLEGRO_COLOR FOCUSED_BACKFILL_COLOR = ALLEGRO_COLOR{0.3, 0.275, 0.21, 1.0};
+      ALLEGRO_COLOR backfill_color = focused ? FOCUSED_BACKFILL_COLOR : UNFOCUSED_BACKFILL_COLOR;
+      //ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
+
+      ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
+      ALLEGRO_FONT *track_label_font = obtain_track_label_font();
+      int track_label_font_line_height = al_get_font_line_height(track_label_font);
+      float y_scale = height;
+      float x_label_offset = -100;
+      ALLEGRO_COLOR w = ALLEGRO_COLOR{1, 1, 1, 1};
+
+      // Draw the backfill rectangle
+      al_draw_filled_rectangle(0, 0, width, height, backfill_color);
+
+      // Draw the track labels
+      al_draw_text(track_label_font, w, 0+x_label_offset, 0+4, ALLEGRO_ALIGN_LEFT, label.c_str());
+
+      // Draw the points
+      int count = 0;
+      //for (auto &keyframe : track->get_keyframes_ref())
+      for (auto &keyframe : track->keyframes)
+      {
+         float capped_normalized_y = keyframe.value;
+         float keyframe_x = keyframe.time * x_scale;
+         float keyframe_y = capped_normalized_y * y_scale;
+
+         // draw a line demarcating where keyframes are
+         al_draw_line(keyframe_x, 0, keyframe_x, 0+height, line_color, 1.0);
+
+         // draw a graphic on the node
+         if (keyframe.focused) draw_selected_node_icon(0+keyframe_x, 0+keyframe_y);
+         //if (count == selection_cursor_x) draw_selected_node_icon(0+keyframe_x, 0+keyframe_y);
+         else draw_node_icon(0+keyframe_x, 0+keyframe_y);
+
+         // increment our count
+         count++;
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Color::*
+      - al_is_primitives_addon_initialized
+
+
+  - name: draw_selected_node_icon
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      ALLEGRO_FONT *bigger_icon_font = obtain_bigger_icon_font();
+      ALLEGRO_FONT *icon_font = obtain_icon_font();
+      int32_t diamond = 0xf219;
+      ALLEGRO_COLOR bigger_color = AllegroFlare::Color::DeepSkyBlue;
+      ALLEGRO_COLOR color = AllegroFlare::Color::Eigengrau;
+      draw_centered_unicode_character(bigger_icon_font, bigger_color, x, y, diamond, 0);
+      draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
+      return;
+
+
+  - name: draw_node_icon
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      ALLEGRO_FONT *icon_font = obtain_icon_font();
+      int32_t diamond = 0xf219;
+      ALLEGRO_COLOR color = AllegroFlare::Color::DeepSkyBlue;
+      draw_centered_unicode_character(icon_font, color, x, y, diamond, 0);
+      return;
+
+
+  - name: draw_centered_unicode_character
+    private: true
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: x
+        type: int
+        default_argument: 0
+      - name: y
+        type: int
+        default_argument: 0
+      - name: icon
+        type: uint32_t
+        default_argument: 0xf005
+      - name: flags
+        type: int
+        default_argument: 0
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      float width = al_get_ustr_width(font, ustr);
+      float height = al_get_font_line_height(font);
+      al_draw_ustr(font, color, x-width*0.5, y-height*0.5, flags, ustr);
+      return;
+
+
+  - name: obtain_icon_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream ss;
+      ss << "fa-solid-900.ttf " << icon_font_size;
+      return font_bin->auto_get(ss.str());
+
+
+  - name: obtain_bigger_icon_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream ss;
+      ss << "fa-solid-900.ttf " << icon_font_size - 8;
+      return font_bin->auto_get(ss.str());
+
+
+  - name: obtain_track_label_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Regular.ttf -20");
+
+
+  - name: obtain_track_values_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Regular.ttf -20");
+
+
+dependencies:
+
+
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Timeline::Track*
+    headers: [ AllegroFlare/Timeline/Track.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::FontBin*
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT*
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Color::*
+    headers: [ AllegroFlare/Color.hpp ]
+
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Timeline::Track
+    headers: [ AllegroFlare/Timeline/Track.hpp ]
+  - symbol: 'AllegroFlare::Color::'
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: Timeline::Parameter
+    headers: [ Timeline/Parameter.hpp ]
+
+

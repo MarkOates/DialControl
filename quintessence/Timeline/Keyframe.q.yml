@@ -1,0 +1,88 @@
+properties:
+
+
+  - name: interpolator_func
+    type: std::function<float(float)>
+    init_with: '{}'
+    exposed: true
+    constructor_arg: true
+
+  - name: value
+    type: float
+    init_with: 0.0f
+    exposed: true
+    constructor_arg: true
+
+  - name: time
+    type: float
+    init_with: 0.0f
+    exposed: true
+    constructor_arg: true
+
+  - name: focused
+    type: bool
+    init_with: false
+    exposed: true
+    constructor_arg: true
+
+
+documentation:
+
+
+  - todos:
+      - Modify is_focused to be a bitflag of size complementary to the class size, I think uint16_t is correct
+
+
+methods:
+
+
+  - name: set_focused
+    parameters:
+      - name: focused
+        type: bool
+        default_argument: false
+    body: |
+      this->focused = focused;
+      return;
+
+
+  - name: set_as_focused
+    body: |
+      focused = true;
+      return;
+
+
+  - name: set_as_unfocused
+    body: |
+      focused = false;
+      return;
+
+
+  - name: construct
+    static: true
+    type: Timeline::Keyframe
+    parameters:
+      - name: time
+        type: float
+        default_argument: 0.0f
+      - name: value
+        type: float
+        default_argument: 0.0f
+      - name: interpolator_func
+        type: std::function<float(float)>
+        default_argument: '{}'
+    body: |
+      Timeline::Keyframe result;
+      result.time = time;
+      result.value = value;
+      result.interpolator_func = interpolator_func;
+      return result;
+
+
+dependencies:
+
+
+  - symbol: Timeline::Keyframe
+    headers: [ Timeline/Keyframe.hpp ]
+
+
