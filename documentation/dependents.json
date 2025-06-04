@@ -207,18 +207,23 @@
   "Timeline/MotionStudio": [
     "DialControl/ViewMotionStudio"
   ],
-  "Timeline/Keyframe": [
-    "Timeline/Keyframe",
-    "Timeline/Parameter"
+  "Timeline/ParameterMappings/AllegroFlare/Camera3D": [
+    "DialControl/ViewMotionStudio"
   ],
   "Timeline/Parameter": [
+    "DialControl/ViewMotionStudio",
     "Timeline/MotionStudio",
     "Timeline/Parameter",
     "Timeline/ParameterMappings/AllegroFlare/Camera3D",
     "Timeline/ParameterView"
   ],
   "Timeline/ParameterView": [
+    "DialControl/ViewMotionStudio",
     "Timeline/MotionStudio"
+  ],
+  "Timeline/Keyframe": [
+    "Timeline/Keyframe",
+    "Timeline/Parameter"
   ],
   "AllegroFlare/Placement2D": [
     "Timeline/MotionStudio"

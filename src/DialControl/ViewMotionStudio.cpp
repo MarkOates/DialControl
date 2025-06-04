@@ -2,6 +2,7 @@
 
 #include <DialControl/ViewMotionStudio.hpp>
 
+#include <Timeline/ParameterMappings/AllegroFlare/Camera3D.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -68,6 +69,24 @@ void ViewMotionStudio::initialize()
    }
    camera_studio.set_font_bin(font_bin);
    camera_studio.initialize();
+
+   // Camera A, for now
+   AllegroFlare::Camera3D &camera_1 = *camera_studio.get_current_camera();
+
+   //motion_studio.set_font_bin(font_bin);
+   motion_studio.set_parameters(
+      //build_parameters_for_placement3D(placement)
+      Timeline::ParameterMappings::AllegroFlare::Camera3D::build_parameters(&camera_1)
+   );
+   motion_studio.set_parameter_views(
+         build_parameter_views_for_parameters(
+            font_bin,
+            &motion_studio.get_parameters_ref()
+         )
+      );
+
+
+
    //AllegroFlare::Placement3D placement;
    //Timeline::MotionStudio motion_studio;
    //AllegroFlare::Placement2D &timeline_placement = motion_studio.get_timeline_placement_ref();
@@ -85,6 +104,24 @@ void ViewMotionStudio::initialize()
       //);
    initialized = true;
    return;
+}
+
+std::vector<Timeline::ParameterView> ViewMotionStudio::build_parameter_views_for_parameters(AllegroFlare::FontBin* font_bin, std::vector<Timeline::Parameter>* p, float height)
+{
+   std::vector<Timeline::ParameterView> result;
+   int x = 400;
+   int y = 100;
+   //int yd = 100;
+   int i = 0;
+   //float height = Timeline::ParameterView::DEFAULT_HEIGHT;
+   //int yd = height;
+   for (auto &pp : *p)
+   {
+      result.push_back(Timeline::ParameterView(font_bin, pp.name, &pp));
+      result.back().set_height(height);
+      i++;
+   }
+   return result;
 }
 
 void ViewMotionStudio::update()

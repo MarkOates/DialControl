@@ -928,6 +928,10 @@ table td
   <td class="method"><b>initialize</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::vector&lt;Timeline::ParameterView&gt;</td>
+  <td class="method"><b>build_parameter_views_for_parameters</b>(AllegroFlare::FontBin* font_bin=nullptr, std::vector&lt;Timeline::Parameter&gt;* p=nullptr, float height=Timeline::ParameterView::DEFAULT_HEIGHT)</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>update</b>()</td>
 </tr>
@@ -957,6 +961,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::ParameterMappings::AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/ParameterMappings/AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::Parameter&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/Parameter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::ParameterView&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/ParameterView.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1605,18 +1618,23 @@ table td
   "Timeline/MotionStudio": [
     "DialControl/ViewMotionStudio"
   ],
-  "Timeline/Keyframe": [
-    "Timeline/Keyframe",
-    "Timeline/Parameter"
+  "Timeline/ParameterMappings/AllegroFlare/Camera3D": [
+    "DialControl/ViewMotionStudio"
   ],
   "Timeline/Parameter": [
+    "DialControl/ViewMotionStudio",
     "Timeline/MotionStudio",
     "Timeline/Parameter",
     "Timeline/ParameterMappings/AllegroFlare/Camera3D",
     "Timeline/ParameterView"
   ],
   "Timeline/ParameterView": [
+    "DialControl/ViewMotionStudio",
     "Timeline/MotionStudio"
+  ],
+  "Timeline/Keyframe": [
+    "Timeline/Keyframe",
+    "Timeline/Parameter"
   ],
   "AllegroFlare/Placement2D": [
     "Timeline/MotionStudio"
