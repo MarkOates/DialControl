@@ -216,18 +216,18 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
          {
             switch(current_event.keyboard.keycode)
             {
-               case ALLEGRO_KEY_N:
-               {
-                  camera_studio.set_current_camera_to_next_camera();
-               } break;
-               case ALLEGRO_KEY_P:
-               {
-                  camera_studio.set_current_camera_to_previous_camera();
-               } break;
-               case ALLEGRO_KEY_X: // X for "export"?
-               {
-                  std::cout << camera_studio.build_json_dump() << std::endl;
-               } break;
+               //case ALLEGRO_KEY_N:
+               //{
+                  //camera_studio.set_current_camera_to_next_camera();
+               //} break;
+               //case ALLEGRO_KEY_P:
+               //{
+                  //camera_studio.set_current_camera_to_previous_camera();
+               //} break;
+               //case ALLEGRO_KEY_X: // X for "export"?
+               //{
+                  //std::cout << camera_studio.build_json_dump() << std::endl;
+               //} break;
                case ALLEGRO_KEY_L:
                {
                   camera_studio.load_json(cameras_json_string); // BROKEN. TODO: Fix

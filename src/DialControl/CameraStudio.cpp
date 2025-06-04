@@ -227,6 +227,9 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
 
    AllegroFlare::KeyboardCommandMapper mapper;
 
+
+   // Camera movement controls
+
    mapper.set_mapping(ALLEGRO_KEY_W, 0, { "position_z_minus" });
    mapper.set_mapping(ALLEGRO_KEY_S, 0, { "position_z_plus" });
    mapper.set_mapping(ALLEGRO_KEY_A, 0, { "position_x_minus" });
@@ -237,7 +240,6 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_FULLSTOP, 0, { "shift_right" });
    mapper.set_mapping(ALLEGRO_KEY_J, 0, { "shift_up" });
    mapper.set_mapping(ALLEGRO_KEY_M, 0, { "shift_down" });
-   mapper.set_mapping(ALLEGRO_KEY_H, 0, { "toggle_camera_info_overlay_visibility" });
 
    mapper.set_mapping(ALLEGRO_KEY_UP, 0, { "up" });
    mapper.set_mapping(ALLEGRO_KEY_DOWN, 0, { "down" });
@@ -252,6 +254,15 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_6, COMMAND, { "dial_3_right" });
    mapper.set_mapping(ALLEGRO_KEY_7, COMMAND, { "dial_4_left" });
    mapper.set_mapping(ALLEGRO_KEY_8, COMMAND, { "dial_4_right" });
+
+   // UI Controls
+
+   mapper.set_mapping(ALLEGRO_KEY_H, 0, { "toggle_camera_info_overlay_visibility" });
+   mapper.set_mapping(ALLEGRO_KEY_N, 0, { "set_current_camera_to_next_camera" });
+   mapper.set_mapping(ALLEGRO_KEY_P, 0, { "set_current_camera_to_previous_camera" });
+   mapper.set_mapping(ALLEGRO_KEY_X, 0, { "dump_json_to_cout" });
+   //mapper.set_mapping(ALLEGRO_KEY_L, 0, { "load_json_string" });
+
 
 
    float dial_increment = 1.0 / 32;
@@ -290,6 +301,9 @@ void CameraStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "dial_4_right") current_camera->stepout.z += 1.0;
 
       else if (command == "toggle_camera_info_overlay_visibility") toggle_camera_info_overlay_visibility();
+      else if (command == "set_current_camera_to_next_camera") set_current_camera_to_next_camera();
+      else if (command == "set_current_camera_to_previous_camera") set_current_camera_to_previous_camera();
+      else if (command == "dump_json_to_cout") std::cout << build_json_dump() << std::endl;
 
       else
       {
