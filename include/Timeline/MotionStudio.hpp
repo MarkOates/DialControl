@@ -75,6 +75,7 @@ namespace Timeline
       void next_keyframe();
       void previous_keyframe();
       void add_keyframe();
+      void remove_keyframe();
       void next_parameter_view();
       void previous_parameter_view();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);

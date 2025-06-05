@@ -4,6 +4,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <Timeline/Parameter.hpp>
 #include <allegro5/allegro.h>
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <string>
@@ -62,6 +63,8 @@ namespace Timeline
       void set_as_focused();
       void set_as_unfocused();
       void add_keyframe(float time=0.0f, float value=0.0f, std::function<float(float)> interpolator_func={});
+      bool remove_keyframe_at_index(std::size_t index=0);
+      bool remove_keyframe_at_focused_keyframe_idx();
       void move_keyframe_value(float delta=0.0f);
       void move_keyframe_time(float delta=0.0f, float keyframe_max_time=120.0f);
       void next_keyframe(bool wrap=false);

@@ -94,7 +94,7 @@ void ViewMotionStudio::initialize()
          build_parameter_views_for_parameters(
             font_bin,
             &motion_studio.get_parameters_ref(),
-            10
+            12
          )
       );
 

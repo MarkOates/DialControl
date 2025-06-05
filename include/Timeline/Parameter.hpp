@@ -3,6 +3,7 @@
 
 #include <Timeline/Keyframe.hpp>
 #include <Timeline/Parameter.hpp>
+#include <cstddef>
 #include <functional>
 #include <string>
 #include <vector>
@@ -32,6 +33,7 @@ namespace Timeline
 
       static Timeline::Parameter build(std::string name="[unset-name]", float* parameter=nullptr, std::vector<Timeline::Keyframe> keyframes={}, float initial_value=0.0f);
       void add_keyframe(double time=0.0, float value=0.0f, std::function<float(float)> interpolator_func={});
+      bool remove_keyframe_at_index(std::size_t index=0);
       float value_at(double position=0.0);
    };
 }

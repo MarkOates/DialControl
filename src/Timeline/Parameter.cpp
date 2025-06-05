@@ -54,6 +54,15 @@ void Parameter::add_keyframe(double time, float value, std::function<float(float
    return;
 }
 
+bool Parameter::remove_keyframe_at_index(std::size_t index)
+{
+   if (index < keyframes.size()) {
+       keyframes.erase(keyframes.begin() + index);
+       return true;
+   }
+   return false;
+}
+
 float Parameter::value_at(double position)
 {
    if (!(parameter))

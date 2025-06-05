@@ -266,7 +266,7 @@ void MotionStudio::toggle_playback()
 
 void MotionStudio::update_playback()
 {
-   // TODO: pass in time duration
+   // TODO: pass in time duration (do later)
    if (playing) playhead += 1.0 * playback_speed;
    return;
 }
@@ -317,6 +317,12 @@ void MotionStudio::previous_keyframe()
 void MotionStudio::add_keyframe()
 {
    parameter_views[parameter_view_idx].add_keyframe(playhead, 0.0, {});
+   return;
+}
+
+void MotionStudio::remove_keyframe()
+{
+   parameter_views[parameter_view_idx].remove_keyframe_at_focused_keyframe_idx();
    return;
 }
 
@@ -409,6 +415,7 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_A, 0, { "add_keyframe" });
    mapper.set_mapping(ALLEGRO_KEY_N, 0, { "next_keyframe" });
    mapper.set_mapping(ALLEGRO_KEY_P, 0, { "previous_keyframe" });
+   mapper.set_mapping(ALLEGRO_KEY_X, 0, { "remove_keyframe" });
 
 
    // Obtain commands from the current key input
@@ -436,6 +443,7 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
 
       else if (command == "next_keyframe") next_keyframe();
       else if (command == "add_keyframe") add_keyframe();
+      else if (command == "remove_keyframe") remove_keyframe();
       else if (command == "previous_keyframe") previous_keyframe();
 
       else

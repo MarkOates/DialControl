@@ -99,6 +99,20 @@ methods:
       return;
 
 
+  - name: remove_keyframe_at_index
+    type: bool
+    parameters:
+      - name: index
+        type: std::size_t
+        default_argument: 0
+    body: |
+      if (index < keyframes.size()) {
+          keyframes.erase(keyframes.begin() + index);
+          return true;
+      }
+      return false;
+
+
   - name: value_at
     type: float
     parameters:

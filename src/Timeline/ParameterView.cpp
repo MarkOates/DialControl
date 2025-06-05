@@ -150,6 +150,48 @@ void ParameterView::add_keyframe(float time, float value, std::function<float(fl
    return;
 }
 
+bool ParameterView::remove_keyframe_at_index(std::size_t index)
+{
+   if (!track) return false;
+
+   bool removed = track->remove_keyframe_at_index(index);
+   if (!removed) return false;
+
+   int num_keyframes_now = static_cast<int>(track->keyframes.size());
+
+   if (num_keyframes_now == 0)
+   {
+       focused_keyframe_idx = 0;
+   }
+   else
+   {
+       std::size_t previously_focused_szt = static_cast<std::size_t>(focused_keyframe_idx);
+
+       if (previously_focused_szt == index) {
+           if (static_cast<std::size_t>(focused_keyframe_idx) >= num_keyframes_now) {
+               focused_keyframe_idx = num_keyframes_now - 1;
+           }
+       } else if (previously_focused_szt > index) {
+           focused_keyframe_idx--;
+       }
+
+       if (focused_keyframe_idx < 0) {
+          focused_keyframe_idx = 0;
+       }
+   }
+
+   for (int i = 0; i < num_keyframes_now; ++i) {
+       track->keyframes[i].set_focused(i == focused_keyframe_idx);
+   }
+
+   return true;
+}
+
+bool ParameterView::remove_keyframe_at_focused_keyframe_idx()
+{
+   return remove_keyframe_at_index(focused_keyframe_idx);
+}
+
 void ParameterView::move_keyframe_value(float delta)
 {
    if (!track) return;
