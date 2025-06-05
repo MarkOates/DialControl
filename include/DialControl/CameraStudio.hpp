@@ -6,6 +6,7 @@
 #include <AllegroFlare/FontBin.hpp>
 #include <DialControl/CameraInfo.hpp>
 #include <allegro5/allegro.h>
+#include <lib/nlohmann/json.hpp>
 #include <string>
 #include <vector>
 
@@ -52,6 +53,7 @@ namespace DialControl
       void set_current_camera_to_previous_camera();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);
       std::string build_json_dump();
+      nlohmann::json build_json();
       void load_json(std::string json_string="[unset-json_string]");
    };
 }

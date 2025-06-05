@@ -4,7 +4,12 @@
 
 #include <AllegroFlare/KeyboardCommandMapper.hpp>
 #include <AllegroFlare/Placement2D.hpp>
+#include <Timeline/JSONLoaders/Timeline/Parameter.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <iostream>
+#include <lib/nlohmann/json.hpp>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace Timeline
@@ -437,6 +442,7 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_P, 0, { "previous_keyframe" });
    mapper.set_mapping(ALLEGRO_KEY_X, 0, { "remove_keyframe" });
    mapper.set_mapping(ALLEGRO_KEY_H, 0, { "toggle_timeline_visibility" });
+   mapper.set_mapping(ALLEGRO_KEY_X, 0, { "dump_json_to_cout" });
 
 
    // Obtain commands from the current key input
@@ -467,6 +473,7 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "remove_keyframe") remove_keyframe();
       else if (command == "previous_keyframe") previous_keyframe();
       else if (command == "toggle_timeline_visibility") toggle_timeline_visibility();
+      else if (command == "dump_json_to_cout") std::cout << build_json_dump() << std::endl;
 
       else
       {
@@ -538,6 +545,77 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
       }
    }
    */
+
+   return;
+}
+
+std::vector<Timeline::ParameterView> MotionStudio::build_parameter_views_for_parameters(AllegroFlare::FontBin* font_bin, std::vector<Timeline::Parameter>* p, float height)
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[Timeline::MotionStudio::build_parameter_views_for_parameters]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[Timeline::MotionStudio::build_parameter_views_for_parameters]: error: guard \"font_bin\" not met");
+   }
+   std::vector<Timeline::ParameterView> result;
+   int x = 400;
+   int y = 100;
+   //int yd = 100;
+   int i = 0;
+   //float height = Timeline::ParameterView::DEFAULT_HEIGHT;
+   //int yd = height;
+   for (auto &pp : *p)
+   {
+      result.push_back(Timeline::ParameterView(font_bin, pp.name, &pp)); // HERE
+      result.back().set_height(height);
+      i++;
+   }
+   return result;
+}
+
+std::string MotionStudio::build_json_dump()
+{
+   nlohmann::json j;
+   j["parameters"] = parameters;
+   return j.dump(2);
+}
+
+nlohmann::json MotionStudio::build_json()
+{
+   nlohmann::json j;
+   j["parameters"] = parameters;
+   return j;
+}
+
+void MotionStudio::load_json(std::string json_string)
+{
+   nlohmann::json j = nlohmann::json::parse(json_string); // TODO: Consider moving this into a TRY block (later)
+
+   if (j.contains("parameters") && j["parameters"].is_array())
+   {
+      // Set all the cameras to the camera values in the JSON array
+      parameters = j["parameters"].get<std::vector<Timeline::Parameter>>();
+
+      // Output some debugging info
+      bool output_debug_info = false;
+      if (output_debug_info)
+      {
+         std::cout << "- " << std::endl;
+         for (int i=0; i<parameters.size(); i++)
+         {
+            std::cout << " parameter " << i << ": " << std::endl;
+            std::cout << "       name: \"" << parameters[i].name << "\"" << std::endl;
+         }
+      }
+
+      // Refresh the interface
+      // TODO: HERE
+   }
+   else
+   {
+      throw std::runtime_error("Expected key \"parameters\" with an array value in JSON");
+   }
 
    return;
 }

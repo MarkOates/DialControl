@@ -74,6 +74,7 @@ std::vector<Timeline::Parameter> build_parameters_for_music_elements(MusicElemen
 
 
 
+/*
 std::vector<Timeline::ParameterView> build_parameter_views_for_parameters(
    AllegroFlare::FontBin *font_bin, 
    std::vector<Timeline::Parameter> *p,
@@ -95,6 +96,7 @@ std::vector<Timeline::ParameterView> build_parameter_views_for_parameters(
    }
    return result;
 }
+*/
 
 
 
@@ -125,7 +127,7 @@ TEST_F(Timeline_MotionStudioTestWithInteractionFixture,
    //motion_studio.set_parameters(build_parameters_for_music_elements(music_elements));
    motion_studio.set_parameters(build_parameters_for_placement3D(placement));
    motion_studio.set_parameter_views(
-         build_parameter_views_for_parameters(
+         motion_studio.build_parameter_views_for_parameters(
             &get_font_bin_ref(),
             &motion_studio.get_parameters_ref()
          )
@@ -198,7 +200,7 @@ TEST_F(Timeline_MotionStudioTestWithInteractionFixture,
    motion_studio.set_parameters(build_parameters_for_music_elements(music_elements));
    //motion_studio.set_parameters(build_parameters_for_placement3D(placement));
    motion_studio.set_parameter_views(
-         build_parameter_views_for_parameters(
+         motion_studio.build_parameter_views_for_parameters(
             &get_font_bin_ref(),
             &motion_studio.get_parameters_ref(),
             120

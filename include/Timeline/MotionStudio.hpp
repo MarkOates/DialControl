@@ -1,10 +1,13 @@
 #pragma once
 
 
+#include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <Timeline/Parameter.hpp>
 #include <Timeline/ParameterView.hpp>
 #include <allegro5/allegro.h>
+#include <lib/nlohmann/json.hpp>
+#include <string>
 #include <vector>
 
 
@@ -81,6 +84,10 @@ namespace Timeline
       void next_parameter_view();
       void previous_parameter_view();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);
+      std::vector<Timeline::ParameterView> build_parameter_views_for_parameters(AllegroFlare::FontBin* font_bin=nullptr, std::vector<Timeline::Parameter>* p=nullptr, float height=Timeline::ParameterView::DEFAULT_HEIGHT);
+      std::string build_json_dump();
+      nlohmann::json build_json();
+      void load_json(std::string json_string="[unset-json_string]");
    };
 }
 

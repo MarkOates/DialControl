@@ -48,13 +48,15 @@ namespace DialControl
       Timeline::MotionStudio &get_motion_studio_ref();
       void initialize();
       void build_parameters_for_camera_1();
-      std::vector<Timeline::ParameterView> build_parameter_views_for_parameters(AllegroFlare::FontBin* font_bin=nullptr, std::vector<Timeline::Parameter>* p=nullptr, float height=Timeline::ParameterView::DEFAULT_HEIGHT);
+      void link_camera_1_to_parameters();
+      std::vector<Timeline::ParameterView> xxbuild_parameter_views_for_parameters(AllegroFlare::FontBin* font_bin=nullptr, std::vector<Timeline::Parameter>* p=nullptr, float height=Timeline::ParameterView::DEFAULT_HEIGHT);
       void update();
       void setup_camera_projection_on_live_camera();
       void toggle_control_state();
       void render_hud();
       void on_key_down(ALLEGRO_EVENT* event=nullptr);
       void load_json(std::string json_string="[unset-json_string]");
+      std::string build_json_string();
       void set_control_state(uint32_t control_state=STATE_UNDEF, bool override_if_busy=false);
       std::string get_control_state_string(uint32_t control_state=STATE_UNDEF);
       static bool is_valid_control_state(uint32_t control_state=STATE_UNDEF);

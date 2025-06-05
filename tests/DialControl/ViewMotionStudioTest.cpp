@@ -17,7 +17,317 @@ TEST(DialControl_ViewMotionStudioTest, can_be_created_without_blowing_up)
 
 
 
+
 const std::string cameras_json_string = R"({
+  "cameras": [
+    {
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": true,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": true,
+      "stepout": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 16.0
+      },
+      "tilt": 0.0,
+      "tilt_in_unit_values": true,
+      "zoom": 1.0
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.10000000149011612,
+      "position": {
+        "x": -1.5,
+        "y": 0.0,
+        "z": -0.25
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.5,
+        "y": 0.75,
+        "z": 14.0
+      },
+      "tilt": 0.0,
+      "tilt_in_unit_values": false,
+      "zoom": 3.25
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.10000000149011612,
+      "position": {
+        "x": -1.5,
+        "y": 0.0,
+        "z": 0.5
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.5,
+        "y": 0.75,
+        "z": 92.0
+      },
+      "tilt": 0.5,
+      "tilt_in_unit_values": false,
+      "zoom": 22.75
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.125,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.5,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.25,
+        "y": 0.75,
+        "z": 3.0
+      },
+      "tilt": 0.25,
+      "tilt_in_unit_values": false,
+      "zoom": 1.875
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.125,
+      "position": {
+        "x": -1.25,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": -0.625,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.25,
+        "y": 0.25,
+        "z": 3.0
+      },
+      "tilt": 0.125,
+      "tilt_in_unit_values": false,
+      "zoom": 2.75
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": true,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": true,
+      "stepout": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 20.0
+      },
+      "tilt": 0.09375,
+      "tilt_in_unit_values": true,
+      "zoom": 4.0
+    }
+  ],
+  "parameters": [
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.z"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 16.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.z"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [
+        {
+          "focused": false,
+          "time": 1.0833332538604736,
+          "value": -0.20000001788139343
+        },
+        {
+          "focused": false,
+          "time": 2.51666522026062,
+          "value": 0.0
+        }
+      ],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "spin"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [
+        {
+          "focused": false,
+          "time": 1.0166652202606201,
+          "value": 0.10000000149011612
+        },
+        {
+          "focused": false,
+          "time": 3.149996519088745,
+          "value": 0.0
+        }
+      ],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "tilt"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "roll"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 1.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "zoom"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "shift.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "shift.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 1.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "near plane"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 100.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "far plane"
+    }
+  ]
+})";
+
+
+
+
+
+const std::string cameras_json_string_x = R"({
   "cameras": [
     {
       "far_plane": 200.0,
@@ -168,6 +478,134 @@ const std::string cameras_json_string = R"({
       "tilt": 0.09375,
       "tilt_in_unit_values": true,
       "zoom": 4.0
+    }
+  ],
+  "parameters": [
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.z"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 16.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.z"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "spin"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "tilt"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "roll"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 1.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "zoom"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "shift.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "shift.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 1.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "near plane"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 100.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "far plane"
     }
   ]
 })";
@@ -535,10 +973,10 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
                {
                   std::cout << camera_studio.build_json_dump() << std::endl;
                } break;
-               case ALLEGRO_KEY_L:
-               {
-                  camera_studio.load_json(cameras_json_string); // BROKEN. TODO: Fix
-               } break;
+               //case ALLEGRO_KEY_L:
+               //{
+                  //camera_studio.load_json(cameras_json_string); // BROKEN. TODO: Fix
+               //} break;
                default:
                {
                   camera_studio.on_key_down(&current_event);

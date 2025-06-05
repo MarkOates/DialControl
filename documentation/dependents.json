@@ -22,6 +22,7 @@
     "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen",
     "DialControl/ViewMotionStudio",
+    "Timeline/MotionStudio",
     "Timeline/ParameterView",
     "Timeline/ParameterView"
   ],
@@ -64,10 +65,12 @@
     "DialControl/CameraStudio"
   ],
   "nlohmann/json": [
-    "DialControl/CameraStudio"
+    "DialControl/CameraStudio",
+    "Timeline/MotionStudio"
   ],
   "AllegroFlare/JSONLoaders/AllegroFlare/Camera3D": [
-    "DialControl/CameraStudio"
+    "DialControl/CameraStudio",
+    "Timeline/MotionStudio"
   ],
   "DialControl/CameraInfo": [
     "DialControl/CameraStudio"
@@ -226,6 +229,9 @@
   "AllegroFlare/Logger": [
     "DialControl/ViewMotionStudio"
   ],
+  "AllegroFlare/php": [
+    "DialControl/ViewMotionStudio"
+  ],
   "Timeline/Keyframe": [
     "Timeline/Keyframe",
     "Timeline/Parameter"
@@ -234,6 +240,9 @@
     "Timeline/MotionStudio"
   ],
   "al_draw_line": [
+    "Timeline/MotionStudio"
+  ],
+  "Timeline/JSONLoaders/Timeline/Parameter": [
     "Timeline/MotionStudio"
   ],
   ":AllegroFlare/Camera3D": [

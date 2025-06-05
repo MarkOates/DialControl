@@ -259,6 +259,17 @@ methods:
       - AllegroFlare::JSONLoaders::AllegroFlare::Camera3D
 
 
+  - name: build_json
+    type: nlohmann::json
+    body: |
+      nlohmann::json j;
+      j["cameras"] = cameras;
+      return j;
+    body_dependency_symbols:
+      - nlohmann::json
+      - AllegroFlare::JSONLoaders::AllegroFlare::Camera3D
+
+
   - name: load_json
     parameters:
       - name: json_string

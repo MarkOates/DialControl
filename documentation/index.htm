@@ -353,6 +353,10 @@ table td
   <td class="method"><b>build_json_dump</b>()</td>
 </tr>
 <tr>
+  <td class="method">nlohmann::json</td>
+  <td class="method"><b>build_json</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>load_json</b>(std::string json_string=&quot;[unset-json_string]&quot;)</td>
 </tr>
@@ -944,8 +948,12 @@ table td
   <td class="method"><b>build_parameters_for_camera_1</b>()</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>link_camera_1_to_parameters</b>()</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;Timeline::ParameterView&gt;</td>
-  <td class="method"><b>build_parameter_views_for_parameters</b>(AllegroFlare::FontBin* font_bin=nullptr, std::vector&lt;Timeline::Parameter&gt;* p=nullptr, float height=Timeline::ParameterView::DEFAULT_HEIGHT)</td>
+  <td class="method"><b>xxbuild_parameter_views_for_parameters</b>(AllegroFlare::FontBin* font_bin=nullptr, std::vector&lt;Timeline::Parameter&gt;* p=nullptr, float height=Timeline::ParameterView::DEFAULT_HEIGHT)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -970,6 +978,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>load_json</b>(std::string json_string=&quot;[unset-json_string]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_json_string</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -1031,6 +1043,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;DialControl::CameraInfoOverlay&quot;, &quot;headers&quot;=&gt;[&quot;DialControl/CameraInfoOverlay.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::php&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1206,6 +1221,22 @@ table td
   <td class="method">void</td>
   <td class="method"><b>on_key_down</b>(ALLEGRO_EVENT* event=nullptr)</td>
 </tr>
+<tr>
+  <td class="method">std::vector&lt;Timeline::ParameterView&gt;</td>
+  <td class="method"><b>build_parameter_views_for_parameters</b>(AllegroFlare::FontBin* font_bin=nullptr, std::vector&lt;Timeline::Parameter&gt;* p=nullptr, float height=Timeline::ParameterView::DEFAULT_HEIGHT)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_json_dump</b>()</td>
+</tr>
+<tr>
+  <td class="method">nlohmann::json</td>
+  <td class="method"><b>build_json</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load_json</b>(std::string json_string=&quot;[unset-json_string]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -1226,6 +1257,18 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_line&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::JSONLoaders::Timeline::Parameter&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/JSONLoaders/Timeline/Parameter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -1526,6 +1569,7 @@ table td
     "DialControl/CameraStudio",
     "DialControl/Gameplay/Screen",
     "DialControl/ViewMotionStudio",
+    "Timeline/MotionStudio",
     "Timeline/ParameterView",
     "Timeline/ParameterView"
   ],
@@ -1568,10 +1612,12 @@ table td
     "DialControl/CameraStudio"
   ],
   "nlohmann/json": [
-    "DialControl/CameraStudio"
+    "DialControl/CameraStudio",
+    "Timeline/MotionStudio"
   ],
   "AllegroFlare/JSONLoaders/AllegroFlare/Camera3D": [
-    "DialControl/CameraStudio"
+    "DialControl/CameraStudio",
+    "Timeline/MotionStudio"
   ],
   "DialControl/CameraInfo": [
     "DialControl/CameraStudio"
@@ -1730,6 +1776,9 @@ table td
   "AllegroFlare/Logger": [
     "DialControl/ViewMotionStudio"
   ],
+  "AllegroFlare/php": [
+    "DialControl/ViewMotionStudio"
+  ],
   "Timeline/Keyframe": [
     "Timeline/Keyframe",
     "Timeline/Parameter"
@@ -1738,6 +1787,9 @@ table td
     "Timeline/MotionStudio"
   ],
   "al_draw_line": [
+    "Timeline/MotionStudio"
+  ],
+  "Timeline/JSONLoaders/Timeline/Parameter": [
     "Timeline/MotionStudio"
   ],
   ":AllegroFlare/Camera3D": [

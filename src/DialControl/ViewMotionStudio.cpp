@@ -3,6 +3,7 @@
 #include <DialControl/ViewMotionStudio.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 #include <DialControl/CameraInfoOverlay.hpp>
 #include <Timeline/ParameterMappings/AllegroFlare/Camera3D.hpp>
 #include <iostream>
@@ -125,17 +126,68 @@ void ViewMotionStudio::build_parameters_for_camera_1()
       //build_parameters_for_placement3D(placement)
       Timeline::ParameterMappings::AllegroFlare::Camera3D::build_parameters(&camera_1)
    );
+   //setup_parameter_views_for_parameters();
    motion_studio.set_parameter_views(
-         build_parameter_views_for_parameters(
+         motion_studio.build_parameter_views_for_parameters(
             font_bin,
             &motion_studio.get_parameters_ref(),
             12
          )
       );
+   //motion_studio.set_parameter_views(
+         //motion_studio.build_parameter_views_for_parameters(
+            //font_bin,
+            //&motion_studio.get_parameters_ref(),
+            //12
+         //)
+      //);
    return;
 }
 
-std::vector<Timeline::ParameterView> ViewMotionStudio::build_parameter_views_for_parameters(AllegroFlare::FontBin* font_bin, std::vector<Timeline::Parameter>* p, float height)
+void ViewMotionStudio::link_camera_1_to_parameters()
+{
+   AllegroFlare::Camera3D &camera_1 = *camera_studio.get_current_camera();
+
+   for (auto &p : motion_studio.get_parameters_ref())
+   {
+      if (p.name.empty()) throw std::runtime_error("unrecognized param \"" + p.name + "\"");
+
+      else if (p.name == "near plane") p.parameter = &camera_1.near_plane;
+      else if (p.name == "far plane") p.parameter = &camera_1.far_plane;
+
+      else if (p.name == "position.x") p.parameter = &camera_1.position.x;
+      else if (p.name == "position.y") p.parameter = &camera_1.position.y;
+      else if (p.name == "position.z") p.parameter = &camera_1.position.z;
+
+      else if (p.name == "stepout.x") p.parameter = &camera_1.stepout.x;
+      else if (p.name == "stepout.y") p.parameter = &camera_1.stepout.y;
+      else if (p.name == "stepout.z") p.parameter = &camera_1.stepout.z;
+
+      else if (p.name == "shift.x") p.parameter = &camera_1.shift.x;
+      else if (p.name == "shift.y") p.parameter = &camera_1.shift.y;
+
+      else if (p.name == "spin") p.parameter = &camera_1.spin;
+      else if (p.name == "tilt") p.parameter = &camera_1.tilt;
+      else if (p.name == "roll") p.parameter = &camera_1.roll;
+
+      else if (p.name == "zoom") p.parameter = &camera_1.zoom;
+
+      else throw std::runtime_error("unaccounted for param \"" + p.name + "\"");
+   }
+
+   //setup_parameter_views_for_parameters();
+   motion_studio.set_parameter_views(
+         motion_studio.build_parameter_views_for_parameters(
+            font_bin,
+            &motion_studio.get_parameters_ref(),
+            12
+         )
+      );
+
+   return;
+}
+
+std::vector<Timeline::ParameterView> ViewMotionStudio::xxbuild_parameter_views_for_parameters(AllegroFlare::FontBin* font_bin, std::vector<Timeline::Parameter>* p, float height)
 {
    std::vector<Timeline::ParameterView> result;
    int x = 400;
@@ -225,9 +277,25 @@ void ViewMotionStudio::on_key_down(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[DialControl::ViewMotionStudio::on_key_down]: error: guard \"initialized\" not met");
    }
+   // TODO: Fix these paths
+   std::string filename_load = "tests/fixtures/animations/camera_move_1-0n.txt";
+   std::string filename_save = "tests/fixtures/animations/camera_move_1-0n_output.txt";
+
    if (event->keyboard.keycode == ALLEGRO_KEY_TAB)
    {
       toggle_control_state();
+   }
+   else if (event->keyboard.keycode == ALLEGRO_KEY_X)
+   {
+      std::cout << "saving json to " << filename_save << std::endl;
+      std::string file_content = build_json_string();
+      AllegroFlare::php::file_put_contents(filename_save, file_content);
+   }
+   else if (event->keyboard.keycode == ALLEGRO_KEY_L)
+   {
+      std::cout << "loading json" << std::endl;
+      std::string file_content = AllegroFlare::php::file_get_contents(filename_load);
+      load_json(file_content);
    }
    else
    {
@@ -243,11 +311,24 @@ void ViewMotionStudio::on_key_down(ALLEGRO_EVENT* event)
 
 void ViewMotionStudio::load_json(std::string json_string)
 {
-   // 1) load the json
+   // 1) load the camera json
    camera_studio.load_json(json_string);
 
-   build_parameters_for_camera_1();
+   motion_studio.load_json(json_string);
+
+   link_camera_1_to_parameters();
    return;
+}
+
+std::string ViewMotionStudio::build_json_string()
+{
+   // 1) load the camera json
+   auto cj = camera_studio.build_json();
+   auto mj = motion_studio.build_json();
+   //motion_studio.load_json(json_string);
+   //link_camera_1_to_parameters();
+   cj.update(mj);
+   return cj.dump(2);
 }
 
 void ViewMotionStudio::set_control_state(uint32_t control_state, bool override_if_busy)

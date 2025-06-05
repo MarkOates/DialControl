@@ -1,0 +1,337 @@
+{
+  "cameras": [
+    {
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -5.799996852874756
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": true,
+      "shift": {
+        "x": 0.0,
+        "y": 0.3999999761581421
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": true,
+      "stepout": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 16.0
+      },
+      "tilt": 0.0,
+      "tilt_in_unit_values": true,
+      "zoom": 3.2999989986419678
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.10000000149011612,
+      "position": {
+        "x": -1.5,
+        "y": 0.0,
+        "z": -0.25
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.5,
+        "y": 0.75,
+        "z": 14.0
+      },
+      "tilt": 0.0,
+      "tilt_in_unit_values": false,
+      "zoom": 3.25
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.10000000149011612,
+      "position": {
+        "x": -1.5,
+        "y": 0.0,
+        "z": 0.5
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.5,
+        "y": 0.75,
+        "z": 92.0
+      },
+      "tilt": 0.5,
+      "tilt_in_unit_values": false,
+      "zoom": 22.75
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.125,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.5,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.25,
+        "y": 0.75,
+        "z": 3.0
+      },
+      "tilt": 0.25,
+      "tilt_in_unit_values": false,
+      "zoom": 1.875
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 0.125,
+      "position": {
+        "x": -1.25,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": false,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": -0.625,
+      "spin_in_unit_values": false,
+      "stepout": {
+        "x": 1.25,
+        "y": 0.25,
+        "z": 3.0
+      },
+      "tilt": 0.125,
+      "tilt_in_unit_values": false,
+      "zoom": 2.75
+    },
+    {
+      "far_plane": 100.0,
+      "near_plane": 1.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -1.0
+      },
+      "roll": 0.0,
+      "roll_in_unit_values": true,
+      "shift": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "spin": 0.0,
+      "spin_in_unit_values": true,
+      "stepout": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 20.0
+      },
+      "tilt": 0.09375,
+      "tilt_in_unit_values": true,
+      "zoom": 4.0
+    }
+  ],
+  "parameters": [
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [
+        {
+          "focused": false,
+          "time": 0.0,
+          "value": 0.0
+        },
+        {
+          "focused": true,
+          "time": 9.216697692871094,
+          "value": -5.799996852874756
+        }
+      ],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "position.z"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 16.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "stepout.z"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [
+        {
+          "focused": false,
+          "time": 0.0,
+          "value": -0.20000001788139343
+        },
+        {
+          "focused": true,
+          "time": 2.51666522026062,
+          "value": 0.0
+        }
+      ],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "spin"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [
+        {
+          "focused": false,
+          "time": 1.0166652202606201,
+          "value": 0.10000000149011612
+        },
+        {
+          "focused": true,
+          "time": 4.249995708465576,
+          "value": 0.0
+        }
+      ],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "tilt"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "roll"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 1.0,
+      "keyframes": [
+        {
+          "focused": false,
+          "time": 0.0,
+          "value": 1.0
+        },
+        {
+          "focused": true,
+          "time": 4.283333778381348,
+          "value": 3.2999989986419678
+        }
+      ],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "zoom"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "shift.x"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 0.0,
+      "keyframes": [
+        {
+          "focused": false,
+          "time": 0.0,
+          "value": 0.0
+        },
+        {
+          "focused": true,
+          "time": 5.450004577636719,
+          "value": 0.3999999761581421
+        }
+      ],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "shift.y"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 1.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "near plane"
+    },
+    {
+      "has_max_value": false,
+      "has_min_value": false,
+      "initial_value": 100.0,
+      "keyframes": [],
+      "max_value": 1.0,
+      "min_value": 0.0,
+      "name": "far plane"
+    }
+  ]
+}

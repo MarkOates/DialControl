@@ -321,6 +321,13 @@ std::string CameraStudio::build_json_dump()
    return j.dump(2);
 }
 
+nlohmann::json CameraStudio::build_json()
+{
+   nlohmann::json j;
+   j["cameras"] = cameras;
+   return j;
+}
+
 void CameraStudio::load_json(std::string json_string)
 {
    nlohmann::json j = nlohmann::json::parse(json_string); // TODO: Consider moving this into a TRY block

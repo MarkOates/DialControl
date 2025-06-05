@@ -316,6 +316,7 @@ methods:
       mapper.set_mapping(ALLEGRO_KEY_P, 0, { "previous_keyframe" });
       mapper.set_mapping(ALLEGRO_KEY_X, 0, { "remove_keyframe" });
       mapper.set_mapping(ALLEGRO_KEY_H, 0, { "toggle_timeline_visibility" });
+      mapper.set_mapping(ALLEGRO_KEY_X, 0, { "dump_json_to_cout" });
 
 
       // Obtain commands from the current key input
@@ -346,6 +347,7 @@ methods:
          else if (command == "remove_keyframe") remove_keyframe();
          else if (command == "previous_keyframe") previous_keyframe();
          else if (command == "toggle_timeline_visibility") toggle_timeline_visibility();
+         else if (command == "dump_json_to_cout") std::cout << build_json_dump() << std::endl;
 
          else
          {
@@ -423,6 +425,97 @@ methods:
       - AllegroFlare::KeyboardCommandMapper
 
 
+  - name: build_parameter_views_for_parameters
+    type: std::vector<Timeline::ParameterView>
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+      - name: p
+        type: std::vector<Timeline::Parameter>*
+        default_argument: nullptr
+      - name: height
+        type: float
+        default_argument: Timeline::ParameterView::DEFAULT_HEIGHT
+    guards: [ font_bin ]
+    body: |
+       std::vector<Timeline::ParameterView> result;
+       int x = 400;
+       int y = 100;
+       //int yd = 100;
+       int i = 0;
+       //float height = Timeline::ParameterView::DEFAULT_HEIGHT;
+       //int yd = height;
+       for (auto &pp : *p)
+       {
+          result.push_back(Timeline::ParameterView(font_bin, pp.name, &pp)); // HERE
+          result.back().set_height(height);
+          i++;
+       }
+       return result;
+
+
+  - name: build_json_dump
+    type: std::string
+    body: |
+      nlohmann::json j;
+      j["parameters"] = parameters;
+      return j.dump(2);
+    body_dependency_symbols:
+      - nlohmann::json
+      - Timeline::JSONLoaders::Timeline::Parameter
+
+
+  - name: build_json
+    type: nlohmann::json
+    body: |
+      nlohmann::json j;
+      j["parameters"] = parameters;
+      return j;
+    body_dependency_symbols:
+      - nlohmann::json
+      - Timeline::JSONLoaders::Timeline::Parameter
+
+
+  - name: load_json
+    parameters:
+      - name: json_string
+        type: std::string
+        default_argument: '"[unset-json_string]"'
+    body: |
+      nlohmann::json j = nlohmann::json::parse(json_string); // TODO: Consider moving this into a TRY block (later)
+
+      if (j.contains("parameters") && j["parameters"].is_array())
+      {
+         // Set all the cameras to the camera values in the JSON array
+         parameters = j["parameters"].get<std::vector<Timeline::Parameter>>();
+
+         // Output some debugging info
+         bool output_debug_info = false;
+         if (output_debug_info)
+         {
+            std::cout << "- " << std::endl;
+            for (int i=0; i<parameters.size(); i++)
+            {
+               std::cout << " parameter " << i << ": " << std::endl;
+               std::cout << "       name: \"" << parameters[i].name << "\"" << std::endl;
+            }
+         }
+
+         // Refresh the interface
+         // TODO: HERE
+      }
+      else
+      {
+         throw std::runtime_error("Expected key \"parameters\" with an array value in JSON");
+      }
+
+      return;
+    body_dependency_symbols:
+      - nlohmann::json
+      - Timeline::JSONLoaders::Timeline::Parameter
+
+
 dependencies:
 
 
@@ -438,5 +531,13 @@ dependencies:
     headers: [ AllegroFlare/Placement2D.hpp ]
   - symbol: al_draw_line
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: nlohmann::json
+    headers: [ lib/nlohmann/json.hpp ]
+  - symbol: Timeline::JSONLoaders::Timeline::Parameter
+    headers: [ Timeline/JSONLoaders/Timeline/Parameter.hpp ]
+  - symbol: AllegroFlare::JSONLoaders::AllegroFlare::Camera3D
+    headers: [ AllegroFlare/JSONLoaders/AllegroFlare/Camera3D.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
 
 
