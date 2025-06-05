@@ -353,6 +353,8 @@ void ParameterView::render()
    ALLEGRO_FONT *track_label_font = obtain_track_label_font();
    int track_label_font_line_height = al_get_font_line_height(track_label_font);
    float y_scale = height;
+   float y_label_offset = 0; // was 4
+   float y_align = 0.5; // was 1
    float x_label_offset = -100;
    ALLEGRO_COLOR w = ALLEGRO_COLOR{1, 1, 1, 1};
 
@@ -360,7 +362,10 @@ void ParameterView::render()
    al_draw_filled_rectangle(0, 0, width, height, backfill_color);
 
    // Draw the track labels
-   al_draw_text(track_label_font, w, 0+x_label_offset, 0+4, ALLEGRO_ALIGN_LEFT, label.c_str());
+   float track_label_y_alignment_offset = (int)(height / 2.0 - track_label_font_line_height / 2.0);
+   al_draw_text(
+      track_label_font, w, 0+x_label_offset,
+      0+y_label_offset+track_label_y_alignment_offset, ALLEGRO_ALIGN_LEFT, label.c_str());
 
    // Draw the points
    int count = 0;
