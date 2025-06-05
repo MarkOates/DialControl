@@ -24,6 +24,7 @@ namespace Timeline
       float playhead_movement_fine;
       float playhead_movement_macro;
       bool playing;
+      bool timeline_overlay_visible;
 
    protected:
 
@@ -66,6 +67,7 @@ namespace Timeline
       float &get_playhead_movement_macro_ref();
       bool &get_playing_ref();
       void render();
+      void toggle_timeline_visibility();
       void toggle_playback();
       void update_playback();
       void set_playhead_position(float playhead_position=0.0f);

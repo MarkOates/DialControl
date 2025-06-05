@@ -23,6 +23,7 @@ MotionStudio::MotionStudio()
    , playhead_movement_fine(1.0 / 60)
    , playhead_movement_macro(1.0 / 60 * 30)
    , playing(false)
+   , timeline_overlay_visible(true)
 {
 }
 
@@ -232,29 +233,39 @@ bool &MotionStudio::get_playing_ref()
 
 void MotionStudio::render()
 {
-   timeline_placement.start_transform();
-
-   // Draw the timelines
-   float total_height = 0;
-   float width = 1200.0;
-   AllegroFlare::Placement2D placement;
-   ALLEGRO_COLOR pinline_color{0, 0, 0, 0.35};
-   for (auto &parameter_view : parameter_views)
+   if (timeline_overlay_visible)
    {
-      placement.start_transform();
+      timeline_placement.start_transform();
+
+      // Draw the timelines
+      float total_height = 0;
+      float width = 1200.0;
+      AllegroFlare::Placement2D placement;
+      ALLEGRO_COLOR pinline_color{0, 0, 0, 0.35};
+      for (auto &parameter_view : parameter_views)
+      {
+         placement.start_transform();
+         al_draw_line(0, 0, width, 0, pinline_color, 1.0);
+         parameter_view.render();
+         placement.restore_transform();
+         placement.position.y += parameter_view.get_height();
+      }
       al_draw_line(0, 0, width, 0, pinline_color, 1.0);
-      parameter_view.render();
-      placement.restore_transform();
-      placement.position.y += parameter_view.get_height();
+      total_height = placement.position.y;
+
+      // Draw the playhead
+      float playhead_spacial_pos = playhead * 100;
+      al_draw_line(playhead_spacial_pos, -10, playhead_spacial_pos, total_height+10, ALLEGRO_COLOR{1, 1, 1, 1}, 1.0);
+     
+      timeline_placement.restore_transform();
    }
-   al_draw_line(0, 0, width, 0, pinline_color, 1.0);
-   total_height = placement.position.y;
+   return;
+}
 
-   // Draw the playhead
-   float playhead_spacial_pos = playhead * 100;
-   al_draw_line(playhead_spacial_pos, -10, playhead_spacial_pos, total_height+10, ALLEGRO_COLOR{1, 1, 1, 1}, 1.0);
-
-   timeline_placement.restore_transform();
+void MotionStudio::toggle_timeline_visibility()
+{
+   if (timeline_overlay_visible) timeline_overlay_visible = false;
+   else timeline_overlay_visible = true;
    return;
 }
 
@@ -425,6 +436,7 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_N, 0, { "next_keyframe" });
    mapper.set_mapping(ALLEGRO_KEY_P, 0, { "previous_keyframe" });
    mapper.set_mapping(ALLEGRO_KEY_X, 0, { "remove_keyframe" });
+   mapper.set_mapping(ALLEGRO_KEY_H, 0, { "toggle_timeline_visibility" });
 
 
    // Obtain commands from the current key input
@@ -454,6 +466,7 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "add_keyframe") add_keyframe();
       else if (command == "remove_keyframe") remove_keyframe();
       else if (command == "previous_keyframe") previous_keyframe();
+      else if (command == "toggle_timeline_visibility") toggle_timeline_visibility();
 
       else
       {

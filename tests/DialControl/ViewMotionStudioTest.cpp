@@ -96,7 +96,7 @@ const std::string cameras_json_string = R"({
     },
     {
       "far_plane": 100.0,
-      "near_plane": 0.10000000149011612,
+      "near_plane": 0.125,
       "position": {
         "x": 0.0,
         "y": 0.0,
@@ -121,7 +121,7 @@ const std::string cameras_json_string = R"({
     },
     {
       "far_plane": 100.0,
-      "near_plane": 0.10000000149011612,
+      "near_plane": 0.125,
       "position": {
         "x": -1.25,
         "y": 0.0,
