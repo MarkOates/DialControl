@@ -940,6 +940,10 @@ table td
   <td class="method"><b>initialize</b>()</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>build_parameters_for_camera_1</b>()</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;Timeline::ParameterView&gt;</td>
   <td class="method"><b>build_parameter_views_for_parameters</b>(AllegroFlare::FontBin* font_bin=nullptr, std::vector&lt;Timeline::Parameter&gt;* p=nullptr, float height=Timeline::ParameterView::DEFAULT_HEIGHT)</td>
 </tr>
@@ -962,6 +966,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>on_key_down</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load_json</b>(std::string json_string=&quot;[unset-json_string]&quot;)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -1263,7 +1271,7 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">Timeline::Parameter</td>
-  <td class="method"><b>build</b>(std::string name=&quot;[unset-name]&quot;, float* parameter=nullptr, std::vector&lt;Timeline::Keyframe&gt; keyframes={}, float initial_value=0.0f)</td>
+  <td class="method"><b>build</b>(std::string name=&quot;[unset-name]&quot;, float* parameter=nullptr, std::vector&lt;Timeline::Keyframe&gt; keyframes={}, float initial_value=0.0f, bool has_min_value=true, bool has_max_value=true, float min_value=0.0f, float max_value=1.0f)</td>
 </tr>
 <tr>
   <td class="method">void</td>

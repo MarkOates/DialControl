@@ -83,20 +83,7 @@ void ViewMotionStudio::initialize()
    camera_studio.initialize();
 
    // Camera A, for now
-   AllegroFlare::Camera3D &camera_1 = *camera_studio.get_current_camera();
-
-   //motion_studio.set_font_bin(font_bin);
-   motion_studio.set_parameters(
-      //build_parameters_for_placement3D(placement)
-      Timeline::ParameterMappings::AllegroFlare::Camera3D::build_parameters(&camera_1)
-   );
-   motion_studio.set_parameter_views(
-         build_parameter_views_for_parameters(
-            font_bin,
-            &motion_studio.get_parameters_ref(),
-            12
-         )
-      );
+   build_parameters_for_camera_1();
 
 
    // Set the position of the timeline
@@ -123,6 +110,28 @@ void ViewMotionStudio::initialize()
          //)
       //);
    initialized = true;
+   return;
+}
+
+void ViewMotionStudio::build_parameters_for_camera_1()
+{
+   // TODO: Check if this is safe?
+
+   AllegroFlare::Camera3D &camera_1 = *camera_studio.get_current_camera();
+
+   //motion_studio.set_font_bin(font_bin);
+   // HERE
+   motion_studio.set_parameters(
+      //build_parameters_for_placement3D(placement)
+      Timeline::ParameterMappings::AllegroFlare::Camera3D::build_parameters(&camera_1)
+   );
+   motion_studio.set_parameter_views(
+         build_parameter_views_for_parameters(
+            font_bin,
+            &motion_studio.get_parameters_ref(),
+            12
+         )
+      );
    return;
 }
 
@@ -229,6 +238,15 @@ void ViewMotionStudio::on_key_down(ALLEGRO_EVENT* event)
          default: break;
       }
    }
+   return;
+}
+
+void ViewMotionStudio::load_json(std::string json_string)
+{
+   // 1) load the json
+   camera_studio.load_json(json_string);
+
+   build_parameters_for_camera_1();
    return;
 }
 

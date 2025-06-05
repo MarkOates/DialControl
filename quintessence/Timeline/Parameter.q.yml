@@ -66,12 +66,28 @@ methods:
       - name: initial_value
         type: float
         default_argument: 0.0f
+      - name: has_min_value
+        type: bool
+        default_argument: true
+      - name: has_max_value
+        type: bool
+        default_argument: true
+      - name: min_value
+        type: float
+        default_argument: 0.0f
+      - name: max_value
+        type: float
+        default_argument: 1.0f
     body: |
       Timeline::Parameter result;
       result.name = name;
       result.parameter = parameter;
       result.keyframes = keyframes;
       result.initial_value = initial_value;
+      result.has_min_value = has_min_value;
+      result.has_max_value = has_max_value;
+      result.min_value = min_value;
+      result.max_value = max_value;
       return result;
 
 

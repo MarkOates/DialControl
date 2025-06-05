@@ -330,12 +330,15 @@ methods:
 
       // Draw the points
       int count = 0;
+      bool track_has_no_bounds = !track->has_max_value || !track->has_min_value;
       //for (auto &keyframe : track->get_keyframes_ref())
       for (auto &keyframe : track->keyframes)
       {
          float capped_normalized_y = keyframe.value;
          float keyframe_x = keyframe.time * x_scale;
          float keyframe_y = capped_normalized_y * y_scale;
+
+         if (track_has_no_bounds) keyframe_y = height * 0.5;
 
          // draw a line demarcating where keyframes are
          al_draw_line(keyframe_x, 0, keyframe_x, 0+height, line_color, 1.0);

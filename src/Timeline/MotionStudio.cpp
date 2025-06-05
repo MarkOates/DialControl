@@ -271,10 +271,10 @@ void MotionStudio::update_playback()
 
    for (auto &parameter : parameters)
    {
-      if (parameter.name == "spin")
-      {
+      //if (parameter.name == "spin")
+      //{
          parameter.assign_to_time(playhead); // DEVELOPMENT
-      }
+      //}
       //parameter.assign_to_time(playhead);
    }
    return;

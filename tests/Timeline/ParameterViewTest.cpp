@@ -43,3 +43,27 @@ TEST_F(Timeline_ParameterViewTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(Timeline_ParameterViewTestWithAllegroRenderingFixture,
+   CAPTURE__render__when_the_parameter_has_either_or_min_or_max_bounds__will_render_the_track_as_expected)
+{
+   Timeline::Parameter parameter;
+   Timeline::ParameterView parameter_view(&get_font_bin_ref(), "position.x", &parameter);
+   AllegroFlare::Placement2D place = build_centered_placement(parameter_view.get_width(), parameter_view.get_height());
+   parameter.keyframes = {
+      Timeline::Keyframe::construct(2.0, 0.4),
+      Timeline::Keyframe::construct(4.0, 0.6),
+      Timeline::Keyframe::construct(5.0, 0.2),
+      Timeline::Keyframe::construct(5.5, 0.3),
+   };
+   parameter.has_max_value = false;
+   parameter.has_min_value = false;
+
+   clear();
+   place.start_transform();
+   parameter_view.render();
+   place.restore_transform();
+   al_flip_display();
+   sleep_for(1);
+}
+
+

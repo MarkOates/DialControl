@@ -30,13 +30,17 @@ Parameter::~Parameter()
 }
 
 
-Timeline::Parameter Parameter::build(std::string name, float* parameter, std::vector<Timeline::Keyframe> keyframes, float initial_value)
+Timeline::Parameter Parameter::build(std::string name, float* parameter, std::vector<Timeline::Keyframe> keyframes, float initial_value, bool has_min_value, bool has_max_value, float min_value, float max_value)
 {
    Timeline::Parameter result;
    result.name = name;
    result.parameter = parameter;
    result.keyframes = keyframes;
    result.initial_value = initial_value;
+   result.has_min_value = has_min_value;
+   result.has_max_value = has_max_value;
+   result.min_value = min_value;
+   result.max_value = max_value;
    return result;
 }
 

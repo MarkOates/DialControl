@@ -31,7 +31,7 @@ namespace Timeline
       Parameter();
       ~Parameter();
 
-      static Timeline::Parameter build(std::string name="[unset-name]", float* parameter=nullptr, std::vector<Timeline::Keyframe> keyframes={}, float initial_value=0.0f);
+      static Timeline::Parameter build(std::string name="[unset-name]", float* parameter=nullptr, std::vector<Timeline::Keyframe> keyframes={}, float initial_value=0.0f, bool has_min_value=true, bool has_max_value=true, float min_value=0.0f, float max_value=1.0f);
       void add_keyframe(double time=0.0, float value=0.0f, std::function<float(float)> interpolator_func={});
       bool remove_keyframe_at_index(std::size_t index=0);
       void assign_to_time(double position=0.0);
