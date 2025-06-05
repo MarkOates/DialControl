@@ -24,6 +24,8 @@ namespace Timeline
       float width;
       float height;
       float x_scale;
+      float time_scale;
+      float start_x;
       int selection_cursor_x;
       int icon_font_size;
       void draw_selected_node_icon(float x=0.0f, float y=0.0f);
@@ -41,7 +43,7 @@ namespace Timeline
       bool hidden;
       bool focused;
       int focused_keyframe_idx;
-      ParameterView(AllegroFlare::FontBin* font_bin=nullptr, std::string label="Unlabeled Parameter", Timeline::Parameter* track=nullptr, float width=1200.0f, float height=DEFAULT_HEIGHT, float x_scale=100.0f, int selection_cursor_x=-1);
+      ParameterView(AllegroFlare::FontBin* font_bin=nullptr, std::string label="Unlabeled Parameter", Timeline::Parameter* track=nullptr, float width=1200.0f, float height=DEFAULT_HEIGHT, float x_scale=100.0f, float time_scale=1.0f, float start_x=0.0f, int selection_cursor_x=-1);
       ~ParameterView();
 
       void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -50,6 +52,8 @@ namespace Timeline
       void set_width(float width);
       void set_height(float height);
       void set_x_scale(float x_scale);
+      void set_time_scale(float time_scale);
+      void set_start_x(float start_x);
       void set_selection_cursor_x(int selection_cursor_x);
       void set_icon_font_size(int icon_font_size);
       AllegroFlare::FontBin* get_font_bin() const;
@@ -58,6 +62,8 @@ namespace Timeline
       float get_width() const;
       float get_height() const;
       float get_x_scale() const;
+      float get_time_scale() const;
+      float get_start_x() const;
       int get_selection_cursor_x() const;
       int get_icon_font_size() const;
       void set_as_focused();

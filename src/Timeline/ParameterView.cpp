@@ -13,13 +13,15 @@ namespace Timeline
 {
 
 
-ParameterView::ParameterView(AllegroFlare::FontBin* font_bin, std::string label, Timeline::Parameter* track, float width, float height, float x_scale, int selection_cursor_x)
+ParameterView::ParameterView(AllegroFlare::FontBin* font_bin, std::string label, Timeline::Parameter* track, float width, float height, float x_scale, float time_scale, float start_x, int selection_cursor_x)
    : font_bin(font_bin)
    , label(label)
    , track(track)
    , width(width)
    , height(height)
    , x_scale(x_scale)
+   , time_scale(time_scale)
+   , start_x(start_x)
    , selection_cursor_x(selection_cursor_x)
    , icon_font_size(-12)
    , hidden(false)
@@ -70,6 +72,18 @@ void ParameterView::set_x_scale(float x_scale)
 }
 
 
+void ParameterView::set_time_scale(float time_scale)
+{
+   this->time_scale = time_scale;
+}
+
+
+void ParameterView::set_start_x(float start_x)
+{
+   this->start_x = start_x;
+}
+
+
 void ParameterView::set_selection_cursor_x(int selection_cursor_x)
 {
    this->selection_cursor_x = selection_cursor_x;
@@ -115,6 +129,18 @@ float ParameterView::get_height() const
 float ParameterView::get_x_scale() const
 {
    return x_scale;
+}
+
+
+float ParameterView::get_time_scale() const
+{
+   return time_scale;
+}
+
+
+float ParameterView::get_start_x() const
+{
+   return start_x;
 }
 
 
@@ -347,48 +373,48 @@ void ParameterView::render()
    ALLEGRO_COLOR UNFOCUSED_BACKFILL_COLOR = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR FOCUSED_BACKFILL_COLOR = ALLEGRO_COLOR{0.3, 0.275, 0.21, 1.0};
    ALLEGRO_COLOR backfill_color = focused ? FOCUSED_BACKFILL_COLOR : UNFOCUSED_BACKFILL_COLOR;
-   //ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
-
    ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
    ALLEGRO_FONT *track_label_font = obtain_track_label_font();
    int track_label_font_line_height = al_get_font_line_height(track_label_font);
    float y_scale = height;
-   float y_label_offset = 0; // was 4
-   float y_align = 0.5; // was 1
+   float y_label_offset = 0;
    float x_label_offset = -100;
    ALLEGRO_COLOR w = ALLEGRO_COLOR{1, 1, 1, 1};
 
-   // Draw the backfill rectangle
    al_draw_filled_rectangle(0, 0, width, height, backfill_color);
 
-   // Draw the track labels
    float track_label_y_alignment_offset = (int)(height / 2.0 - track_label_font_line_height / 2.0);
    al_draw_text(
-      track_label_font, w, 0+x_label_offset,
-      0+y_label_offset+track_label_y_alignment_offset, ALLEGRO_ALIGN_LEFT, label.c_str());
+       track_label_font,
+       w,
+       0 + x_label_offset,
+       0 + y_label_offset + track_label_y_alignment_offset,
+       ALLEGRO_ALIGN_LEFT,
+       label.c_str()
+   );
 
-   // Draw the points
-   int count = 0;
    bool track_has_no_bounds = !track->has_max_value || !track->has_min_value;
-   //for (auto &keyframe : track->get_keyframes_ref())
    for (auto &keyframe : track->keyframes)
    {
-      float capped_normalized_y = keyframe.value;
-      float keyframe_x = keyframe.time * x_scale;
-      float keyframe_y = capped_normalized_y * y_scale;
+       float keyframe_x = (keyframe.time * x_scale * time_scale) - start_x * x_scale * time_scale;
+       float capped_normalized_y = keyframe.value;
+       float keyframe_y = capped_normalized_y * y_scale;
 
-      if (track_has_no_bounds) keyframe_y = height * 0.5;
+       if (keyframe_x > width) break;
+       if (keyframe_x < 0) continue;
 
-      // draw a line demarcating where keyframes are
-      al_draw_line(keyframe_x, 0, keyframe_x, 0+height, line_color, 1.0);
+       if (track_has_no_bounds) keyframe_y = height * 0.5;
 
-      // draw a graphic on the node
-      if (keyframe.focused) draw_selected_node_icon(0+keyframe_x, 0+keyframe_y);
-      //if (count == selection_cursor_x) draw_selected_node_icon(0+keyframe_x, 0+keyframe_y);
-      else draw_node_icon(0+keyframe_x, 0+keyframe_y);
+       al_draw_line(keyframe_x, 0, keyframe_x, 0 + height, line_color, 1.0);
 
-      // increment our count
-      count++;
+       if (keyframe.focused)
+       {
+           draw_selected_node_icon(keyframe_x, keyframe_y);
+       }
+       else
+       {
+           draw_node_icon(keyframe_x, keyframe_y);
+       }
    }
 
    return;
