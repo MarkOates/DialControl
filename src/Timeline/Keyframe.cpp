@@ -9,7 +9,7 @@ namespace Timeline
 {
 
 
-Keyframe::Keyframe(std::function<float(float)> interpolator_func, float value, float time, bool focused)
+Keyframe::Keyframe(std::function<float(float)> interpolator_func, float value, double time, bool focused)
    : interpolator_func(interpolator_func)
    , value(value)
    , time(time)
@@ -41,7 +41,7 @@ void Keyframe::set_as_unfocused()
    return;
 }
 
-Timeline::Keyframe Keyframe::construct(float time, float value, std::function<float(float)> interpolator_func)
+Timeline::Keyframe Keyframe::construct(double time, float value, std::function<float(float)> interpolator_func)
 {
    Timeline::Keyframe result;
    result.time = time;

@@ -40,7 +40,7 @@ namespace DialControl
       std::string tosv2(AllegroFlare::Vec2D v={});
       float hfov_degrees();
       void render();
-      void draw_pill(float x=0.0f, float y=0.0f, float w=300.0f, float h=50.0f, float column_divider_pos=100.0f, float column_divider_padding=6.0f, std::string label="[unset-label]", ALLEGRO_COLOR label_color=ALLEGRO_COLOR{1, 1, 1, 1}, std::string value="[unset-value]", ALLEGRO_COLOR value_color=ALLEGRO_COLOR{1, 1, 1, 1});
+      static void draw_pill(float x=0.0f, float y=0.0f, float w=300.0f, float h=50.0f, float column_divider_pos=100.0f, float column_divider_padding=6.0f, std::string label="[unset-label]", ALLEGRO_COLOR label_color=ALLEGRO_COLOR{1, 1, 1, 1}, std::string value="[unset-value]", ALLEGRO_COLOR value_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_FONT* font=nullptr, ALLEGRO_FONT* bold_font=nullptr);
       void draw_radial_diagram(float x=0.0f, float y=0.0f, float radius=100.0f, float value=0.75f, bool draw_backstep_triangle=true);
       void draw_radial_ticks(float cx=0.0f, float cy=0.0f, float r=300.0f, int t=50.0f, float l=100.0f, int s=0, int o=0, float line_thickness=2.0);
       void draw_clockwise_radial_line(float cx=0.0f, float cy=0.0f, float r=100.0f, float v=0.75f, float t=4.0f, ALLEGRO_COLOR c=ALLEGRO_COLOR{1, 1, 1, 1});

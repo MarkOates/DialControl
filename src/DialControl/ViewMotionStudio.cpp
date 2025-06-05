@@ -2,8 +2,11 @@
 
 #include <DialControl/ViewMotionStudio.hpp>
 
+#include <AllegroFlare/Logger.hpp>
+#include <DialControl/CameraInfoOverlay.hpp>
 #include <Timeline/ParameterMappings/AllegroFlare/Camera3D.hpp>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -16,6 +19,9 @@ ViewMotionStudio::ViewMotionStudio()
    : font_bin(nullptr)
    , camera_studio({})
    , motion_studio({})
+   , control_state(STATE_UNDEF)
+   , control_state_is_busy(false)
+   , control_state_changed_at(0.0f)
    , initialized(false)
 {
 }
@@ -30,6 +36,12 @@ void ViewMotionStudio::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    if (get_initialized()) throw std::runtime_error("[ViewMotionStudio::set_font_bin]: error: guard \"get_initialized()\" not met.");
    this->font_bin = font_bin;
+}
+
+
+uint32_t ViewMotionStudio::get_control_state() const
+{
+   return control_state;
 }
 
 
@@ -91,6 +103,9 @@ void ViewMotionStudio::initialize()
    AllegroFlare::Placement2D &timeline_placement = motion_studio.get_timeline_placement_ref();
    timeline_placement.position.x = 400;
    timeline_placement.position.y = 900;
+
+   set_control_state(STATE_CAMERA_STUDIO_CONTROL);
+
 
    //AllegroFlare::Placement3D placement;
    //Timeline::MotionStudio motion_studio;
@@ -156,6 +171,13 @@ void ViewMotionStudio::setup_camera_projection_on_live_camera()
    return;
 }
 
+void ViewMotionStudio::toggle_control_state()
+{
+   if (is_control_state(STATE_CAMERA_STUDIO_CONTROL)) set_control_state(STATE_MOTION_STUDIO_CONTROL);
+   else if (is_control_state(STATE_MOTION_STUDIO_CONTROL)) set_control_state(STATE_CAMERA_STUDIO_CONTROL);
+   return;
+}
+
 void ViewMotionStudio::render_hud()
 {
    if (!(initialized))
@@ -168,6 +190,20 @@ void ViewMotionStudio::render_hud()
    camera_studio.setup_projection_on_hud_camera();
    camera_studio.draw_camera_info_overlay();
    motion_studio.render();
+   DialControl::CameraInfoOverlay::draw_pill(
+      1920/2 + 700, // x
+      1080 - 80,    // y
+      200,          // w
+      48,           // h
+      80.0,         // column_divider_pos
+      8.0,          // column_divider_padding
+      "Mode",       // label
+      ALLEGRO_COLOR{1, 1, 1, 1}, // label_color
+      get_control_state_string(control_state), // value
+      ALLEGRO_COLOR{1, 1, 1, 1}, // value_color
+      obtain_font(),
+      obtain_bold_font()
+   );
    return;
 }
 
@@ -180,9 +216,123 @@ void ViewMotionStudio::on_key_down(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[DialControl::ViewMotionStudio::on_key_down]: error: guard \"initialized\" not met");
    }
-   //camera_studio.on_key_down(event);
-   motion_studio.on_key_down(event);
+   if (event->keyboard.keycode == ALLEGRO_KEY_TAB)
+   {
+      toggle_control_state();
+   }
+   else
+   {
+      switch (control_state)
+      {
+         case STATE_CAMERA_STUDIO_CONTROL: camera_studio.on_key_down(event); break;
+         case STATE_MOTION_STUDIO_CONTROL: motion_studio.on_key_down(event); break;
+         default: break;
+      }
+   }
    return;
+}
+
+void ViewMotionStudio::set_control_state(uint32_t control_state, bool override_if_busy)
+{
+   if (!(is_valid_control_state(control_state)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::ViewMotionStudio::set_control_state]: error: guard \"is_valid_control_state(control_state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::ViewMotionStudio::set_control_state]: error: guard \"is_valid_control_state(control_state)\" not met");
+   }
+   if (this->control_state == control_state) return;
+   if (!override_if_busy && control_state_is_busy) return;
+   uint32_t previous_control_state = this->control_state;
+
+   switch (control_state)
+   {
+      case STATE_CAMERA_STUDIO_CONTROL:
+      break;
+
+      case STATE_MOTION_STUDIO_CONTROL:
+      break;
+
+      default:
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "Unable to handle case for control_state \"" + std::to_string(control_state) + "\""
+         );
+      break;
+   }
+
+   this->control_state = control_state;
+   control_state_changed_at = al_get_time();
+
+   return;
+}
+
+std::string ViewMotionStudio::get_control_state_string(uint32_t control_state)
+{
+   if (!(is_valid_control_state(control_state)))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::ViewMotionStudio::get_control_state_string]: error: guard \"is_valid_control_state(control_state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::ViewMotionStudio::get_control_state_string]: error: guard \"is_valid_control_state(control_state)\" not met");
+   }
+   switch (control_state)
+   {
+      case STATE_CAMERA_STUDIO_CONTROL: return "Camera"; break;
+      case STATE_MOTION_STUDIO_CONTROL: return "Motion"; break;
+
+      default:
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "Unable to handle case for control_state \"" + std::to_string(control_state) + "\""
+         );
+      break;
+   }
+   return "[error-obtaining-value]";
+}
+
+bool ViewMotionStudio::is_valid_control_state(uint32_t control_state)
+{
+   std::set<uint32_t> valid_control_states =
+   {
+      STATE_CAMERA_STUDIO_CONTROL,
+      STATE_MOTION_STUDIO_CONTROL,
+   };
+   return (valid_control_states.count(control_state) > 0);
+}
+
+bool ViewMotionStudio::is_control_state(uint32_t possible_control_state)
+{
+   return (control_state == possible_control_state);
+}
+
+float ViewMotionStudio::infer_current_control_state_age(float time_now)
+{
+   return (time_now - control_state_changed_at);
+}
+
+ALLEGRO_FONT* ViewMotionStudio::obtain_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::ViewMotionStudio::obtain_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::ViewMotionStudio::obtain_font]: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Inter-Medium.ttf -26");
+}
+
+ALLEGRO_FONT* ViewMotionStudio::obtain_bold_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::ViewMotionStudio::obtain_bold_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::ViewMotionStudio::obtain_bold_font]: error: guard \"font_bin\" not met");
+   }
+   return font_bin->auto_get("Inter-bold.ttf -26");
 }
 
 

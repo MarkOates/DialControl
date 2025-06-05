@@ -189,7 +189,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>draw_pill</b>(float x=0.0f, float y=0.0f, float w=300.0f, float h=50.0f, float column_divider_pos=100.0f, float column_divider_padding=6.0f, std::string label=&quot;[unset-label]&quot;, ALLEGRO_COLOR label_color=ALLEGRO_COLOR{1, 1, 1, 1}, std::string value=&quot;[unset-value]&quot;, ALLEGRO_COLOR value_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+  <td class="method"><b>draw_pill</b>(float x=0.0f, float y=0.0f, float w=300.0f, float h=50.0f, float column_divider_pos=100.0f, float column_divider_padding=6.0f, std::string label=&quot;[unset-label]&quot;, ALLEGRO_COLOR label_color=ALLEGRO_COLOR{1, 1, 1, 1}, std::string value=&quot;[unset-value]&quot;, ALLEGRO_COLOR value_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_FONT* font=nullptr, ALLEGRO_FONT* bold_font=nullptr)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -917,6 +917,18 @@ table td
   <td class="property">Timeline::MotionStudio</td>
 </tr>
 <tr>
+  <td class="property">control_state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">control_state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">control_state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -941,11 +953,43 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>toggle_control_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>render_hud</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
   <td class="method"><b>on_key_down</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_control_state</b>(uint32_t control_state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_control_state_string</b>(uint32_t control_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_valid_control_state</b>(uint32_t control_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_control_state</b>(uint32_t possible_control_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_current_control_state_age</b>(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_bold_font</b>()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -971,6 +1015,15 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;Timeline::ParameterView&quot;, &quot;headers&quot;=&gt;[&quot;Timeline/ParameterView.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;DialControl::CameraInfoOverlay&quot;, &quot;headers&quot;=&gt;[&quot;DialControl/CameraInfoOverlay.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -992,7 +1045,7 @@ table td
 </tr>
 <tr>
   <td class="property">time</td>
-  <td class="property">float</td>
+  <td class="property">double</td>
 </tr>
 <tr>
   <td class="property">focused</td>
@@ -1015,7 +1068,7 @@ table td
 </tr>
 <tr>
   <td class="method">Timeline::Keyframe</td>
-  <td class="method"><b>construct</b>(float time=0.0f, float value=0.0f, std::function&lt;float(float)&gt; interpolator_func={})</td>
+  <td class="method"><b>construct</b>(double time=0.0, float value=0.0f, std::function&lt;float(float)&gt; interpolator_func={})</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -1197,6 +1250,10 @@ table td
   <td class="property">max_value</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">interpolate_initial_value_to_1st_keyframe</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -1206,11 +1263,11 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>add_keyframe</b>(float time=0.0f, float value=0.0f, std::function&lt;float(float)&gt; interpolator_func={})</td>
+  <td class="method"><b>add_keyframe</b>(double time=0.0, float value=0.0f, std::function&lt;float(float)&gt; interpolator_func={})</td>
 </tr>
 <tr>
   <td class="method">float</td>
-  <td class="method"><b>value_at</b>(double position=0.0f)</td>
+  <td class="method"><b>value_at</b>(double position=0.0)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -1439,6 +1496,7 @@ table td
   "ALLEGRO_FONT": [
     "DialControl/CameraInfoOverlay",
     "DialControl/Gameplay/Screen",
+    "DialControl/ViewMotionStudio",
     "Timeline/ParameterView",
     "Timeline/ParameterView"
   ],
@@ -1483,7 +1541,8 @@ table td
     "DialControl/CameraStudio"
   ],
   "DialControl/CameraInfoOverlay": [
-    "DialControl/CameraStudio"
+    "DialControl/CameraStudio",
+    "DialControl/ViewMotionStudio"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
     "DialControl/Game/Configurations/Main"
@@ -1631,6 +1690,9 @@ table td
   "Timeline/ParameterView": [
     "DialControl/ViewMotionStudio",
     "Timeline/MotionStudio"
+  ],
+  "AllegroFlare/Logger": [
+    "DialControl/ViewMotionStudio"
   ],
   "Timeline/Keyframe": [
     "Timeline/Keyframe",

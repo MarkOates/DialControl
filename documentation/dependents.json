@@ -28,6 +28,7 @@
   "ALLEGRO_FONT": [
     "DialControl/CameraInfoOverlay",
     "DialControl/Gameplay/Screen",
+    "DialControl/ViewMotionStudio",
     "Timeline/ParameterView",
     "Timeline/ParameterView"
   ],
@@ -72,7 +73,8 @@
     "DialControl/CameraStudio"
   ],
   "DialControl/CameraInfoOverlay": [
-    "DialControl/CameraStudio"
+    "DialControl/CameraStudio",
+    "DialControl/ViewMotionStudio"
   ],
   "AllegroFlare/GameConfigurations/Complete": [
     "DialControl/Game/Configurations/Main"
@@ -220,6 +222,9 @@
   "Timeline/ParameterView": [
     "DialControl/ViewMotionStudio",
     "Timeline/MotionStudio"
+  ],
+  "AllegroFlare/Logger": [
+    "DialControl/ViewMotionStudio"
   ],
   "Timeline/Keyframe": [
     "Timeline/Keyframe",

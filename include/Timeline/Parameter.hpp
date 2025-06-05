@@ -26,12 +26,13 @@ namespace Timeline
       bool has_max_value;
       float min_value;
       float max_value;
+      bool interpolate_initial_value_to_1st_keyframe;
       Parameter();
       ~Parameter();
 
       static Timeline::Parameter build(std::string name="[unset-name]", float* parameter=nullptr, std::vector<Timeline::Keyframe> keyframes={}, float initial_value=0.0f);
-      void add_keyframe(float time=0.0f, float value=0.0f, std::function<float(float)> interpolator_func={});
-      float value_at(double position=0.0f);
+      void add_keyframe(double time=0.0, float value=0.0f, std::function<float(float)> interpolator_func={});
+      float value_at(double position=0.0);
    };
 }
 

@@ -569,3 +569,93 @@ TEST_F(DialControl_CameraStudioTest_WithInteractionFixture, INTERACTIVE__will_wo
 */
 
 
+
+/*
+
+
+      draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, tos(camera->spin));
+  - name: draw_pill
+    type: void
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: w
+        type: float
+        default_argument: 300.0f
+      - name: h
+        type: float
+        default_argument: 50.0f
+      - name: column_divider_pos
+        type: float
+        default_argument: 100.0f
+      - name: column_divider_padding
+        type: float
+        default_argument: 6.0f
+      - name: label
+        type: std::string
+        default_argument: '"[unset-label]"'
+      - name: label_color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+      - name: value
+        type: std::string
+        default_argument: '"[unset-value]"'
+      - name: value_color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+    body: |
+      //float x = 1920/2;
+      //float y = 1080/3;
+      ALLEGRO_FONT *font = obtain_font();
+      ALLEGRO_FONT *bold_font = obtain_bold_font();
+      //float text_width = al_get_text_width(font, quote.c_str());
+      //float text_height = al_get_font_line_height(font);
+      float h_text_width = w/2;
+      float h_text_height = h/2;
+      //AllegroFlare::Vec2D padding = {30, 20};
+      float h_line_height = al_get_font_line_height(font) / 2;
+      //float h_line_height = 
+
+      al_draw_filled_rounded_rectangle(
+         x, // - padding.x,
+         y, // - padding.y,
+         x+w, // + padding.x,
+         y+h, // + padding.y,
+         8.0f,
+         8.0f,
+         ALLEGRO_COLOR{0, 0, 0, 1}
+         //2.0f
+      );
+
+      al_draw_text(
+         bold_font,
+         label_color,
+         x+column_divider_pos-column_divider_padding, y+h_text_height-h_line_height,
+         ALLEGRO_ALIGN_RIGHT,
+         label.c_str()
+      );
+
+      al_draw_text(
+         font,
+         value_color, //ALLEGRO_COLOR{1, 1, 1, 1},
+         x+column_divider_pos+column_divider_padding, y+h_text_height-h_line_height,
+         ALLEGRO_ALIGN_LEFT,
+         value.c_str()
+      );
+
+      //al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_LEFT, quote.c_str());
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+
+
+*/
+

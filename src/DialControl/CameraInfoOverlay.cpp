@@ -154,55 +154,72 @@ void CameraInfoOverlay::render()
    float ry = y+1080/2 - spac - 40;
    auto w = ALLEGRO_COLOR{1, 1, 1, 1};
    auto g = ALLEGRO_COLOR{0.56, 0.93, 0.56, 1};
-   //draw_pill(1920/2 - 130, ry,       280, 48, 90.0, 8.0, "name", w, "Camera A");
-   draw_pill(1920/2 - 130, ry,       280, 48, 90.0, 8.0, "name", w, camera_name);
-   //draw_pill(1920/2-60 - 360 + 10, ry,       220, 48, 90.0, 8.0, "zoom", w, "110%");
-   draw_pill(1920/2-60 - 360 + 10, ry,       220, 48, 90.0, 8.0, "zoom", w, tos(camera->zoom * 100) + "%");
-   //draw_pill(1920/2 + 200, ry,       240, 48, 80.0, 8.0, "DOF", w, "90deg");
-   draw_pill(1920/2 + 200, ry,       240, 48, 80.0, 8.0, "HFoV", w, tos(hfov_degrees()));
-   //draw_pill(1920/2 - 860, ry, 400, 48, 136.0, 8.0, "position", w, "     0.2       10       20");
-   draw_pill(1920/2 - 860, ry, 400, 48, 136.0, 8.0, "position", w, tosv(camera->position));
-   //draw_pill(1920/2 + 500, ry, 400, 48, 136.0, 8.0, "stepout", w, "     0.2       10       20");
-   draw_pill(1920/2 + 500, ry, 400, 48, 136.0, 8.0, "stepout", w, tosv(camera->stepout));
+   auto f = obtain_font();
+   auto bf = obtain_bold_font();
 
-   draw_pill(1920/2 + 500 + 130, ry + 56, 270, 48, 136.0-30, 8.0, "shift", w, tosv2(camera->shift));
+   //draw_pill(1920/2 - 130, ry,       280, 48, 90.0, 8.0, "name", w, "Camera A");
+   draw_pill(1920/2 - 130, ry,       280, 48, 90.0, 8.0, "name", w, camera_name, w, f, bf);
+   //draw_pill(1920/2-60 - 360 + 10, ry,       220, 48, 90.0, 8.0, "zoom", w, "110%");
+   draw_pill(1920/2-60 - 360 + 10, ry,       220, 48, 90.0, 8.0, "zoom", w, tos(camera->zoom * 100) + "%", w, f, bf);
+   //draw_pill(1920/2 + 200, ry,       240, 48, 80.0, 8.0, "DOF", w, "90deg");
+   draw_pill(1920/2 + 200, ry,       240, 48, 80.0, 8.0, "HFoV", w, tos(hfov_degrees()), w, f, bf);
+   //draw_pill(1920/2 - 860, ry, 400, 48, 136.0, 8.0, "position", w, "     0.2       10       20");
+   draw_pill(1920/2 - 860, ry, 400, 48, 136.0, 8.0, "position", w, tosv(camera->position), w, f, bf);
+   //draw_pill(1920/2 + 500, ry, 400, 48, 136.0, 8.0, "stepout", w, "     0.2       10       20");
+   draw_pill(1920/2 + 500, ry, 400, 48, 136.0, 8.0, "stepout", w, tosv(camera->stepout), w, f, bf);
+
+   draw_pill(1920/2 + 500 + 130, ry + 56, 270, 48, 136.0-30, 8.0, "shift", w, tosv2(camera->shift), w, f, bf);
 
    if (camera_is_tracking_object)
    {
-      draw_pill(1920/2 - 860, ry+48, 180, 48, 48.0, 8.0, "*", g, "tracking", g);
+      draw_pill(1920/2 - 860, ry+48, 180, 48, 48.0, 8.0, "*", g, "tracking", g, f, bf);
    }
 
    float n_spin = camera->spin;
    //draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, "3 / 32");
    //draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, "8 / 32");
    //draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, "0 / 32");
-   draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, tos(camera->spin));
+   draw_pill(1920/2 - 885, y+1080/2 + spac*4,       200, 48, 80.0, 8.0, "spin", w, tos(camera->spin), w, f, bf);
    draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*4 + 48/2, 30, n_spin - 0.25);
 
-   draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, tos(camera->tilt));
+   draw_pill(1920/2 - 885, y+1080/2 + spac*5,       200, 48, 80.0, 8.0, "tilt", w, tos(camera->tilt), w, f, bf);
    draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*5 + 48/2, 30, camera->tilt);
 
-   draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, tos(camera->roll));
+   draw_pill(1920/2 - 885, y+1080/2 + spac*6,       200, 48, 80.0, 8.0, "roll", w, tos(camera->roll), w, f, bf);
    draw_radial_diagram(1920/2 - 885 + 260, y+1080/2 + spac*6 + 48/2, 30, camera->roll, false);
 
 
 
 
    //draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, "1000");
-   draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, tos(camera->far_plane));
+   draw_pill(1920/2 + 700, y+1080/2 + spac*2,       200, 48, 80.0, 8.0, "far", w, tos(camera->far_plane), w, f, bf);
    //draw_pill(1920/2 + 700, y+1080/2 + spac*7,       200, 48, 80.0, 8.0, "near", w, "0.125");
-   draw_pill(1920/2 + 700, y+1080/2 + spac*7,       200, 48, 80.0, 8.0, "near", w, tos(camera->near_plane));
+   draw_pill(1920/2 + 700, y+1080/2 + spac*7,       200, 48, 80.0, 8.0, "near", w, tos(camera->near_plane), w, f, bf);
 
 
    return;
 }
 
-void CameraInfoOverlay::draw_pill(float x, float y, float w, float h, float column_divider_pos, float column_divider_padding, std::string label, ALLEGRO_COLOR label_color, std::string value, ALLEGRO_COLOR value_color)
+void CameraInfoOverlay::draw_pill(float x, float y, float w, float h, float column_divider_pos, float column_divider_padding, std::string label, ALLEGRO_COLOR label_color, std::string value, ALLEGRO_COLOR value_color, ALLEGRO_FONT* font, ALLEGRO_FONT* bold_font)
 {
+   if (!(font))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::CameraInfoOverlay::draw_pill]: error: guard \"font\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::CameraInfoOverlay::draw_pill]: error: guard \"font\" not met");
+   }
+   if (!(bold_font))
+   {
+      std::stringstream error_message;
+      error_message << "[DialControl::CameraInfoOverlay::draw_pill]: error: guard \"bold_font\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[DialControl::CameraInfoOverlay::draw_pill]: error: guard \"bold_font\" not met");
+   }
    //float x = 1920/2;
    //float y = 1080/3;
-   ALLEGRO_FONT *font = obtain_font();
-   ALLEGRO_FONT *bold_font = obtain_bold_font();
+   //ALLEGRO_FONT *font = obtain_font();
+   //ALLEGRO_FONT *bold_font = obtain_bold_font();
    //float text_width = al_get_text_width(font, quote.c_str());
    //float text_height = al_get_font_line_height(font);
    float h_text_width = w/2;

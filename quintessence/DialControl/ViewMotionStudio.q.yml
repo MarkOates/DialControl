@@ -16,10 +16,34 @@ properties:
     init_with: '{}'
     getter_ref: true
 
+  - name: control_state
+    type: uint32_t
+    init_with: STATE_UNDEF
+    getter: true
+    setter: explicit
+
+  - name: control_state_is_busy
+    type: bool
+    init_with: false
+
+  - name: control_state_changed_at
+    type: float
+    init_with: 0.0f
+
   - name: initialized
     type: bool
     init_with: false
     getter: true
+
+
+enums:
+
+
+  - name: ControlState
+    enumerators:
+      - STATE_UNDEF
+      - STATE_CAMERA_STUDIO_CONTROL
+      - STATE_MOTION_STUDIO_CONTROL
 
 
 methods:
@@ -52,6 +76,9 @@ methods:
       AllegroFlare::Placement2D &timeline_placement = motion_studio.get_timeline_placement_ref();
       timeline_placement.position.x = 400;
       timeline_placement.position.y = 900;
+
+      set_control_state(STATE_CAMERA_STUDIO_CONTROL);
+
 
       //AllegroFlare::Placement3D placement;
       //Timeline::MotionStudio motion_studio;
@@ -118,13 +145,36 @@ methods:
       return;
 
 
+  - name: toggle_control_state
+    body: |
+      if (is_control_state(STATE_CAMERA_STUDIO_CONTROL)) set_control_state(STATE_MOTION_STUDIO_CONTROL);
+      else if (is_control_state(STATE_MOTION_STUDIO_CONTROL)) set_control_state(STATE_CAMERA_STUDIO_CONTROL);
+      return;
+
+
   - name: render_hud
     guards: [ initialized ]
     body: |
       camera_studio.setup_projection_on_hud_camera();
       camera_studio.draw_camera_info_overlay();
       motion_studio.render();
+      DialControl::CameraInfoOverlay::draw_pill(
+         1920/2 + 700, // x
+         1080 - 80,    // y
+         200,          // w
+         48,           // h
+         80.0,         // column_divider_pos
+         8.0,          // column_divider_padding
+         "Mode",       // label
+         ALLEGRO_COLOR{1, 1, 1, 1}, // label_color
+         get_control_state_string(control_state), // value
+         ALLEGRO_COLOR{1, 1, 1, 1}, // value_color
+         obtain_font(),
+         obtain_bold_font()
+      );
       return;
+    body_dependency_symbols:
+      - DialControl::CameraInfoOverlay
 
 
   - name: on_key_down
@@ -134,9 +184,137 @@ methods:
         default_argument: nullptr
     guards: [ initialized ]
     body: |
-      //camera_studio.on_key_down(event);
-      motion_studio.on_key_down(event);
+      if (event->keyboard.keycode == ALLEGRO_KEY_TAB)
+      {
+         toggle_control_state();
+      }
+      else
+      {
+         switch (control_state)
+         {
+            case STATE_CAMERA_STUDIO_CONTROL: camera_studio.on_key_down(event); break;
+            case STATE_MOTION_STUDIO_CONTROL: motion_studio.on_key_down(event); break;
+            default: break;
+         }
+      }
       return;
+
+
+  - name: set_control_state
+    parameters:
+      - name: control_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+      - name: override_if_busy
+        type: bool
+        default_argument: false
+    guards: [ is_valid_control_state(control_state) ]
+    body: |
+      if (this->control_state == control_state) return;
+      if (!override_if_busy && control_state_is_busy) return;
+      uint32_t previous_control_state = this->control_state;
+
+      switch (control_state)
+      {
+         case STATE_CAMERA_STUDIO_CONTROL:
+         break;
+
+         case STATE_MOTION_STUDIO_CONTROL:
+         break;
+
+         default:
+            AllegroFlare::Logger::throw_error(
+               THIS_CLASS_AND_METHOD_NAME,
+               "Unable to handle case for control_state \"" + std::to_string(control_state) + "\""
+            );
+         break;
+      }
+
+      this->control_state = control_state;
+      control_state_changed_at = al_get_time();
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: get_control_state_string
+    type: std::string
+    parameters:
+      - name: control_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    guards: [ is_valid_control_state(control_state) ]
+    body: |
+      switch (control_state)
+      {
+         case STATE_CAMERA_STUDIO_CONTROL: return "Camera"; break;
+         case STATE_MOTION_STUDIO_CONTROL: return "Motion"; break;
+
+         default:
+            AllegroFlare::Logger::throw_error(
+               THIS_CLASS_AND_METHOD_NAME,
+               "Unable to handle case for control_state \"" + std::to_string(control_state) + "\""
+            );
+         break;
+      }
+      return "[error-obtaining-value]";
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: is_valid_control_state
+    type: bool
+    static: true
+    parameters:
+      - name: control_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+      std::set<uint32_t> valid_control_states =
+      {
+         STATE_CAMERA_STUDIO_CONTROL,
+         STATE_MOTION_STUDIO_CONTROL,
+      };
+      return (valid_control_states.count(control_state) > 0);
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_control_state
+    type: bool
+    parameters:
+      - name: possible_control_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+     return (control_state == possible_control_state);
+
+
+  - name: infer_current_control_state_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      return (time_now - control_state_changed_at);
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-Medium.ttf -26");
+
+
+  - name: obtain_bold_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get("Inter-bold.ttf -26");
 
 
 dependencies:
@@ -156,5 +334,11 @@ dependencies:
     headers: [ Timeline/Parameter.hpp ]
   - symbol: Timeline::ParameterView
     headers: [ Timeline/ParameterView.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: DialControl::CameraInfoOverlay
+    headers: [ DialControl/CameraInfoOverlay.hpp ]
 
 

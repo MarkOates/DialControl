@@ -14,8 +14,8 @@ properties:
     constructor_arg: true
 
   - name: time
-    type: float
-    init_with: 0.0f
+    type: double
+    init_with: 0.0
     exposed: true
     constructor_arg: true
 
@@ -63,8 +63,8 @@ methods:
     type: Timeline::Keyframe
     parameters:
       - name: time
-        type: float
-        default_argument: 0.0f
+        type: double
+        default_argument: 0.0
       - name: value
         type: float
         default_argument: 0.0f

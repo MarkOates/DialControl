@@ -17,15 +17,15 @@ namespace Timeline
    public:
       std::function<float(float)> interpolator_func;
       float value;
-      float time;
+      double time;
       bool focused;
-      Keyframe(std::function<float(float)> interpolator_func={}, float value=0.0f, float time=0.0f, bool focused=false);
+      Keyframe(std::function<float(float)> interpolator_func={}, float value=0.0f, double time=0.0, bool focused=false);
       ~Keyframe();
 
       void set_focused(bool focused=false);
       void set_as_focused();
       void set_as_unfocused();
-      static Timeline::Keyframe construct(float time=0.0f, float value=0.0f, std::function<float(float)> interpolator_func={});
+      static Timeline::Keyframe construct(double time=0.0, float value=0.0f, std::function<float(float)> interpolator_func={});
    };
 }
 
