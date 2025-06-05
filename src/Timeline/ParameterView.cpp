@@ -205,9 +205,9 @@ void ParameterView::move_keyframe_value(float delta)
    float value = keyframe.value;
    value += delta;
 
-   // Clamp value between 0.0 and 1.0
-   if (value > 1.0f) value = 1.0f;
-   if (value < 0.0f) value = 0.0f;
+   // Clamp value between min and max (if they are in use)
+   if (track->has_max_value && value > track->max_value) value = track->max_value;
+   if (track->has_min_value && value < track->min_value) value = track->min_value;
 
    keyframe.value = value;
 }
