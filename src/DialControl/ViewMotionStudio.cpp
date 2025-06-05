@@ -137,7 +137,7 @@ std::vector<Timeline::ParameterView> ViewMotionStudio::build_parameter_views_for
    //int yd = height;
    for (auto &pp : *p)
    {
-      result.push_back(Timeline::ParameterView(font_bin, pp.name, &pp));
+      result.push_back(Timeline::ParameterView(font_bin, pp.name, &pp)); // HERE
       result.back().set_height(height);
       i++;
    }

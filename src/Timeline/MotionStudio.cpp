@@ -268,6 +268,15 @@ void MotionStudio::update_playback()
 {
    // TODO: pass in time duration (do later)
    if (playing) playhead += 1.0 * playback_speed;
+
+   for (auto &parameter : parameters)
+   {
+      if (parameter.name == "spin")
+      {
+         parameter.assign_to_time(playhead); // DEVELOPMENT
+      }
+      //parameter.assign_to_time(playhead);
+   }
    return;
 }
 

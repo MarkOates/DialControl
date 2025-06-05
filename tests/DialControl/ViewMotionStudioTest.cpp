@@ -187,7 +187,7 @@ TEST_F(DialControl_ViewMotionStudioTestWithInteractionFixture,
    DialControl::ViewMotionStudio view_motion_studio;
    view_motion_studio.set_font_bin(&get_font_bin_ref());
    view_motion_studio.initialize();
-   view_motion_studio.get_camera_studio_ref().load_json(cameras_json_string); // Load some test data
+   //view_motion_studio.get_camera_studio_ref().load_json(cameras_json_string); // Load some test data
 
    while(interactive_test_wait_for_event())
    {

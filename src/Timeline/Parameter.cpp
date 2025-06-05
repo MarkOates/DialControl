@@ -63,14 +63,27 @@ bool Parameter::remove_keyframe_at_index(std::size_t index)
    return false;
 }
 
-float Parameter::value_at(double position)
+void Parameter::assign_to_time(double position)
 {
    if (!(parameter))
    {
       std::stringstream error_message;
-      error_message << "[Timeline::Parameter::value_at]: error: guard \"parameter\" not met.";
+      error_message << "[Timeline::Parameter::assign_to_time]: error: guard \"parameter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[Timeline::Parameter::value_at]: error: guard \"parameter\" not met");
+      throw std::runtime_error("[Timeline::Parameter::assign_to_time]: error: guard \"parameter\" not met");
+   }
+   *parameter = calculate_value_at(position);
+   return;
+}
+
+float Parameter::calculate_value_at(double position)
+{
+   if (!(parameter))
+   {
+      std::stringstream error_message;
+      error_message << "[Timeline::Parameter::calculate_value_at]: error: guard \"parameter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[Timeline::Parameter::calculate_value_at]: error: guard \"parameter\" not met");
    }
    float result_value;
 
