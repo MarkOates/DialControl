@@ -27,6 +27,8 @@ namespace Timeline
       float playhead_movement_fine;
       float playhead_movement_macro;
       bool playing;
+      float timeline_start_position;
+      float timeline_time_scale;
       bool timeline_overlay_visible;
 
    protected:
@@ -47,6 +49,8 @@ namespace Timeline
       void set_playhead_movement_fine(float playhead_movement_fine);
       void set_playhead_movement_macro(float playhead_movement_macro);
       void set_playing(bool playing);
+      void set_timeline_start_position(float timeline_start_position);
+      void set_timeline_time_scale(float timeline_time_scale);
       std::vector<Timeline::Parameter> get_parameters() const;
       std::vector<Timeline::ParameterView> get_parameter_views() const;
       int get_parameter_view_idx() const;
@@ -58,6 +62,8 @@ namespace Timeline
       float get_playhead_movement_fine() const;
       float get_playhead_movement_macro() const;
       bool get_playing() const;
+      float get_timeline_start_position() const;
+      float get_timeline_time_scale() const;
       std::vector<Timeline::Parameter> &get_parameters_ref();
       std::vector<Timeline::ParameterView> &get_parameter_views_ref();
       int &get_parameter_view_idx_ref();
@@ -71,6 +77,8 @@ namespace Timeline
       bool &get_playing_ref();
       void render();
       void toggle_timeline_visibility();
+      void move_timeline_start_position(float delta=0.0f);
+      void modify_timeline_time_scale(float delta=0.0f);
       void toggle_playback();
       void update_playback();
       void set_playhead_position(float playhead_position=0.0f);

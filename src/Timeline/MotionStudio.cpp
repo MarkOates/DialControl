@@ -28,6 +28,8 @@ MotionStudio::MotionStudio()
    , playhead_movement_fine(1.0 / 60)
    , playhead_movement_macro(1.0 / 60 * 30)
    , playing(false)
+   , timeline_start_position(0.0)
+   , timeline_time_scale(1.0)
    , timeline_overlay_visible(true)
 {
 }
@@ -104,6 +106,18 @@ void MotionStudio::set_playing(bool playing)
 }
 
 
+void MotionStudio::set_timeline_start_position(float timeline_start_position)
+{
+   this->timeline_start_position = timeline_start_position;
+}
+
+
+void MotionStudio::set_timeline_time_scale(float timeline_time_scale)
+{
+   this->timeline_time_scale = timeline_time_scale;
+}
+
+
 std::vector<Timeline::Parameter> MotionStudio::get_parameters() const
 {
    return parameters;
@@ -167,6 +181,18 @@ float MotionStudio::get_playhead_movement_macro() const
 bool MotionStudio::get_playing() const
 {
    return playing;
+}
+
+
+float MotionStudio::get_timeline_start_position() const
+{
+   return timeline_start_position;
+}
+
+
+float MotionStudio::get_timeline_time_scale() const
+{
+   return timeline_time_scale;
 }
 
 
@@ -241,6 +267,7 @@ void MotionStudio::render()
    if (timeline_overlay_visible)
    {
       timeline_placement.start_transform();
+      float x_scale = 100;
 
       // Draw the timelines
       float total_height = 0;
@@ -249,6 +276,11 @@ void MotionStudio::render()
       ALLEGRO_COLOR pinline_color{0, 0, 0, 0.35};
       for (auto &parameter_view : parameter_views)
       {
+         // Update render
+         parameter_view.set_x_scale(x_scale); // TODO: Figure out how to quantify pixels per second
+         parameter_view.set_time_scale(timeline_time_scale);
+         parameter_view.set_start_x(timeline_start_position);
+
          placement.start_transform();
          al_draw_line(0, 0, width, 0, pinline_color, 1.0);
          parameter_view.render();
@@ -259,7 +291,8 @@ void MotionStudio::render()
       total_height = placement.position.y;
 
       // Draw the playhead
-      float playhead_spacial_pos = playhead * 100;
+      float playhead_spacial_pos = playhead * x_scale * timeline_time_scale
+                                 - timeline_start_position * timeline_time_scale * x_scale;
       al_draw_line(playhead_spacial_pos, -10, playhead_spacial_pos, total_height+10, ALLEGRO_COLOR{1, 1, 1, 1}, 1.0);
      
       timeline_placement.restore_transform();
@@ -271,6 +304,32 @@ void MotionStudio::toggle_timeline_visibility()
 {
    if (timeline_overlay_visible) timeline_overlay_visible = false;
    else timeline_overlay_visible = true;
+   return;
+}
+
+void MotionStudio::move_timeline_start_position(float delta)
+{
+   float new_position = timeline_start_position + delta;
+
+   if (new_position < 0.0f)
+      new_position = 0.0f;
+   else if (new_position > playhead_max)
+      new_position = playhead_max;
+
+   set_timeline_start_position(new_position);
+   return;
+}
+
+void MotionStudio::modify_timeline_time_scale(float delta)
+{
+   float new_position = timeline_time_scale + delta;
+
+   if (new_position < 0.0f)
+      new_position = 0.125f;
+   else if (new_position > playhead_max)
+      new_position = playhead_max;
+
+   set_timeline_time_scale(new_position);
    return;
 }
 
@@ -443,6 +502,10 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
    mapper.set_mapping(ALLEGRO_KEY_X, 0, { "remove_keyframe" });
    mapper.set_mapping(ALLEGRO_KEY_H, 0, { "toggle_timeline_visibility" });
    mapper.set_mapping(ALLEGRO_KEY_X, 0, { "dump_json_to_cout" });
+   mapper.set_mapping(ALLEGRO_KEY_PAD_4, 0, { "move_timeline_start_position_forward" });
+   mapper.set_mapping(ALLEGRO_KEY_PAD_6, 0, { "move_timeline_start_position_backward" });
+   mapper.set_mapping(ALLEGRO_KEY_PAD_8, 0, { "increase_timeline_time_scale" });
+   mapper.set_mapping(ALLEGRO_KEY_PAD_2, 0, { "decrease_timeline_time_scale" });
 
 
    // Obtain commands from the current key input
@@ -474,6 +537,14 @@ void MotionStudio::on_key_down(ALLEGRO_EVENT* event)
       else if (command == "previous_keyframe") previous_keyframe();
       else if (command == "toggle_timeline_visibility") toggle_timeline_visibility();
       else if (command == "dump_json_to_cout") std::cout << build_json_dump() << std::endl;
+      else if (command == "move_timeline_start_position_forward") move_timeline_start_position(0.25);
+      else if (command == "move_timeline_start_position_backward") move_timeline_start_position(-0.25);
+      else if (command == "increase_timeline_time_scale") modify_timeline_time_scale(0.06125);
+      else if (command == "decrease_timeline_time_scale") modify_timeline_time_scale(-0.06125);
+      //else if (command == "increase_timeline_scale") move_timeline_start_position(0.25);
+      //else if (command == "decrease_timeline_scale") move_timeline_start_position(-0.25);
+   //mapper.set_mapping(ALLEGRO_KEY_PAD_8, 0, { "increase_timeline_time_scale" });
+   //mapper.set_mapping(ALLEGRO_KEY_PAD_2, 0, { "decrease_timeline_time_scale" });
 
       else
       {
